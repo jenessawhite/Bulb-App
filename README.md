@@ -13,23 +13,23 @@ You'll need to have React-Natve installed on your system. To get started with th
 ### Installing
 
 You can clone the repo
-```
-git clone
-```
-
-Say what the step will be
 
 ```
-Give the example
+git clone https://github.com/jenessawhite/diyApp.git
 ```
 
-And repeat
+Install all dependencies
 
 ```
-until finished
+npm install
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+get it running (iOS)
+
+```
+react-native run-ios
+```
+
 
 ## Built With
 
