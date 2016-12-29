@@ -1,53 +1,51 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { AppRegistry, Dimensions, Image, Text, ScrollView, View } from 'react-native';
+import styles from './styles';
+import { Button, ButtonGroup, SocialIcon, Tabs, Tab, Icon } from 'react-native-elements';
+import logo from './images/logo-holder.png';
+import Home from './Home';
+import NewProject from './NewProject';
+import Profile from './Profile';
+
+var width = Dimensions.get('window').width; //full width
+var height = Dimensions.get('window').height; //full height
 
 export default class diyApp extends Component {
+  constructor () {
+    super()
+    this.state = {
+    }
+  }
+
+  changeTab (selectedTab) {
+    this.setState({selectedTab})
+  }
+
   render() {
+    const { selectedTab } = this.state
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+      <View style={styles.maincontainer}>
+        <View style={styles.header}>
+          <Image source={logo} style={styles.headerLogo}/>
+          <View style={styles.headerTextContainer}>
+            <Text style={styles.headerText}>Username</Text>
+            <Icon
+              name='more-vert'
+              style={styles.headerIcon} />
+          </View>
+        </View>
+        <ScrollView>
+          <Home />
+        </ScrollView>
+        <View style={styles.footer}>
+          <Text>
+            This is where the Tabs will go
+          </Text>
+        </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('diyApp', () => diyApp);
