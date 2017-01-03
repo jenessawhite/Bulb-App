@@ -10,6 +10,8 @@
     "react": "15.4.1",
     "react-native": "0.39.2",
     "react-native-elements": "^0.8.2",
+    "react-native-router-flux": "^3.37.0",
+    "react-native-uploader": "0.0.10",
     "react-native-vector-icons": "^3.0.0"
   },
   "devDependencies": {

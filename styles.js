@@ -1,14 +1,13 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
-var width = Dimensions.get('window').width; //full width
-var height = Dimensions.get('window').height; //full height
+const width = Dimensions.get('window').width; //full width
+const height = Dimensions.get('window').height; //full height
 
 
 export default StyleSheet.create({
-  maincontainer: {
+
+  buffer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     marginTop: 20,
   },
   container: {
@@ -24,6 +23,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 20,
   },
   headerLogo: {
     height: 45,
@@ -46,6 +46,10 @@ export default StyleSheet.create({
     fontSize: 26,
     textAlign: 'center',
     margin: 10,
+  },
+  pageDescription: {
+    padding: 10,
+    textAlign: 'center',
   },
   footer: {
     bottom: 0,
@@ -71,5 +75,33 @@ export default StyleSheet.create({
   homeContainer: {
     height: height,
     width: width,
+    marginTop: 20,
+  },
+  projectsListHolder: {
+    margin: 10,
+  },
+  newProjectsHolder: {
+    margin: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  newProjectsText: {
+    fontSize: 20,
+  },
+  projectsList: {
+    margin: 10,
+  },
+  projectsItemRow: {
+    backgroundColor: 'green',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  projectsItemRowText: {
+    paddingLeft: 2,
+    lineHeight: 25,
+    fontSize: 16,
+  },
+  projectsItemRowButton: {
   },
 });
