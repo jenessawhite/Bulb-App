@@ -92,7 +92,6 @@ export default StyleSheet.create({
     margin: 10,
   },
   projectsItemRow: {
-    backgroundColor: 'green',
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 5,

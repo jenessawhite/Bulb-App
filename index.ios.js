@@ -64,15 +64,13 @@ export default class diyApp extends Component {
             key="tabbar"
             tabs={true}
             tabBarStyle={{ backgroundColor: '#009688' }}
-            hideNavBar
-          >
+            hideNavBar>
             {/* Tab and it's scenes */}
             <Scene
               key="homeTab"
               title="Home"
               icon={HomeTabIcon}
-              hideNavBar
-              >
+              hideNavBar>
               <Scene
                 key="home"
                 component={Home}
@@ -83,8 +81,7 @@ export default class diyApp extends Component {
               key="newProjectTab"
               title="New Project"
               icon={NewProjectTabIcon}
-              hideNavBar
-              >
+              hideNavBar>
               <Scene
                 key="newProject"
                 component={NewProject}
@@ -94,34 +91,40 @@ export default class diyApp extends Component {
             {/* Tab and it's scenes */}
             <Scene
               key="profileTab"
-              title="Profile" icon={ProfileTabIcon}
-              hideNavBar
-              >
+              title="Profile"
+              icon={ProfileTabIcon}
+              hideNavBar>
               <Scene
                 key="profile"
                 component={Profile}
                 title="Profile" />
             </Scene>
             <Scene
+              initial
               hideNavBar
-              key="singleProject"
-              component={SingleProject} />
-            <Scene
-              hideNavBar
-              key="materials"
-              component={Materials} />
-            <Scene
-              hideNavBar
-              key="budget"
-              component={Budget} />
-            <Scene
-              hideNavBar
-              key="photos"
-              component={Photos} />
-            <Scene
-              hideNavBar
-              key="tasks"
-              component={Tasks} />
+              key="singleProjecthold">
+              <Scene
+                initial
+                hideNavBar
+                key="singleProject"
+                component={SingleProject}/>
+              <Scene
+                hideNavBar
+                key="materials"
+                component={Materials} />
+              <Scene
+                hideNavBar
+                key="budget"
+                component={Budget} />
+              <Scene
+                hideNavBar
+                key="photos"
+                component={Photos} />
+              <Scene
+                hideNavBar
+                key="tasks"
+                component={Tasks} />
+            </Scene>
           </Scene>
         </Scene>
       </Router>

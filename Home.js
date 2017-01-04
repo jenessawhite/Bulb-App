@@ -11,7 +11,7 @@ export default class Home extends Component {
     super()
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+      dataSource: ds.cloneWithRows(['Project 1', 'Project 2']),
       pressed: false,
     };  }
   render() {
@@ -29,7 +29,7 @@ export default class Home extends Component {
             name='add'
             color='#212121'
             size={25}
-            onPress={()=> Actions.newProjectTab() } />
+            onPress={()=> {Actions.newProjectTab()}} />
         </View>
         <ScrollView style ={styles.projectsListHolder}>
           <ListView
@@ -38,10 +38,10 @@ export default class Home extends Component {
             renderRow={
               (rowData) =>
               <View style={styles.projectsItemRow}>
-                <Text style={styles.projectsItemRowText} onPress={()=> { Actions.singleProject() }}>{rowData}</Text>
+                <Text style={styles.projectsItemRowText} onPress={()=> { Actions.singleProjecthold() }}>{rowData}</Text>
                 <Icon
                   style={styles.projectsItemRowButton}
-                  name='cancel'
+                  name='delete'
                   size={25}
                   color='#212121'
                 />
