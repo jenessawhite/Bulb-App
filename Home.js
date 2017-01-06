@@ -7,13 +7,14 @@ import styles from './styles';
 
 
 export default class Home extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(['Project 1', 'Project 2']),
       pressed: false,
-    };  }
+    };
+  }
   render() {
     return (
       <View style={styles.homeContainer}>
@@ -25,7 +26,6 @@ export default class Home extends Component {
         <View style ={styles.newProjectsHolder}>
           <Text style ={styles.newProjectsText}>NEW PROJECT</Text>
           <Icon
-            raised
             name='add'
             color='#212121'
             size={25}

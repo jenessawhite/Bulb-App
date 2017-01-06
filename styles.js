@@ -51,6 +51,9 @@ export default StyleSheet.create({
     padding: 10,
     textAlign: 'center',
   },
+  ListHolder: {
+    height: 200,
+  },
   footer: {
     bottom: 0,
     backgroundColor: '#B2DFDB',
@@ -102,5 +105,19 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   projectsItemRowButton: {
+  },
+  //NewProject
+  formContainer: {
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#FFC107',
+    backgroundColor: '#F6F7FB',
+    width: 350,
+    height: 350,
+    marginBottom: 40,
+    alignSelf: 'center',
+  },
+  formField: {
+    height: 40
   },
 });

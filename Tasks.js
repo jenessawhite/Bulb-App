@@ -7,8 +7,13 @@ import styles from './styles';
 
 
 export default class Tasks extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(['Task 1', 'Task 2']),
+      pressed: false,
+    };
   }
   render() {
     return (
@@ -17,12 +22,39 @@ export default class Tasks extends Component {
         <Text style={styles.pageDescription}>
           These are your tasks
         </Text>
-        <Button
-          raised
-          icon={{name: 'arrow-back'}}
-          title='Back'
-          backgroundColor= '#FFC107'
-          onPress={()=> {Actions.pop()}}/>
-      </View>    );
+        <View style ={styles.newProjectsHolder}>
+          <Text style ={styles.newProjectsText}>NEW TASK</Text>
+          <Icon
+            name='add'
+            color='#212121'
+            size={25}
+            onPress={()=> {Actions.newTaskModal()}} />
+        </View>
+
+        <View style ={styles.projectsListHolder}>
+          <ListView
+            style={styles.projectsList}
+            dataSource={this.state.dataSource}
+            renderRow={
+              (rowData) =>
+              <View style={styles.projectsItemRow}>
+                <Text style={styles.projectsItemRowText} onPress={()=> { Actions.singleProjecthold() }}>{rowData}</Text>
+                <Icon
+                  style={styles.projectsItemRowButton}
+                  name='delete'
+                  size={25}
+                  color='#212121'
+                />
+              </View>
+          }/>
+          <Button
+            raised
+            icon={{name: 'arrow-back'}}
+            title='Back'
+            backgroundColor= '#FFC107'
+            onPress={()=> {Actions.pop()}}/>
+          </View>
+      </View>
+    );
   }
 }

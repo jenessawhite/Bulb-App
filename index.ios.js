@@ -12,8 +12,11 @@ import Profile from './Profile';
 import SingleProject from './SingleProject';
 import Budget from './Budget';
 import Tasks from './Tasks';
+import NewTask from './NewTask';
 import Photos from './Photos';
+import NewPhoto from './NewPhoto';
 import Materials from './Materials';
+import NewMaterial from './NewMaterial';
 
 
 var width = Dimensions.get('window').width; //full width
@@ -86,7 +89,6 @@ export default class diyApp extends Component {
                 key="newProject"
                 component={NewProject}
                 title="New Project" />
-
             </Scene>
             {/* Tab and it's scenes */}
             <Scene
@@ -100,11 +102,9 @@ export default class diyApp extends Component {
                 title="Profile" />
             </Scene>
             <Scene
-              initial
               hideNavBar
               key="singleProjecthold">
               <Scene
-                initial
                 hideNavBar
                 key="singleProject"
                 component={SingleProject}/>
@@ -112,6 +112,11 @@ export default class diyApp extends Component {
                 hideNavBar
                 key="materials"
                 component={Materials} />
+                <Scene
+                  direction="vertical"
+                  hideNavBar
+                  key="newMaterialModal"
+                  component={NewMaterial} />
               <Scene
                 hideNavBar
                 key="budget"
@@ -120,10 +125,20 @@ export default class diyApp extends Component {
                 hideNavBar
                 key="photos"
                 component={Photos} />
+                <Scene
+                  direction="vertical"
+                  hideNavBar
+                  key="newPhotoModal"
+                  component={NewPhoto} />
               <Scene
                 hideNavBar
                 key="tasks"
                 component={Tasks} />
+                <Scene
+                  direction="vertical"
+                  hideNavBar
+                  key="newTaskModal"
+                  component={NewTask} />
             </Scene>
           </Scene>
         </Scene>

@@ -7,8 +7,8 @@ import styles from './styles';
 
 
 export default class Photos extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
   }
   render() {
     return (
@@ -17,12 +17,21 @@ export default class Photos extends Component {
         <Text style={styles.pageDescription}>
           These are your photos
         </Text>
+        <View style ={styles.newProjectsHolder}>
+          <Text style ={styles.newProjectsText}>UPLOAD PHOTOS</Text>
+          <Icon
+            name='add'
+            color='#212121'
+            size={25}
+            onPress={()=> {Actions.newPhotoModal()}}/>
+        </View>
         <Button
           raised
           icon={{name: 'arrow-back'}}
           title='Back'
           backgroundColor= '#FFC107'
           onPress={()=> {Actions.pop()}}/>
-      </View>    );
+      </View>
+    );
   }
 }

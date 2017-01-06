@@ -23,7 +23,8 @@ export default class SingleProject extends Component {
               type='octicon'
               size={50}
               color='#212121'
-            />
+              underlayColor='#FFC107'
+              onPress={()=> {Actions.materials()}} />
             <Button
               backgroundColor='#00796B'
               buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0}}
@@ -37,7 +38,8 @@ export default class SingleProject extends Component {
               type='octicon'
               size={40}
               color='#212121'
-            />
+              underlayColor='#FFC107'
+              onPress={()=> {Actions.tasks()}}/>
             <Button
               backgroundColor='#00796B'
               buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0}}
@@ -51,7 +53,8 @@ export default class SingleProject extends Component {
               type='octicon'
               size={50}
               color='#212121'
-            />
+              underlayColor='#FFC107'
+              onPress={()=> {Actions.budget()}} />
             <Button
               backgroundColor='transparent'
               buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0}}
@@ -66,7 +69,8 @@ export default class SingleProject extends Component {
               type='font-awesome'
               size={40}
               color='#212121'
-            />
+              underlayColor='#FFC107'
+              onPress={()=> {Actions.photos()}} />
             <Button
               backgroundColor='#00796B'
               buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0}}

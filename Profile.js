@@ -6,8 +6,8 @@ import styles from './styles';
 
 
 export default class Profile extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
     }
   }
@@ -19,15 +19,12 @@ export default class Profile extends Component {
           This is the profile
         </Text>
         <Button
-          reverse
+          raised
           iconRight
           icon={{name: 'navigate-next'}}
           title='SAVE'
-          onPress={()=> {
-           Actions.homeTab()
-          }}
-        />
-
+          backgroundColor= '#FFC107'
+          onPress={()=> {Actions.homeTab()}}/>
       </View>
     );
   }
