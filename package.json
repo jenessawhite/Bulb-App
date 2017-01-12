@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "react": "15.4.1",
     "react-native": "0.39.2",
     "react-native-elements": "git://github.com/react-native-community/react-native-elements.git#v0.9.0",

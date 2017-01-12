@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
+import express from 'express';
 
 import styles from './styles';
 
+
+var app = express()
 
 export default class Home extends Component {
   constructor (props) {
