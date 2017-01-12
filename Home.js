@@ -18,7 +18,6 @@ export default class Home extends Component {
     return (
       <View style={styles.homeContainer}>
         <Text style={styles.pageTitle}>Projects</Text>
-        {/* {'/n'} */}
         <Text style={styles.pageDescription}>
           This is your current list of projects
         </Text>
@@ -42,8 +41,7 @@ export default class Home extends Component {
                   style={styles.projectsItemRowButton}
                   name='delete'
                   size={25}
-                  color='#212121'
-                />
+                  color='#212121' />
               </View>
             }
           />
