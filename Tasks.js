@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
+import axios from 'axios';
 
 import styles from './styles';
 
@@ -15,6 +16,24 @@ export default class Tasks extends Component {
       pressed: false,
     };
   }
+  //   this.state = {
+  //     storeResults: ds.cloneWithRows([])
+  //   }
+  // }
+  // componentDidMount() {
+  //   this.getTasks()
+  // }
+  // getTasks() {
+  //   const ds = new ListView.DataSource({
+  //     rowHasChanged: (r1, r2) => r1 !== r2
+  //   });
+  //   axios.get(api() + '/stores').then((response) => {
+  //     console.log(response);
+  //     // let tasksList = ds.cloneWithRows(response.data);
+  //     this.setState({storeResults});
+  //     console.log(this.state.storeResults)
+  //   })
+// }
   render() {
     return (
       <View style={styles.homeContainer}>

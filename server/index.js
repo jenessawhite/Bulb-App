@@ -16,36 +16,6 @@ var sequelize = new Sequelize(process.env.DATABASE_URL);
 // fields would be the column names in the database, external are
 // what you would use in your code.
 
-//Define User
-var User = sequelize.define('user', {
-  firstName: {
-    type: Sequelize.STRING,
-    field: 'first_name',
-    validate: {
-      notEmpty: true,
-    }
-  },
-  lastName: {
-    type: Sequelize.STRING,
-    field: 'last_name',
-    validate: {
-      notEmpty: true,
-    }
-  },
-}, {
-  freezeTableName: true
-});
-
-//Define Project
-var Project = sequelize.define('project', {
-  name: {
-    type: Sequelize.STRING,
-    field: 'name'
-  },
-}, {
-  freezeTableName: true
-});
-
 //Define Budget
 var Budget = sequelize.define('budget', {
   estimated: {
@@ -59,6 +29,8 @@ var Budget = sequelize.define('budget', {
 }, {
   freezeTableName: true
 });
+//Associate budget to project
+// Budget.belongsTo(Project);
 
 //Define materials
 var Material = sequelize.define('material', {
@@ -84,6 +56,8 @@ var Material = sequelize.define('material', {
 }, {
   freezeTableName: true
 });
+//Associate material to project
+// Material.belongsTo(Project);
 
 //Define photos
 var Photo = sequelize.define('photo', {
@@ -99,6 +73,8 @@ var Photo = sequelize.define('photo', {
   freezeTableName: true
 });
 
+//Associate photo to project
+// Photo.belongsTo(Project);
 
 //Define tasks
 var Task = sequelize.define('task', {
@@ -120,6 +96,53 @@ var Task = sequelize.define('task', {
 });
 
 
+//Define Project
+var Project = sequelize.define('project', {
+  name: {
+    type: Sequelize.STRING,
+    field: 'name'
+  },
+}, {
+  freezeTableName: true
+});
+
+//Associate project to User
+// Project.belongsTo(User);
+
+//Associate task to project
+// Task.hasMany(Project);
+Task.belongsTo(Project);
+
+//Associate elements to project
+Project.hasMany(Task,{
+  as: 'Tasks'});
+// Project.hasMany(Material);
+// Project.hasMany(Budget);
+// Project.hasMany(Photo);
+
+
+//Define User
+var User = sequelize.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    field: 'first_name',
+    validate: {
+      notEmpty: true,
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    field: 'last_name',
+    validate: {
+      notEmpty: true,
+    }
+  },
+}, {
+  freezeTableName: true
+});
+//Associate projects to user
+// User.hasMany(Project);
+
 // THIS IS THE DON'T GET FIRED CLAUSE
 // Seeding (or preloading) your database gives it dummy data
 // so that development isn't a graveyard. In production we
@@ -132,18 +155,6 @@ if(process.env.NODE_ENV !== 'production') {
     var projects = [
       {
         name: 'Kitchen',
-        tasks: [
-          {
-            title: 'Stain floors',
-            goalDate: '2017-01-28',
-            completed: false
-          },
-          {
-            title: 'Install baseboards',
-            goalDate: '2017-01-30',
-            completed: false
-          },
-        ]
       },
       {
         name: 'Bathroom',
@@ -243,7 +254,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // A basic GET route with no functionality and no security protection
 app.get('/api', (req, res) => {
-  res.send('Hello World!')
+  res.json('Hello World!')
 });
 
 // OTHER ROUTES USING SEQUELIZE HERE
@@ -251,7 +262,7 @@ app.get('/api', (req, res) => {
 // Get all projects
 app.get('/api/projects', (req, res) => {
   //sanity check
-  // res.send('Houston, we have projects!!')
+  // res.json('Houston, we have projects!!')
 
   // Find all projects
   Project.findAll().then((projects) => {
@@ -261,76 +272,90 @@ app.get('/api/projects', (req, res) => {
 
 // Create a new project
 app.post('/api/projects', (req, res) => {
-  res.send('Got ourselves a POST request!')
+  // res.json('Got ourselves a POST request!')
+  Project.create({
+    name: 'bedroom'
+  }).then(() => {
+    res.json('created')
+  }).catch(err => {})
+
 });
 
 // Delete a project
-app.delete('/api/projects', function (req, res) {
-  res.send('Got a DELETE request at /projects')
+app.delete('/api/projects/:id', function (req, res) {
+  res.json('Got a DELETE request at /projects')
+  // Destroy any contacts matching that id where the currently logged in user also created them.
+  Project.destroy({
+    where: {
+      id: req.params.id,
+    },
+  }).then(()=>{
+    res.send('deleted')
+  });
 });
 
-// Get the budget
-app.get('/api/budget', (req, res) => {
-  //sanity check
-  // res.send('Houston, we have a budget!!')
-
-  // Find all budget
-  Budget.findAll().then((budget) => {
-    res.json(budget);
-  })
-});
-
-// Create a new budget
-app.post('/api/budget', (req, res) => {
-  res.send('Got ourselves a POST request!')
-});
-
-// Get all materials
-app.get('/api/materials', (req, res) => {
-  //sanity check
-  // res.send('Houston, we have materials!!')
-
-  // Find all materials
-  Material.findAll().then((materials) => {
-    res.json(materials);
-  })
-});
-
-// Create a new material
-app.post('/api/materials', (req, res) => {
-  res.send('Got ourselves a POST request!')
-});
-
-// Delete a material
-app.delete('/api/materials', function (req, res) {
-  res.send('Got a DELETE request at /materials')
-});
-
-// Get all photos
-app.get('/api/photos', (req, res) => {
-  //sanity check
-  // res.send('Houston, we have photos!!')
-
-  // Find all photos
-  Photo.findAll().then((photos) => {
-    res.json(photos);
-  })
-});
-
-// Create a new photo
-app.post('/api/photos', (req, res) => {
-  res.send('Got ourselves a POST request!')
-});
-
-// Delete a photo
-app.delete('/api/photos', function (req, res) {
-  res.send('Got a DELETE request at /photos')
-});
+// // Get the budget
+// app.get('/api/budget', (req, res) => {
+//   //sanity check
+//   // res.json('Houston, we have a budget!!')
+//
+//   // Find all budget
+//   Budget.findAll().then((budget) => {
+//     res.json(budget);
+//   })
+// });
+//
+// // Create a new budget
+// app.post('/api/budget', (req, res) => {
+//   res.json('Got ourselves a POST request!')
+// });
+//
+// // Get all materials
+// app.get('/api/materials', (req, res) => {
+//   //sanity check
+//   // res.json('Houston, we have materials!!')
+//
+//   // Find all materials
+//   Material.findAll().then((materials) => {
+//     res.json(materials);
+//   })
+// });
+//
+// // Create a new material
+// app.post('/api/materials', (req, res) => {
+//   res.json('Got ourselves a POST request!')
+// });
+//
+// // Delete a material
+// app.delete('/api/materials', function (req, res) {
+//   res.json('Got a DELETE request at /materials')
+// });
+//
+// // Get all photos
+// app.get('/api/photos', (req, res) => {
+//   //sanity check
+//   // res.json('Houston, we have photos!!')
+//
+//   // Find all photos
+//   Photo.findAll().then((photos) => {
+//     res.json(photos);
+//   })
+// });
+//
+// // Create a new photo
+// app.post('/api/photos', (req, res) => {
+//   res.json('Got ourselves a POST request!')
+// });
+//
+// // Delete a photo
+// app.delete('/api/photos', function (req, res) {
+//   res.json('Got a DELETE request at /photos')
+// });
 
 // Get all tasks
 app.get('/api/tasks', (req, res) => {
   //sanity check
-  // res.send('Houston, we have tasks!!')
+  // res.json('Houston, we have tasks!!')
 
   // Find all tasks
   Task.findAll().then((tasks) => {
@@ -341,22 +366,27 @@ app.get('/api/tasks', (req, res) => {
 // Get all tasks by project id
 app.get('/api/projects/:id/tasks', (req, res) => {
   //sanity check
-  res.send(req.params)
+  // res.json(req.params.id)
 
-  // Find all projects
-  // Project.findAll().then((projects) => {
-  //   res.json(projects);
-  // })
+  // Find all tasks
+  Task.findAll({
+    where: {
+      projectId: req.params.id,
+    }
+  }).then((tasks) => {
+    res.json(tasks);
+    });
+
 });
 
 // Create a new task
-app.post('/api/tasks', (req, res) => {
-  res.send('Got ourselves a POST request!')
+app.post('/api/projects/:id/tasks', (req, res) => {
+  res.json('Got ourselves a POST request!')
 });
 
 // Delete a task
 app.delete('/api/tasks', function (req, res) {
-  res.send('Got a DELETE request at /tasks')
+  res.json('Got a DELETE request at /tasks')
 });
 
 // Determine which port to listen on
