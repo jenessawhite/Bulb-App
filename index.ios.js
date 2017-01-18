@@ -63,85 +63,33 @@ export default class diyApp extends Component {
       <Router>
         <Scene key="root">
           {/* Tab Container */}
-          <Scene
-            key="tabbar"
-            tabs={true}
-            tabBarStyle={{ backgroundColor: '#009688' }}
-            hideNavBar>
+          <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#009688' }} hideNavBar>
             {/* Tab and it's scenes */}
-            <Scene
-              key="homeTab"
-              title="Home"
-              icon={HomeTabIcon}
-              hideNavBar>
-              <Scene
-                key="home"
-                component={Home}
-                title="Home" />
+            <Scene key="homeTab" title="Home" icon={HomeTabIcon} hideNavBar>
+              <Scene key="home" component={Home} title="Home" />
             </Scene>
             {/* Tab and it's scenes */}
-            <Scene
-              key="newProjectTab"
-              title="New Project"
-              icon={NewProjectTabIcon}
-              hideNavBar>
-              <Scene
-                key="newProject"
-                component={NewProject}
-                title="New Project" />
+            <Scene key="newProjectTab" title="New Project" icon={NewProjectTabIcon} hideNavBar>
+              <Scene key="newProject" component={NewProject} title="New Project" />
             </Scene>
             {/* Tab and it's scenes */}
-            <Scene
-              key="profileTab"
-              title="Profile"
-              icon={ProfileTabIcon}
-              hideNavBar>
-              <Scene
-                key="profile"
-                component={Profile}
-                title="Profile" />
-            </Scene>
-            <Scene
-              hideNavBar
-              key="singleProjecthold">
-              <Scene
-                hideNavBar
-                key="singleProject"
-                component={SingleProject}/>
-              <Scene
-                hideNavBar
-                key="materials"
-                component={Materials} />
-                <Scene
-                  direction="vertical"
-                  hideNavBar
-                  key="newMaterialModal"
-                  component={NewMaterial} />
-              <Scene
-                hideNavBar
-                key="budget"
-                component={Budget} />
-              <Scene
-                hideNavBar
-                key="photos"
-                component={Photos} />
-                <Scene
-                  direction="vertical"
-                  hideNavBar
-                  key="newPhotoModal"
-                  component={NewPhoto} />
-              <Scene
-                hideNavBar
-                key="tasks"
-                component={Tasks} />
-                <Scene
-                  direction="vertical"
-                  hideNavBar
-                  key="newTaskModal"
-                  component={NewTask} />
+            <Scene key="profileTab" title="Profile" icon={ProfileTabIcon} hideNavBar>
+              <Scene key="profile" component={Profile} title="Profile" />
             </Scene>
           </Scene>
+          <Scene hideNavBar key="singleProjecthold">
+            <Scene hideNavBar key="singleProject" component={SingleProject}/>
+            <Scene hideNavBar key="materials" component={Materials} />
+            <Scene hideNavBar schema="modal" direction="vertical" key="newMaterialModal" component={NewMaterial} />
+            <Scene hideNavBar key="budget" component={Budget} />
+            <Scene hideNavBar key="photos" component={Photos} />
+            <Scene hideNavBar direction="vertical" key="newPhotoModal" component={NewPhoto} />
+            <Scene hideNavBar key="tasks" component={Tasks} />
+            <Scene hideNavBar direction="vertical" key="newTaskModal" component={NewTask} />
+          </Scene>
         </Scene>
+
+
       </Router>
     );
   }

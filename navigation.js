@@ -52,7 +52,7 @@ export default class Navigation extends Component {
             <Tabs selected={this.state.page}        style={{backgroundColor:'white'}}
                 selectedStyle={{color:'red'}} onSelect={this.onTabSelect.bind(this)}>
               <Text name="Home">Home</Text>
-              <Text name="NewProject"> New project</Text>
+              <Text name="NewProject"> New Project</Text>
               <Text name="Profile">Profile</Text>
             </Tabs>
           </View>

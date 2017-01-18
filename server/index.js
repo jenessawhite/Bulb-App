@@ -149,7 +149,7 @@ Project.hasMany(Photo);
 //
 if(process.env.NODE_ENV !== 'production') {
   sequelize.sync({force: true}).then(() => {
-    
+
     // Some sample projects
     var projects = {
       data: [
@@ -161,7 +161,7 @@ if(process.env.NODE_ENV !== 'production') {
       ],
       model: Project
     };
-    
+
     var tasks = {
       data: [
         {
@@ -173,9 +173,14 @@ if(process.env.NODE_ENV !== 'production') {
           title: 'Install baseboards',
           goalDate: '2017-01-30',
           completed: false,
-          projectId: 1
+          projectId: 2
         },{
           title: 'Demo kitchen',
+          goalDate: '2017-02-10',
+          completed: false,
+          projectId: 1
+        },{
+          title: 'Demo Bathroom',
           goalDate: '2017-02-10',
           completed: false,
           projectId: 2
@@ -183,7 +188,7 @@ if(process.env.NODE_ENV !== 'production') {
       ],
       model: Task
     };
-    
+
     var materials = {
       data: [
         {
@@ -199,37 +204,59 @@ if(process.env.NODE_ENV !== 'production') {
           checked: false,
           projectId: 1
         },
+        {
+          name: 'grout',
+          description: 'description',
+          quantity: 1,
+          checked: false,
+          projectId: 2
+        }, {
+          name: 'tile',
+          description: '12x12s',
+          quantity: 12,
+          checked: false,
+          projectId: 2
+        },
       ],
       model: Material
     }
-    
+
     var budgets = {
       data: [
         {
           estimated: 1500,
           actual: 1503.98,
           projectId: 1
-        }
+        }, {
+          estimated: 2000,
+          actual: 2403.98,
+          projectId: 2
+        },
       ],
       model: Budget
     };
-    
+
     var photos = {
         data: [
           {
-          title: 'stain',
+          title: '200x200',
           url: 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200×200&w=200&h=200',
           projectId: 1
         },
         {
-          title: 'stain',
+          title: '350x325',
           url: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97325&w=350&h=325',
-          projectId: 1
+          projectId: 2
+        },
+        {
+          title: '300x300',
+          url: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=300%C3%97325&w=300&h=300',
+          projectId: 2
         },
       ],
       model: Photo
     };
-    
+
     seed([
       projects,
       tasks,
@@ -239,7 +266,7 @@ if(process.env.NODE_ENV !== 'production') {
     ]).then(() =>{
       startExpress();
     });
-    
+
   });
 
 } else {
@@ -247,16 +274,14 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 function startExpress() {
-  
+
   // Create a new express app to server our api
   var app = express()
 
   // Teach express how to parse requests of type application/json
-  //
   app.use(bodyParser.json());
 
   // Teach express how to parse requests of type application/x-www-form-urlencoded
-  //
   app.use(bodyParser.urlencoded({ extended: true }));
 
   // A basic GET route with no functionality and no security protection
@@ -266,9 +291,10 @@ function startExpress() {
 
   // OTHER ROUTES USING SEQUELIZE HERE
 
+  // --------------PROJECTS-------------------------
+
   // Get all projects
   app.get('/api/projects', (req, res) => {
-
     // Find all projects
     Project.findAll().then((projects) => {
       res.json(projects);
@@ -277,93 +303,151 @@ function startExpress() {
 
   // Create a new project
   app.post('/api/projects', (req, res) => {
-
     Project.create({
-      name: 'bedroom'
-    }).then(() => {
-      res.json('created')
+      name: 'Bedroom'
+    }).then((projects) => {
+      Project.findAll().then((projects) => {
+        res.json(projects);
+      })
     }).catch(err => {})
-
   });
 
   // Delete a project
   app.delete('/api/projects/:id', function (req, res) {
-    
     Project.destroy({
       where: {
         id: req.params.id,
       },
     }).then(()=>{
       res.send('deleted')
-    });
+    }).catch(err => {})
   });
+
+  // --------------BUDGET-------------------------
 
   // Get the budget
-  app.get('/api/budget', (req, res) => {
-  
-    // Find all budget
-    Budget.findAll().then((budget) => {
-      res.json(budget);
-    })
-  });
-  
-  // Create a new budget
-  app.post('/api/budget', (req, res) => {
-    res.json('Got ourselves a POST request!')
-  });
-  
-  // Get all materials
-  app.get('/api/materials', (req, res) => {
-  
-    // Find all materials
-    Material.findAll().then((materials) => {
-      res.json(materials);
-    })
-  });
-  
-  // Create a new material
-  app.post('/api/materials', (req, res) => {
-    res.json('Got ourselves a POST request!')
-  });
-  
-  // Delete a material
-  app.delete('/api/materials', function (req, res) {
-    res.json('Got a DELETE request at /materials')
-  });
-  
-  // Get all photos
-  app.get('/api/photos', (req, res) => {
-    //sanity check
-    // res.json('Houston, we have photos!!')
-  
-    // Find all photos
-    Photo.findAll().then((photos) => {
-      res.json(photos);
-    })
-  });
-  
-  // Create a new photo
-  app.post('/api/photos', (req, res) => {
-    res.json('Got ourselves a POST request!')
-  });
-  
-  // Delete a photo
-  app.delete('/api/photos', function (req, res) {
-    res.json('Got a DELETE request at /photos')
-  });
-
-  // Get all tasks
-  app.get('/api/tasks', (req, res) => {
-
+  app.get('/api/projects/:id/budget', (req, res) => {
     // Find all tasks
-    Task.findAll().then((tasks) => {
-      res.json(tasks);
-    })
+    Budget.findAll({
+      where: {
+        projectId: req.params.id,
+      }
+    }).then((budgets) => {
+      res.json(budgets);
+      });
   });
+
+  // Update the budget
+  app.put('/api/projects/:id/budget', (req, res) => {
+    res.json('Got ourselves a POST request!')
+  //   Budget.create({
+  //     estimated: 140.24
+  //   }).then((budgets) => {
+  //     Budget.findAll().then((budgets) => {
+  //       res.json(budgets);
+  //     })
+  //   }).catch(err => {})
+  });
+
+  // Delete a budget
+  app.delete('/api/projects/:id/budget/:id', function (req, res) {
+    res.json('Got a DELETE request at /budget')
+    // Budget.destroy({
+    //   where: {
+    //     id: req.params.id,
+    //   },
+    // }).then(()=>{
+    //   res.send('deleted')
+    // }).catch(err => {})
+  });
+
+  // --------------MATERIALS-------------------------
+
+  // Get all materials
+  app.get('/api/projects/:id/materials', (req, res) => {
+    // Find all tasks
+    Material.findAll({
+      where: {
+        projectId: req.params.id,
+      }
+    }).then((materials) => {
+      res.json(materials);
+      });
+  });
+
+  // Create a new material
+  app.post('/api/projects/:id/materials', (req, res) => {
+    res.json('Got ourselves a POST request!')
+  //   Material.create({
+  //     where: {
+  //      projectId: req.params.id,
+  //     },
+  //     name: 'saw'
+  //   }).then((materials) => {
+  //     Material.findAll().then((materials) => {
+  //       res.json(materials);
+  //     })
+  //   }).catch(err => {})
+  // });
+  });
+
+  // Delete a material
+  app.delete('/api/projects/:id/materials/:id', function (req, res) {
+    res.json('Got a DELETE request at /materials')
+    // Material.destroy({
+    //   where: {
+    //     projectId: req.params.id,
+    //   },
+    // }).then(()=>{
+    //   res.send('deleted')
+    // }).catch(err => {})
+  });
+  // --------------PHOTOS-------------------------
+
+  // Get all photos by project id
+  app.get('/api/projects/:id/photos', (req, res) => {
+    // Find all photos
+    Photo.findAll({
+      where: {
+        projectId: req.params.id,
+      }
+    }).then((photos) => {
+      res.json(photos);
+      });
+  });
+
+  // Create a new photo
+  app.post('/api/projects/:id/photos', (req, res) => {
+    res.json('Got ourselves a POST request!')
+//  Photo.create({
+//    where: {
+//      projectId: req.params.id,
+//    },
+//    url: 'saw'
+//   }).then((photos) => {
+//     Photo.findAll().then((photos) => {
+//       res.json(photos);
+//     })
+//   }).catch(err => {})
+// });
+  });
+
+  // Delete a photo
+  app.delete('/api/projects/:id/photos/:id', function (req, res) {
+    res.json('Got a DELETE request at /photos')
+    // Photo.destroy({
+    //   where: {
+    //     id: req.params.id,
+    //   },
+    // }).then(()=>{
+    //   res.send('deleted')
+    // }).catch(err => {})
+  });
+
+  // --------------TASKS-------------------------
 
   // Get all tasks by project id
   app.get('/api/projects/:id/tasks', (req, res) => {
-
     // Find all tasks
     Task.findAll({
       where: {
@@ -372,17 +456,33 @@ function startExpress() {
     }).then((tasks) => {
       res.json(tasks);
       });
-
   });
 
   // Create a new task
   app.post('/api/projects/:id/tasks', (req, res) => {
     res.json('Got ourselves a POST request!')
+    // Task.create({
+      // where: {
+      //   projectId: req.params.id,
+      // },
+    //   title: 'paint'
+    // }).then((tasks) => {
+    //   Task.findAll().then((tasks) => {
+    //     res.json(tasks);
+    //   })
+    // }).catch(err => {})
   });
 
   // Delete a task
-  app.delete('/api/tasks', function (req, res) {
+  app.delete('/api/projects/:id/tasks/:id', function (req, res) {
     res.json('Got a DELETE request at /tasks')
+    // Task.destroy({
+    //   where: {
+    //     id: req.params.id,
+    //   },
+    // }).then(()=>{
+    //   res.send('deleted')
+    // }).catch(err => {})
   });
 
   // Determine which port to listen on

@@ -4,36 +4,39 @@ import { Button, Card, Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
 
+import api from './api';
+
 import styles from './styles';
 
 
 export default class Tasks extends Component {
-  constructor (props) {
-    super(props)
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+  constructor(props) {
+    super(props);
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
     this.state = {
-      dataSource: ds.cloneWithRows(['Task 1', 'Task 2']),
-      pressed: false,
-    };
+      ds,
+      tasksList: ds.cloneWithRows([])
+    }
   }
-  //   this.state = {
-  //     storeResults: ds.cloneWithRows([])
-  //   }
-  // }
-  // componentDidMount() {
-  //   this.getTasks()
-  // }
-  // getTasks() {
-  //   const ds = new ListView.DataSource({
-  //     rowHasChanged: (r1, r2) => r1 !== r2
-  //   });
-  //   axios.get(api() + '/stores').then((response) => {
-  //     console.log(response);
-  //     // let tasksList = ds.cloneWithRows(response.data);
-  //     this.setState({storeResults});
-  //     console.log(this.state.storeResults)
-  //   })
-// }
+  componentDidMount(props) {
+    console.log(this.props);
+    console.log(this.props.id);
+    console.log(this.props.name);
+    this.getTasks()
+  }
+  getTasks() {
+    axios.get(api() + '/projects/' + this.props.id + '/tasks')
+      .then((response) => {
+        let tasksList = this.state.ds.cloneWithRows(response.data);
+        console.log(tasksList);
+        this.setState ({tasksList})
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   render() {
     return (
       <View style={styles.homeContainer}>
@@ -53,19 +56,25 @@ export default class Tasks extends Component {
         <View style ={styles.projectsListHolder}>
           <ListView
             style={styles.projectsList}
-            dataSource={this.state.dataSource}
+            enableEmptySections={true}
+            dataSource={this.state.tasksList}
             renderRow={
-              (rowData) =>
-              <View style={styles.projectsItemRow}>
-                <Text style={styles.projectsItemRowText} onPress={()=> { Actions.singleProjecthold() }}>{rowData}</Text>
-                <Icon
-                  style={styles.projectsItemRowButton}
-                  name='delete'
-                  size={25}
-                  color='#212121'
-                />
-              </View>
-          }/>
+              (task) => {
+                console.log(task);
+                return (
+                  <View style={styles.projectsItemRow}>
+                    <Text style={styles.projectsItemRowText}>{task.title}</Text>
+                    <Icon
+                      style={styles.projectsItemRowButton}
+                      name='delete'
+                      size={25}
+                      color='#212121'
+                      onPress={()=> { Alert.alert('Are you sure you want to delete this project?') }}/>
+                  </View>
+                )
+              }
+            }
+          />
           <Button
             raised
             icon={{name: 'arrow-back'}}
