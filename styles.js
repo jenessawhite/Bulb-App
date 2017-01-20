@@ -45,7 +45,7 @@ export default StyleSheet.create({
   pageTitle: {
     fontSize: 26,
     textAlign: 'center',
-    margin: 10,
+    marginTop: 15,
   },
   pageDescription: {
     padding: 10,
@@ -65,14 +65,29 @@ export default StyleSheet.create({
     height: 50,
     backgroundColor: '#B2DFDB',
   },
-  titleStyle: {
-
+  //assets
+  contentContainer: {
+    height: height,
+    flex: 1,
   },
-  tabSelectedstyle: {
-
+  topContainer: {
+    marginTop: 20,
   },
-  titleSelected: {
-
+  content: {
+    flex: 1,
+  },
+  photoContent:{
+    width: width,
+  },
+  backContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: width,
+    paddingBottom: 10
+  },
+  backButton: {
+    backgroundColor: '#FFC107',
   },
   //Home
   homeContainer: {
@@ -80,31 +95,29 @@ export default StyleSheet.create({
     width: width,
     marginTop: 20,
   },
-  projectsListHolder: {
+  itemsListHolder: {
     margin: 10,
   },
-  newProjectsHolder: {
+  newItemsHolder: {
     margin: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  newProjectsText: {
+  newItemsText: {
     fontSize: 20,
   },
-  projectsList: {
+  itemsList: {
     margin: 10,
   },
-  projectsItemRow: {
+  itemRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 5,
   },
-  projectsItemRowText: {
+  itemRowText: {
     paddingLeft: 2,
     lineHeight: 25,
     fontSize: 16,
-  },
-  projectsItemRowButton: {
   },
   //NewProject
   formContainer: {
@@ -112,8 +125,6 @@ export default StyleSheet.create({
     borderRadius: 5,
     borderColor: '#FFC107',
     backgroundColor: '#F6F7FB',
-    width: 350,
-    height: 350,
     marginBottom: 40,
     alignSelf: 'center',
   },

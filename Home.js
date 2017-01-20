@@ -40,27 +40,27 @@ export default class Home extends Component {
         <Text style={styles.pageDescription}>
           This is your current list of projects
         </Text>
-        <View style ={styles.newProjectsHolder}>
-          <Text style ={styles.newProjectsText}>NEW PROJECT</Text>
+        <View style ={styles.newItemsHolder}>
+          <Text style ={styles.newItemsText}>NEW PROJECT</Text>
           <Icon
             name='add'
             color='#212121'
             size={25}
             onPress={()=> {Actions.newProjectTab()}} />
         </View>
-        <ScrollView style ={styles.projectsListHolder}>
+        <ScrollView style ={styles.itemsListHolder}>
           <ListView
-            style={styles.projectsList}
+            style={styles.itemsList}
             enableEmptySections={true}
             dataSource={this.state.projectsList}
             renderRow={
               (project) => {
                 console.log(project);
                 return (
-                  <View style={styles.projectsItemRow}>
-                    <Text style={styles.projectsItemRowText} onPress={()=> { Actions.singleProjecthold({id: project.id, name: project.name}) }}>{project.name}</Text>
+                  <View style={styles.itemRow}>
+                    <Text style={styles.itemRowText} onPress={()=> { Actions.singleProjecthold({id: project.id, name: project.name}) }}>{project.name}</Text>
                     <Icon
-                      style={styles.projectsItemRowButton}
+                      style={styles.itemRowButton}
                       name='delete'
                       size={25}
                       color='#212121'

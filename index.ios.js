@@ -66,11 +66,11 @@ export default class diyApp extends Component {
           <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#009688' }} hideNavBar>
             {/* Tab and it's scenes */}
             <Scene key="homeTab" title="Home" icon={HomeTabIcon} hideNavBar>
-              <Scene key="home" component={Home} title="Home" />
+              <Scene key="home" component={Home} title="Home" type="transitionToTop"/>
             </Scene>
             {/* Tab and it's scenes */}
             <Scene key="newProjectTab" title="New Project" icon={NewProjectTabIcon} hideNavBar>
-              <Scene key="newProject" component={NewProject} title="New Project" />
+              <Scene key="newProject" component={NewProject} title="New Project" hideNavBar schema="modal" direction="vertical"/>
             </Scene>
             {/* Tab and it's scenes */}
             <Scene key="profileTab" title="Profile" icon={ProfileTabIcon} hideNavBar>
@@ -80,7 +80,7 @@ export default class diyApp extends Component {
           <Scene hideNavBar key="singleProjecthold">
             <Scene hideNavBar key="singleProject" component={SingleProject}/>
             <Scene hideNavBar key="materials" component={Materials} />
-            <Scene hideNavBar schema="modal" direction="vertical" key="newMaterialModal" component={NewMaterial} />
+            <Scene hideNavBar key="newMaterialModal" component={NewMaterial} />
             <Scene hideNavBar key="budget" component={Budget} />
             <Scene hideNavBar key="photos" component={Photos} />
             <Scene hideNavBar direction="vertical" key="newPhotoModal" component={NewPhoto} />

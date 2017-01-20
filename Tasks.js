@@ -5,7 +5,6 @@ import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
 
 import api from './api';
-
 import styles from './styles';
 
 
@@ -39,49 +38,52 @@ export default class Tasks extends Component {
   }
   render() {
     return (
-      <View style={styles.homeContainer}>
-        <Text style={styles.pageTitle}>Tasks</Text>
-        <Text style={styles.pageDescription}>
-          These are your tasks
-        </Text>
-        <View style ={styles.newProjectsHolder}>
-          <Text style ={styles.newProjectsText}>NEW TASK</Text>
+      <View style={styles.contentContainer}>
+        <View style={styles.topContainer}>
+          <Text style={styles.pageTitle}>Tasks</Text>
+          <Text style={styles.pageDescription}>These are your tasks</Text>
+        </View>
+        <View style ={styles.newItemsHolder}>
+          <Text style ={styles.newItemsText}>NEW TASK</Text>
           <Icon
             name='add'
             color='#212121'
             size={25}
-            onPress={()=> {Actions.newTaskModal()}} />
+            onPress={()=> {Actions.newTaskModal({id: this.props.id})}} />
         </View>
 
-        <View style ={styles.projectsListHolder}>
+        <View style={styles.content}>
           <ListView
-            style={styles.projectsList}
+            style={styles.itemsList}
             enableEmptySections={true}
             dataSource={this.state.tasksList}
             renderRow={
               (task) => {
                 console.log(task);
                 return (
-                  <View style={styles.projectsItemRow}>
-                    <Text style={styles.projectsItemRowText}>{task.title}</Text>
+                  <View style={styles.itemRow}>
+                    <Text style={styles.itemRowText}>{task.title}</Text>
                     <Icon
-                      style={styles.projectsItemRowButton}
+                      style={styles.itemRowButton}
                       name='delete'
                       size={25}
                       color='#212121'
-                      onPress={()=> { Alert.alert('Are you sure you want to delete this project?') }}/>
+                      onPress={()=> { Alert.alert('Are you sure you want to delete this task?') }}/>
                   </View>
                 )
               }
             }
           />
+        </View>
+        <View style={styles.backContainer}>
           <Button
             raised
             icon={{name: 'arrow-back'}}
             title='Back'
             backgroundColor= '#FFC107'
+            style={styles.backButton}
             onPress={()=> {Actions.pop()}}/>
-          </View>
+        </View>
       </View>
     );
   }

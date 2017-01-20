@@ -12,7 +12,7 @@ export default class Budget extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      budget: []
+      budgetList: []
     }
   }
   componentDidMount(props) {
@@ -24,9 +24,8 @@ export default class Budget extends Component {
     axios.get(api() + '/projects/' + this.props.id + '/budget')
       .then((response) => {
         console.log(response.data);
-        let budget = response.data;
-        console.log(budget.estimated);
-        this.setState ({budget})
+        let budgetList = response.data;
+        this.setState ({budgetList})
       })
       .catch(function (error) {
         console.log(error);
@@ -34,20 +33,32 @@ export default class Budget extends Component {
   }
   render() {
     return (
-      <View style={styles.homeContainer}>
-        <Text style={styles.pageTitle}>Budget</Text>
-        <Text style={styles.pageDescription}>
-          This is your current budget
-        </Text>
-        <View>
-          <Text>Estimated: ${this.props.estimated}</Text>
+      <View style={styles.contentContainer}>
+        <View style={styles.topContainer}>
+          <Text style={styles.pageTitle}>Budget</Text>
+          <Text style={styles.pageDescription}>This is your current budget</Text>
         </View>
-        <Button
-          raised
-          icon={{name: 'arrow-back'}}
-          title='Back'
-          backgroundColor= '#FFC107'
-          onPress={()=> {Actions.pop()}}/>
-      </View>    );
+        <View style={styles.content}>
+          {this.state.budgetList.map((budget, index) => {
+            return (
+              <View key={budget.id}>
+                <Text>Estimated: ${budget.estimated}</Text>
+                <Text>Actual: ${budget.actual}</Text>
+              </View>
+            )
+          })}
+        </View>
+
+        <View style={styles.backContainer}>
+          <Button
+            raised
+            icon={{name: 'arrow-back'}}
+            title='Back'
+            backgroundColor= '#FFC107'
+            style={styles.backButton}
+            onPress={()=> {Actions.pop()}}/>
+        </View>
+      </View>
+        );
   }
 }

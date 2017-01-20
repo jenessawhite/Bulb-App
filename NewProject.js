@@ -2,113 +2,85 @@ import React, { Component } from 'react';
 import { Modal, ScrollView, Text, TouchableHighlight, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import { Actions} from 'react-native-router-flux';
-import { Form, Separator, InputField, LinkField, SwitchField, PickerField, DatePickerField, TimePickerField} from 'react-native-form-generator';
+import { Form,
+  Separator,InputField, LinkField,
+  SwitchField, PickerField,DatePickerField,TimePickerField
+} from 'react-native-form-generator';
+import axios from 'axios';
+
+import api from './api';
 import styles from './styles';
 
 
 export default class NewProject extends Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       formData:{}
     }
   }
-  handleFormChange(formData){
+  handleFormChange(formData) {
     /*
     formData will contain all the values of the form,
     in this example.
+
     formData = {
-    project_name:"",
-    description:"",
-    goal_date: Date,
+    first_name:"",
+    last_name:"",
+    gender: '',
+    birthday: Date,
+    has_accepted_conditions: bool
     }
     */
+
     this.setState({formData:formData})
     this.props.onFormChange && this.props.onFormChange(formData);
   }
-  handleFormFocus(e, component){
+  handleFormFocus(e, component) {
     console.log(e, component);
   }
-  resetForm(){
-    this.refs.registrationForm.refs.project_name.setValue("");
-    this.refs.registrationForm.refs.description.setValue("");
-    this.refs.registrationForm.refs.goal_date.setDate(new Date());
+  saveProject() {
+    axios.post(api() + '/projects', this.state.formData).then(
+      ()=> {Actions.singleProjecthold()}
+    ).catch(err => {})
   }
   render() {
     return (
-      <View style={styles.buffer}>
-        <Text style={styles.pageTitle}>New Project</Text>
-        <Text style={styles.pageDescription}>
-          This is a new project
-        </Text>
-        <View
-          style={styles.formContainer}
-          keyboardShouldPersistTaps={true}>
-          <Form
-            ref='newProjectForm'
-            onFocus={this.handleFormFocus.bind(this)}
-            onChange={this.handleFormChange.bind(this)}
-            label="Project Information">
-            <Separator />
-            {/* Project Name Field */}
-            <InputField
-              ref='project_name'
-              style={styles.formField}
-              label='Project Name'
-              placeholder='Project Name'
-              helpText={((self)=>{
-                if(Object.keys(self.refs).length !== 0){
-                  if(!self.refs.registrationForm.refs.project_name.valid){
-                    return self.refs.registrationForm.refs.project_name.validationErrors.join("\n");
+      <View style={styles.contentContainer}>
+        <View style={styles.topContainer}>
+          <Text style={styles.pageTitle}>New Project</Text>
+          <Text style={styles.pageDescription}>This is a new project</Text>
+        </View>
+         {/* style={styles.formContainer} */}
+        <View>
+          <ScrollView keyboardShouldPersistTaps={true} style={{paddingLeft:10,paddingRight:10, height:200}}>
+            <Form ref='registrationForm' onFocus={this.handleFormFocus.bind(this)} onChange={this.handleFormChange.bind(this)} label="Personal Information">
+              <InputField ref='projectName' label='Project Title' placeholder='Project Title' validationFunction={[(value)=>{
+                  if(value == '') return "Required";
+                  //Initial state is null/undefined
+                  if(!value) return true;
+                  // Check if Project Title Contains Numbers
+                  var matches = value.match(/\d+/g);
+                  if (matches != null) {
+                      return "Project Title can't contain numbers";
                   }
-                }
-                // if(!!(self.refs && self.refs.project_name.valid)){
-                // }
-              })(this)}
-              validationFunction={[(value)=>{
-                /*
-                you can have multiple validators in a single function or an array of functions
-                 */
-                if(value == '') return "Required";
-                //Initial state is null/undefined
-                if(!value) return true;
-                var matches = value.match(/\d+/g);
-                if (matches != null) {
-                    return "Project Name can't contain numbers";
-                }
-                return true;
-              }, (value)=>{
-                if(!value) return true;
-                if(value.indexOf('4')!=-1){
-                  return "I can't stand number 4";
-                }
-                return true;
-              }]}
-            />
-            {/* PROJECT DESCRIPTION */}
-            <InputField
-              multiline={true}
-              ref='description'
-              style={styles.formField}
-              label='Project Description'
-              placeholder='Project description' />
-            <DatePickerField
-              ref='goal_date'
-              style={styles.formField}
-              minimumDate={new Date('1/1/2017')}
-              maximumDate={new Date()}
-              placeholder='Goal Completion Date'/>
-          </Form>
-          </View>
-          <Button
-            reverse
-            iconRight
-            backgroundColor= '#FFC107'
-            icon={{name: 'navigate-next'}}
-            title='SAVE'
-            onPress={()=> {Actions.singleProjecthold()}}/>
+                  return true;
+                }]} />
+              <InputField ref='last_name' placeholder='Last Name'/>
+              <InputField
+                multiline={true}
+                ref='description'
+                placeholder='Description'
+                helpText='this is an helpful text it can be also very very long and it will wrap' />
+            </Form>
+          </ScrollView>
+          <Button reverse iconRight backgroundColor= '#FFC107' icon={{name: 'navigate-next'}} title='SAVE'
+            onPress={this.saveProject.bind(this)}/>
+          <Text>{JSON.stringify(this.state.formData)}</Text>
 
-        <Text>{JSON.stringify(this.state.formData)}</Text>
+ {/* style={styles.saveContainer} */}
+        </View>
+
     </View>
     );
   }

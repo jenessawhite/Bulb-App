@@ -304,7 +304,7 @@ function startExpress() {
   // Create a new project
   app.post('/api/projects', (req, res) => {
     Project.create({
-      name: 'Bedroom'
+      name: req.body.projectName
     }).then((projects) => {
       Project.findAll().then((projects) => {
         res.json(projects);
@@ -350,7 +350,7 @@ function startExpress() {
   });
 
   // Delete a budget
-  app.delete('/api/projects/:id/budget/:id', function (req, res) {
+  app.delete('/api/budget/:id', function (req, res) {
     res.json('Got a DELETE request at /budget')
     // Budget.destroy({
     //   where: {
