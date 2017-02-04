@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
-import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
+import {Actions} from 'react-native-router-flux';
+
 
 import api from './api';
 import styles from './styles';
@@ -27,11 +28,9 @@ export default class Home extends Component {
         let projectsList = this.state.ds.cloneWithRows(response.data);
         console.log(projectsList);
         this.setState ({projectsList})
-      })
-      .catch(function (error) {
+      }).catch(function (error) {
         console.log(error);
       });
-
   }
   render() {
     return (
@@ -58,7 +57,7 @@ export default class Home extends Component {
                 console.log(project);
                 return (
                   <View style={styles.itemRow}>
-                    <Text style={styles.itemRowText} onPress={()=> { Actions.singleProjecthold({id: project.id, name: project.name}) }}>{project.name}</Text>
+                    <Text style={styles.itemRowText} onPress={()=> { Actions.singleProjectHold({id: project.id, name: project.name}) }}>{project.name}</Text>
                     <Icon
                       style={styles.itemRowButton}
                       name='delete'

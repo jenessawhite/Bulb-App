@@ -304,7 +304,8 @@ function startExpress() {
   // Create a new project
   app.post('/api/projects', (req, res) => {
     Project.create({
-      name: req.body.projectName
+      name: req.body.projectName,
+      description: req.body.description
     }).then((projects) => {
       Project.findAll().then((projects) => {
         res.json(projects);

@@ -14,6 +14,7 @@ export default class SingleProject extends Component {
     console.log(this.props);
     console.log(this.props.id);
     console.log(this.props.name);
+    console.log(props);
   }
   render() {
     return (
@@ -22,7 +23,7 @@ export default class SingleProject extends Component {
           <Text style={styles.pageTitle}>{this.props.name}</Text>
         </View>
         <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around'}}>
-          <Card containerStyle={{borderRadius: 5, backgroundColor: '#FFC107', borderColor:'#FFC107', width:150, height:150, alignItems:'center', justifyContent: 'space-between'}}>
+          <Card containerStyle={styles.cardContainer}>
             <Icon
               name='checklist'
               type='octicon'
@@ -82,14 +83,16 @@ export default class SingleProject extends Component {
               onPress={()=> {Actions.photos({id: this.props.id})}} />
           </Card>
         </View>
-        <View style={styles.backContainer}>
+        <View style={styles.spTabs}>
+          {/* <Icon
+            name='home'
+            size={25}
+            iconStyle={{color: '#FFC107'}}/> */}
           <Button
-            raised
-            icon={{name: 'arrow-back'}}
-            title='Back'
-            backgroundColor= '#FFC107'
-            style={styles.backButton}
-            onPress={()=> {Home.transitionToTop()}}/>
+            backgroundColor='#00796B'
+            buttonStyle={{borderRadius: 0}}
+            title='Home'
+            onPress={()=> {Actions.tabbar({id: this.props.id})}} />
         </View>
       </View>
     );

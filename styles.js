@@ -5,16 +5,32 @@ const height = Dimensions.get('window').height; //full height
 
 
 export default StyleSheet.create({
-
+  spTabs: {
+    bottom: 0,
+    right: 0,
+    position: 'absolute',
+    width: width,
+    flexDirection: 'row',
+    backgroundColor: '#FFC107',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  singleTab: {
+    flex: 1,
+  },
+  singleTabText: {
+    textAlign: 'center',
+  },
   buffer: {
     flex: 1,
     marginTop: 20,
   },
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'grey',
+    // backgroundColor: 'grey',
   },
   header: {
     backgroundColor: '#B2DFDB',
@@ -56,9 +72,9 @@ export default StyleSheet.create({
   },
   footer: {
     bottom: 0,
+    width: width,
     backgroundColor: '#B2DFDB',
     height: 70,
-    width: width,
   },
   //Tabs
   tabsBar: {
@@ -68,7 +84,7 @@ export default StyleSheet.create({
   //assets
   contentContainer: {
     height: height,
-    flex: 1,
+    backgroundColor: '#B2DFDB',
   },
   topContainer: {
     marginTop: 20,
@@ -91,7 +107,7 @@ export default StyleSheet.create({
   },
   //Home
   homeContainer: {
-    height: height,
+    // flex: 1,
     width: width,
     marginTop: 20,
   },
@@ -130,5 +146,15 @@ export default StyleSheet.create({
   },
   formField: {
     height: 40
+  },
+  //Card containerStyle
+  cardContainer: {
+    borderRadius: 5,
+    backgroundColor: '#FFC107',
+    borderColor:'#FFC107',
+    width:150,
+    height:150,
+    alignItems:'center',
+    justifyContent: 'space-between'
   },
 });
