@@ -10,12 +10,13 @@ export default class SingleProject extends Component {
   constructor(props) {
     super(props);
   }
+
   componentDidMount(props) {
     console.log(this.props);
     console.log(this.props.id);
     console.log(this.props.name);
-    console.log(props);
   }
+
   render() {
     return (
       <View style={styles.contentContainer}>
@@ -92,7 +93,7 @@ export default class SingleProject extends Component {
             backgroundColor='#00796B'
             buttonStyle={{borderRadius: 0}}
             title='Home'
-            onPress={()=> {Actions.tabbar({id: this.props.id})}} />
+            onPress={()=> {Actions.tabbar()}} />
         </View>
       </View>
     );

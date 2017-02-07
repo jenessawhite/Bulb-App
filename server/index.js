@@ -304,7 +304,7 @@ function startExpress() {
   // Create a new project
   app.post('/api/projects', (req, res) => {
     Project.create({
-      name: req.body.projectName,
+      name: req.body.name,
       description: req.body.description
     }).then((projects) => {
       Project.findAll().then((projects) => {
@@ -462,16 +462,18 @@ function startExpress() {
   // Create a new task
   app.post('/api/projects/:id/tasks', (req, res) => {
     res.json('Got ourselves a POST request!')
-    // Task.create({
-      // where: {
-      //   projectId: req.params.id,
-      // },
-    //   title: 'paint'
-    // }).then((tasks) => {
-    //   Task.findAll().then((tasks) => {
-    //     res.json(tasks);
-    //   })
-    // }).catch(err => {})
+    Task.create({
+      where: {
+        projectId: req.params.id,
+      },
+      title: req.body.title,
+      goalDate: req.body.goalDate,
+      completed: false
+    }).then((tasks) => {
+      Task.findAll().then((tasks) => {
+        res.json(tasks);
+      })
+    }).catch(err => {})
   });
 
   // Delete a task

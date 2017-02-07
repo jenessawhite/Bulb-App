@@ -23,8 +23,10 @@ export default class Tasks extends Component {
     console.log(this.props);
     console.log(this.props.id);
     console.log(this.props.name);
+    console.log(this.props.id);
     this.getTasks()
   }
+
   getTasks() {
     axios.get(api() + '/projects/' + this.props.id + '/tasks')
       .then((response) => {

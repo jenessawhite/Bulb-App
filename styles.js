@@ -84,7 +84,7 @@ export default StyleSheet.create({
   //assets
   contentContainer: {
     height: height,
-    backgroundColor: '#B2DFDB',
+    // backgroundColor: '#B2DFDB',
   },
   topContainer: {
     marginTop: 20,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Alert, AppRegistry, Dimensions, Image, Text, ScrollView, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Tabs from 'react-native-tabs';
-import {Scene, Router} from 'react-native-router-flux';
+import { ActionConst, Scene, Router} from 'react-native-router-flux';
 
 import colors from './colors';
 import styles from './styles';
@@ -67,11 +67,11 @@ export default class diyApp extends Component {
           <Scene key="tabbar" tabs={true} tabBarStyle={{height: 50,  backgroundColor: '#009688'}}>
             {/* Tab and it's scenes */}
             <Scene key="homeTab" title="Home" icon={HomeTabIcon} hideNavBar>
-              <Scene key="home" component={Home} title="Home" type="transitionToTop"/>
+              <Scene key="home" component={Home} title="Home"/>
             </Scene>
             {/* Tab and it's scenes */}
-            <Scene key="newProjectTab" title="New Project" icon={NewProjectTabIcon} >
-              <Scene key="newProject" component={NewProject} hideNavBar title="New Project" schema="modal" direction="vertical"/>
+            <Scene key="newProjectTab" title="New Project" icon={NewProjectTabIcon} hideNavBar>
+              <Scene key="newProject" component={NewProject} title="New Project"/>
             </Scene>
             {/* Tab and it's scenes */}
             <Scene key="profileTab" hideNavBar title="Profile" icon={ProfileTabIcon}>
@@ -79,7 +79,7 @@ export default class diyApp extends Component {
             </Scene>
           </Scene>
           <Scene hideNavBar key="singleProjectHold">
-            <Scene key="singleProject" component={SingleProject}/>
+            <Scene key="singleProject" component={SingleProject} />
             <Scene key="materials" component={Materials} />
             <Scene key="newMaterialModal" component={NewMaterial} />
             <Scene key="budget" component={Budget} />
