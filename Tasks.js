@@ -19,11 +19,11 @@ export default class Tasks extends Component {
       tasksList: ds.cloneWithRows([])
     }
   }
+
   componentDidMount(props) {
     console.log(this.props);
     console.log(this.props.id);
     console.log(this.props.name);
-    console.log(this.props.id);
     this.getTasks()
   }
 
@@ -38,6 +38,7 @@ export default class Tasks extends Component {
         console.log(error);
       });
   }
+
   render() {
     return (
       <View style={styles.contentContainer}>

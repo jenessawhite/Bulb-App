@@ -472,6 +472,7 @@ function startExpress() {
     }).then((tasks) => {
       Task.findAll().then((tasks) => {
         res.json(tasks);
+        console.log('Posted new task!');
       })
     }).catch(err => {})
   });

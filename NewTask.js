@@ -12,10 +12,31 @@ export default class NewTask extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      tasksList: [],
       title: '',
       goalDate: '',
       completed: false
     }
+  }
+
+  componentDidMount(props) {
+    console.log(this.props);
+    console.log(this.props.id);
+    console.log(this.props.name);
+    this.getTasks()
+  }
+
+  getTasks() {
+    axios.get(api() + '/projects/' + this.props.id + '/tasks')
+      .then((response) => {
+        console.log(response.data);
+        let tasksList = response.data;
+        console.log(tasksList);
+        this.setState ({tasksList})
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   handleFormChange() {
@@ -36,9 +57,10 @@ export default class NewTask extends Component {
     };
     console.log(newTask);
 
-    axios.post(api() + 'projects/' + this.props.id + '/tasks', newTask).then((response) => {
+    axios.post(api() + '/projects/' + this.props.id + '/tasks', newTask).then((response) => {
       console.log(newTask);
       console.log(response.data);
+      Actions.homeTab({type: ActionConst.RESET});
     })
     .catch(function (error) {
       console.log(error);
@@ -70,6 +92,9 @@ export default class NewTask extends Component {
           icon={{name: 'navigate-next'}}
           title='SAVE'
           onPress={this.saveTask.bind(this)}/>
+        <Button reverse iconRight backgroundColor= '#FFC107' icon={{name: 'navigate-next'}} title='Back'
+            onPress={()=> {Actions.pop()}}/>
+
       </View>
     );
   }
