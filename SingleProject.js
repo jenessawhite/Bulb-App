@@ -12,9 +12,8 @@ export default class SingleProject extends Component {
   }
 
   componentDidMount(props) {
-    console.log(this.props);
-    console.log(this.props.id);
-    console.log(this.props.name);
+    console.log('projectId: ' + this.props.id);
+    console.log('project name: ' + this.props.name);
   }
 
   render() {
@@ -85,10 +84,6 @@ export default class SingleProject extends Component {
           </Card>
         </View>
         <View style={styles.spTabs}>
-          {/* <Icon
-            name='home'
-            size={25}
-            iconStyle={{color: '#FFC107'}}/> */}
           <Button
             backgroundColor='#00796B'
             buttonStyle={{borderRadius: 0}}

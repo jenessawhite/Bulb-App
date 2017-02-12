@@ -64,7 +64,7 @@ export default class diyApp extends Component {
       <Router>
         <Scene key="root">
           {/* Tab Container */}
-          <Scene key="tabbar" tabs={true} tabBarStyle={{height: 50,  backgroundColor: '#009688'}}>
+          <Scene key="tabbar" tabs={true} tabBarStyle={{height: 50,  backgroundColor: '#009688'}} type={ActionConst.REPLACE} >
             {/* Tab and it's scenes */}
             <Scene key="homeTab" title="Home" icon={HomeTabIcon} hideNavBar>
               <Scene key="home" component={Home} title="Home"/>

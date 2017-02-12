@@ -461,14 +461,14 @@ function startExpress() {
 
   // Create a new task
   app.post('/api/projects/:id/tasks', (req, res) => {
-    res.json('Got ourselves a POST request!')
     Task.create({
       where: {
         projectId: req.params.id,
       },
       title: req.body.title,
       goalDate: req.body.goalDate,
-      completed: false
+      completed: false,
+      projectId: req.params.id
     }).then((tasks) => {
       Task.findAll().then((tasks) => {
         res.json(tasks);

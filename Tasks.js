@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
-import PTRView from 'react-native-pull-to-refresh';
 import axios from 'axios';
 
 import api from './api';
@@ -22,9 +21,8 @@ export default class Tasks extends Component {
   }
 
   componentDidMount(props) {
-    console.log(this.props);
-    console.log(this.props.id);
-    console.log(this.props.name);
+    console.log('projectId: ' + this.props.id);
+    console.log('project name: ' + this.props.name);
     this.getTasks()
   }
 
@@ -38,12 +36,6 @@ export default class Tasks extends Component {
       .catch(function (error) {
         console.log(error);
       });
-  }
-
-  _refresh () {
-    return new Promise((resolve) => {
-      setTimeout(()=>{resolve()}, 2000)
-    })
   }
 
   render() {
@@ -61,9 +53,6 @@ export default class Tasks extends Component {
             size={25}
             onPress={()=> {Actions.newTaskModal({id: this.props.id})}} />
         </View>
-        <PTRView
-          style={{backgroundColor:'#F5FCFF'}}
-          onRefresh={this._refresh}>
         <View style={styles.content}>
           <ListView
             style={styles.itemsList}
@@ -87,7 +76,6 @@ export default class Tasks extends Component {
             }
           />
         </View>
-      </PTRView>
 
         <View style={styles.backContainer}>
           <Button
@@ -96,7 +84,7 @@ export default class Tasks extends Component {
             title='Back'
             backgroundColor= '#FFC107'
             style={styles.backButton}
-            onPress={()=> {Actions.pop()}}/>
+            onPress={()=> {Actions.popTo('singleProject')}}/>
         </View>
       </View>
     );

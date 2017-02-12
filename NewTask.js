@@ -20,22 +20,20 @@ export default class NewTask extends Component {
   }
 
   componentDidMount(props) {
-    console.log(this.props);
-    console.log(this.props.id);
-    console.log(this.props.name);
+    console.log('projectId: ' + this.props.id);
+    console.log('project name: ' + this.props.name);
     this.getTasks()
   }
 
   getTasks() {
     axios.get(api() + '/projects/' + this.props.id + '/tasks')
       .then((response) => {
-        console.log(response.data);
         let tasksList = response.data;
-        console.log(tasksList);
+        console.log('Tasks List: ' + tasksList);
         this.setState ({tasksList})
       })
       .catch(function (error) {
-        console.log(error);
+        console.log('Here is your error: ' + error);
       });
   }
 
@@ -49,21 +47,22 @@ export default class NewTask extends Component {
     console.log('focused');
   }
 
-  saveTask() {
+  saveTask(props) {
     let newTask = {
       title: this.state.title,
       goalDate: '2017-02-10',
-      completed: false
+      completed: false,
+      projectId: this.props.id
     };
-    console.log(newTask);
+    console.log('New task: ' + newTask);
 
     axios.post(api() + '/projects/' + this.props.id + '/tasks', newTask).then((response) => {
-      console.log(newTask);
+      console.log('Task (after post): ' + newTask);
       console.log(response.data);
-      Actions.homeTab({type: ActionConst.RESET});
+      Actions.tasks({id: this.props.id, name: this.props.name})
     })
     .catch(function (error) {
-      console.log(error);
+      console.log('You have an ' + error);
     });
   }
 
