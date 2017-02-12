@@ -379,17 +379,23 @@ function startExpress() {
   // Create a new material
   app.post('/api/projects/:id/materials', (req, res) => {
     res.json('Got ourselves a POST request!')
-  //   Material.create({
-  //     where: {
-  //      projectId: req.params.id,
-  //     },
-  //     name: 'saw'
-  //   }).then((materials) => {
-  //     Material.findAll().then((materials) => {
-  //       res.json(materials);
-  //     })
-  //   }).catch(err => {})
-  // });
+    Material.create({
+      where: {
+        projectId: req.params.id,
+      },
+      name: req.body.name,
+      description: req.body.description,
+      quantity: req.body.quantity,
+      checked: false,
+      projectId: req.params.id
+    }).then((materials) => {
+      Material.findAll().then((materials) => {
+        res.json(materials);
+        console.log('Posted new material!');
+      })
+    }).catch(err => {
+      console.log(err);
+    })
   });
 
   // Delete a material
@@ -403,6 +409,7 @@ function startExpress() {
     //   res.send('deleted')
     // }).catch(err => {})
   });
+
   // --------------PHOTOS-------------------------
 
   // Get all photos by project id
@@ -474,7 +481,9 @@ function startExpress() {
         res.json(tasks);
         console.log('Posted new task!');
       })
-    }).catch(err => {})
+    }).catch(err => {
+      console.log(err);
+    })
   });
 
   // Delete a task

@@ -32,8 +32,7 @@ export default class NewProject extends Component {
     };
     axios.post(api() + '/projects', newProject).then((response) => {
       console.log(newProject);
-      console.log(response.data);
-      Actions.homeTab({type: ActionConst.RESET});
+      Actions.popTo('singleProject');
     })
     .catch(function (error) {
       console.log(error);

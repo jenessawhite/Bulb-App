@@ -19,12 +19,13 @@ export default class Materials extends Component {
       materialsList: ds.cloneWithRows([])
     }
   }
+
   componentDidMount(props) {
-    console.log(this.props);
-    console.log(this.props.id);
-    console.log(this.props.name);
+    console.log('projectId: ' + this.props.id);
+    console.log('project name: ' + this.props.name);
     this.getMaterials()
   }
+
   getMaterials() {
     axios.get(api() + '/projects/' + this.props.id + '/materials')
       .then((response) => {
@@ -82,7 +83,7 @@ export default class Materials extends Component {
             title='Back'
             backgroundColor= '#FFC107'
             style={styles.backButton}
-            onPress={()=> {Actions.pop()}}/>
+            onPress={()=> {Actions.popTo('singleProject')}}/>
         </View>
       </View>
     );

@@ -21,7 +21,7 @@ export default class NewTask extends Component {
 
   componentDidMount(props) {
     console.log('projectId: ' + this.props.id);
-    console.log('project name: ' + this.props.name);
+    console.log('Scene name: ' + this.props.name);
     this.getTasks()
   }
 
@@ -73,6 +73,7 @@ export default class NewTask extends Component {
         <Text style={styles.pageDescription}>
           Add a new task
         </Text>
+
         <ScrollView style={{paddingLeft:10,paddingTop:10, height:200}}>
           <TextInput
             style={{borderBottomWidth:200, borderColor: 'black' }}
@@ -91,6 +92,7 @@ export default class NewTask extends Component {
           icon={{name: 'navigate-next'}}
           title='SAVE'
           onPress={this.saveTask.bind(this)}/>
+
         <Button reverse iconRight backgroundColor= '#FFC107' icon={{name: 'navigate-next'}} title='Back'
             onPress={()=> {Actions.pop()}}/>
 

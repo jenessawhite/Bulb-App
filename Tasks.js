@@ -38,6 +38,18 @@ export default class Tasks extends Component {
       });
   }
 
+  deleteTask() {
+    axios.delete(api() + '/projects/' + this.props.id + '/tasks' + this.props.id )
+      .then((response) => {
+        let tasksList = this.state.ds.cloneWithRows(response.data);
+        console.log(tasksList);
+        this.setState ({tasksList})
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <View style={styles.contentContainer}>
@@ -60,7 +72,7 @@ export default class Tasks extends Component {
             dataSource={this.state.tasksList}
             renderRow={
               (task) => {
-                console.log(task);
+                console.log(task, task.id);
                 return (
                   <View style={styles.itemRow}>
                     <Text style={styles.itemRowText}>{task.title}</Text>

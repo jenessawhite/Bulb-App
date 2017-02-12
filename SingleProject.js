@@ -85,10 +85,10 @@ export default class SingleProject extends Component {
         </View>
         <View style={styles.spTabs}>
           <Button
-            backgroundColor='#00796B'
+            backgroundColor='transparent'
             buttonStyle={{borderRadius: 0}}
             title='Home'
-            onPress={()=> {Actions.tabbar()}} />
+            onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
         </View>
       </View>
     );
