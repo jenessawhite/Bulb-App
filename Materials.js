@@ -7,6 +7,7 @@ import axios from 'axios';
 import api from './api';
 import styles from './styles';
 
+var alertMessage = 'Are you sure that you want to delete this material? ';
 
 export default class Materials extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class Materials extends Component {
 
   componentDidMount(props) {
     console.log('projectId: ' + this.props.id);
-    console.log('project name: ' + this.props.name);
+    console.log('scene name: ' + this.props.name);
     this.getMaterials()
   }
 
@@ -37,6 +38,20 @@ export default class Materials extends Component {
         console.log(error);
       });
   }
+
+  deleteMaterial(material) {
+    console.log('working');
+    console.log(material);
+    axios.delete(api() + '/projects/' + material.projectId + '/materials/' + material.id)
+      .then((response) => {
+        console.log('deleted');
+        this.getMaterials()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <View style={styles.contentContainer}>
@@ -61,16 +76,22 @@ export default class Materials extends Component {
               (material) => {
                 console.log(material);
                 return (
-                  <View style={styles.itemRow}>
-                    <Text style={styles.itemRowText}>{material.quantity}</Text>
-                    <Text style={styles.itemRowText}>{material.name}</Text>
-                    <Icon
-                      style={styles.itemRowButton}
-                      name='delete'
-                      size={25}
-                      color='#212121'
-                      onPress={()=> { Alert.alert('Are you sure you want to delete this material?') }}/>
-                  </View>
+
+                  <TouchableHighlight onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}>
+                    <View style={styles.itemRow}>
+                    {/* Actions.materialModal({id: this.props.id}) */}
+                      <Text style={styles.itemRowText}>{material.quantity}</Text>
+                      <Text style={styles.itemRowText}>{material.name}</Text>
+                      <Icon
+                        style={styles.itemRowButton}
+                        name='delete'
+                        size={25}
+                        color='#212121'
+                        onPress={()=> this.deleteMaterial(material)
+                      }/>
+                    </View>
+                  </TouchableHighlight>
+
                 )
               }
             }

@@ -104,14 +104,6 @@ export default class NewMaterial extends Component {
             returnKeyType="done"
             onChangeText={(description) => this.setState({description})}
           />
-          <TextInput
-            style={{borderBottomWidth:2, borderColor: 'black', paddingTop:10, height:40 }}
-            keyboardType='numeric'
-            value={this.state.quantity}
-            placeholder="quantity"
-            returnKeyType="done"
-            onChangeText={(quantity) => this.setState({quantity})}
-          />
         </ScrollView>
 
         <Button

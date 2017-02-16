@@ -19,6 +19,7 @@ import Photos from './Photos';
 import NewPhoto from './NewPhoto';
 import Materials from './Materials';
 import NewMaterial from './NewMaterial';
+import MaterialModal from './MaterialModal';
 
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
@@ -82,6 +83,7 @@ export default class diyApp extends Component {
             <Scene key="singleProject" component={SingleProject} />
             <Scene key="materials" component={Materials} />
             <Scene key="newMaterialModal" component={NewMaterial} />
+            <Scene key="materialModal" component={MaterialModal} />
             <Scene key="budget" component={Budget} />
             <Scene key="photos" component={Photos} />
             <Scene direction="vertical" key="newPhotoModal" component={NewPhoto} />

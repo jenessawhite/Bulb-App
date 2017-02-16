@@ -346,6 +346,8 @@ function startExpress() {
   //   }).then((budgets) => {
   //     Budget.findAll().then((budgets) => {
   //       res.json(budgets);
+  //     }).catch(err => {
+//       console.log(err);
   //     })
   //   }).catch(err => {})
   });
@@ -376,6 +378,19 @@ function startExpress() {
       });
   });
 
+  // Get a single material
+  app.get('/api/projects/:projectId/materials/:id', (req, res) => {
+    // Find all tasks
+    Material.findAll({
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      }
+    }).then((materials) => {
+      res.json(materials);
+      });
+  });
+
   // Create a new material
   app.post('/api/projects/:id/materials', (req, res) => {
     res.json('Got ourselves a POST request!')
@@ -392,6 +407,8 @@ function startExpress() {
       Material.findAll().then((materials) => {
         res.json(materials);
         console.log('Posted new material!');
+      }).catch(err => {
+        console.log(err);
       })
     }).catch(err => {
       console.log(err);
@@ -399,15 +416,20 @@ function startExpress() {
   });
 
   // Delete a material
-  app.delete('/api/projects/:id/materials/:id', function (req, res) {
-    res.json('Got a DELETE request at /materials')
-    // Material.destroy({
-    //   where: {
-    //     projectId: req.params.id,
-    //   },
-    // }).then(()=>{
-    //   res.send('deleted')
-    // }).catch(err => {})
+  app.delete('/api/projects/:projectId/materials/:id', function (req, res) {
+    // res.json('Got a DELETE request at /materials')
+    Material.destroy({
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      }
+    }).then((materials)=>{
+      Material.findAll().then((materials) => {
+        res.json(materials);
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {})
   });
 
   // --------------PHOTOS-------------------------
@@ -435,7 +457,9 @@ function startExpress() {
 //   }).then((photos) => {
 //     Photo.findAll().then((photos) => {
 //       res.json(photos);
-//     })
+//     }).catch(err => {
+        //   console.log(err);
+        // })
 //   }).catch(err => {})
 // });
   });
@@ -480,6 +504,8 @@ function startExpress() {
       Task.findAll().then((tasks) => {
         res.json(tasks);
         console.log('Posted new task!');
+      }).catch(err => {
+        console.log(err);
       })
     }).catch(err => {
       console.log(err);
