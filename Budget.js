@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
+import {Alert, ListView, Text, TextInput, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
@@ -15,11 +15,13 @@ export default class Budget extends Component {
       budgetList: []
     }
   }
+
   componentDidMount(props) {
     console.log(this.props);
     console.log(this.props.id);
     this.getBudget()
   }
+
   getBudget() {
     axios.get(api() + '/projects/' + this.props.id + '/budget')
       .then((response) => {
@@ -31,6 +33,22 @@ export default class Budget extends Component {
         console.log(error);
       });
   }
+//map then reduce
+  updateBudget(material) {
+    console.log(material.checked);
+    var materialChecked = material.checked
+    console.log(materialChecked);
+    axios.patch(api() + '/projects/' + material.projectId + '/materials/' + material.id, material)
+    .then((response) => {
+      console.log(material);
+      this.getMaterials()
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+
   render() {
     return (
       <View style={styles.contentContainer}>

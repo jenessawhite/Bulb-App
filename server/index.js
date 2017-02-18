@@ -391,6 +391,28 @@ function startExpress() {
       });
   });
 
+  // Update a single material
+  app.patch('/api/projects/:projectId/materials/:id', (req, res, material) => {
+    // res.json(req.params.material)
+    Material.update({
+      checked: !req.body.checked
+    }, {
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      }
+    }).then((materials) => {
+      Material.findAll().then((materials) => {
+        res.json(materials);
+        console.log('Checked off material!');
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {
+      console.log(err);
+    })
+  });
+
   // Create a new material
   app.post('/api/projects/:id/materials', (req, res) => {
     res.json('Got ourselves a POST request!')

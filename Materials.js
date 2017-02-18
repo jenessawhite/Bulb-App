@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
-import { Button, Card, Icon } from 'react-native-elements';
+import { Button, Icon, CheckBox } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
 
@@ -43,16 +43,39 @@ export default class Materials extends Component {
     console.log('working');
     console.log(material);
     axios.delete(api() + '/projects/' + material.projectId + '/materials/' + material.id)
-      .then((response) => {
-        console.log('deleted');
-        this.getMaterials()
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    .then((response) => {
+      console.log('deleted');
+      this.getMaterials()
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  toggleChecked(material) {
+    console.log(material.checked);
+    var materialChecked = material.checked
+    console.log(materialChecked);
+    axios.patch(api() + '/projects/' + material.projectId + '/materials/' + material.id, material)
+    .then((response) => {
+      console.log(material);
+      this.getMaterials()
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
+    var br = <Text>{"\n"}</Text>
+    const deleteIcon = <Icon
+      style={styles.itemRowButton}
+      name='delete'
+      size={25}
+      color='#242424'
+      onPress={()=> this.deleteMaterial(material)
+    }/>
+
     return (
       <View style={styles.contentContainer}>
         <View style={styles.topContainer}>
@@ -76,21 +99,34 @@ export default class Materials extends Component {
               (material) => {
                 console.log(material);
                 return (
-
-                  <TouchableHighlight onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}>
-                    <View style={styles.itemRow}>
+                  // <TouchableHighlight onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}>
+                    <View style={styles.checkboxContainer}                         onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}
+                      >
                     {/* Actions.materialModal({id: this.props.id}) */}
-                      <Text style={styles.itemRowText}>{material.quantity}</Text>
-                      <Text style={styles.itemRowText}>{material.name}</Text>
+                      <CheckBox
+                        // containerStyle={styles.itemRow}
+                        title= {material.name + ' ' + material.quantity}
+                        checked={material.checked}
+                        checkedColor='#00CCFF'
+                        onIconPress={()=> this.toggleChecked(material)}
+                        style={styles.checkbox}
+                      />
+                      {/* <View>
+                        <Text style={styles.itemRowText}>
+                          {material.name}
+                          {'\n'}
+                          {material.quantity}
+                        </Text>
+                      </View> */}
                       <Icon
-                        style={styles.itemRowButton}
+                        style={styles.itemDelete}
                         name='delete'
-                        size={25}
-                        color='#212121'
+                        size={22}
+                        color='#242424'
                         onPress={()=> this.deleteMaterial(material)
                       }/>
                     </View>
-                  </TouchableHighlight>
+                  // </TouchableHighlight>
 
                 )
               }

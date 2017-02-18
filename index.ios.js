@@ -21,6 +21,9 @@ import Materials from './Materials';
 import NewMaterial from './NewMaterial';
 import MaterialModal from './MaterialModal';
 
+// import CameraApp from './CameraApp';
+
+
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
 

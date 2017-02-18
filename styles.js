@@ -125,6 +125,10 @@ export default StyleSheet.create({
   itemsList: {
     margin: 10,
   },
+  itemRowContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
   itemRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -134,6 +138,9 @@ export default StyleSheet.create({
     paddingLeft: 2,
     lineHeight: 25,
     fontSize: 16,
+  },
+  itemRowButton: {
+    opacity: 0.5
   },
   //NewProject
   formContainer: {
@@ -157,4 +164,28 @@ export default StyleSheet.create({
     alignItems:'center',
     justifyContent: 'space-between'
   },
+  //Modals
+  modalContainer: {
+    width: 300,
+    height: 400,
+    backgroundColor: 'gray',
+    alignSelf: 'center',
+  },
+  //CheckBox
+  checkboxContainer: {
+    margin: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    // backgroundColor: '#fafafa',
+    borderColor: '#ededed',
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 3
+  },
+  checkbox: {
+    backgroundColor: 'blue'
+  },
+  itemDelete: {
+    backgroundColor: 'red'
+  }
 });
