@@ -78,7 +78,7 @@ export default class Budget extends Component {
             title='Back'
             backgroundColor= '#FFC107'
             style={styles.backButton}
-            onPress={()=> {Actions.pop()}}/>
+            onPress={()=> {Actions.popTo('singleProject')}}/>
         </View>
       </View>
         );
