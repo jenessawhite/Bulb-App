@@ -4,6 +4,7 @@ import { Button, Card, Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
 
+import Transactions from './Transactions';
 import api from './api';
 import styles from './styles';
 
@@ -17,7 +18,6 @@ export default class Budget extends Component {
   }
 
   componentDidMount(props) {
-    console.log(this.props);
     console.log(this.props.id);
     this.getBudget()
   }
@@ -34,14 +34,14 @@ export default class Budget extends Component {
       });
   }
 //map then reduce
-  updateBudget(material) {
-    console.log(material.checked);
-    var materialChecked = material.checked
-    console.log(materialChecked);
-    axios.patch(api() + '/projects/' + material.projectId + '/materials/' + material.id, material)
+  updateBudget(budget) {
+    console.log(budget.checked);
+    var budgetChecked = budget.checked
+    console.log(budgetChecked);
+    axios.patch(api() + '/projects/' + budget.projectId + '/materials/' + budget.id, budget)
     .then((response) => {
-      console.log(material);
-      this.getMaterials()
+      console.log(budget);
+      this.getBudget()
     })
     .catch(function (error) {
       console.log(error);
@@ -56,7 +56,10 @@ export default class Budget extends Component {
           <Text style={styles.pageTitle}>Budget</Text>
           <Text style={styles.pageDescription}>This is your current budget</Text>
         </View>
-        <View style={styles.content}>
+
+        <Transactions id={this.props.id} />
+
+        <View style={styles.budgetNumbers}>
           {this.state.budgetList.map((budget, index) => {
             return (
               <View key={budget.id}>

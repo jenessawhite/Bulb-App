@@ -20,6 +20,8 @@ import NewPhoto from './NewPhoto';
 import Materials from './Materials';
 import NewMaterial from './NewMaterial';
 import MaterialModal from './MaterialModal';
+import TransactionModal from './TransactionModal';
+import Transactions from './Transactions';
 
 // import CameraApp from './CameraApp';
 
@@ -88,6 +90,7 @@ export default class diyApp extends Component {
             <Scene key="newMaterialModal" component={NewMaterial} />
             <Scene key="materialModal" component={MaterialModal} />
             <Scene key="budget" component={Budget} />
+            <Scene key="transactionModal" component={TransactionModal} />
             <Scene key="photos" component={Photos} />
             <Scene direction="vertical" key="newPhotoModal" component={NewPhoto} />
             <Scene key="tasks" component={Tasks} />

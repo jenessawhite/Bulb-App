@@ -84,6 +84,7 @@ export default StyleSheet.create({
   //assets
   contentContainer: {
     height: height,
+    flex: 1,
     // backgroundColor: '#B2DFDB',
   },
   topContainer: {
@@ -93,6 +94,9 @@ export default StyleSheet.create({
     flex: 1,
   },
   photoContent:{
+    width: width,
+  },
+  budgetNumbers: {
     width: width,
   },
   backContainer: {
@@ -176,16 +180,17 @@ export default StyleSheet.create({
     margin: 5,
     marginLeft: 10,
     marginRight: 10,
-    // backgroundColor: '#fafafa',
-    borderColor: '#ededed',
-    borderWidth: 1,
+    backgroundColor: 'transparent',
+    borderBottomColor: '#ededed',
+    borderBottomWidth: 1,
     padding: 10,
-    borderRadius: 3
   },
   checkbox: {
-    backgroundColor: 'blue'
+    backgroundColor: 'blue',
+    flex: 2
   },
   itemDelete: {
-    backgroundColor: 'red'
+    backgroundColor: 'red',
+    flex: 1
   }
 });

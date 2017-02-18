@@ -18,6 +18,24 @@ var sequelize = new Sequelize(process.env.DATABASE_URL);
 // fields would be the column names in the database, external are
 // what you would use in your code.
 
+//Define Transaction
+var Transaction = sequelize.define('transaction', {
+  store: {
+    type: Sequelize.STRING,
+    field: 'store'
+  },
+  item: {
+    type: Sequelize.STRING,
+    field: 'item'
+  },
+  price: {
+    type: Sequelize.FLOAT,
+    field: 'price',
+  },
+}, {
+  freezeTableName: true
+});
+
 //Define Budget
 var Budget = sequelize.define('budget', {
   estimated: {
@@ -130,12 +148,14 @@ var User = sequelize.define('user', {
 // Project.belongsTo(User);
 Task.belongsTo(Project);
 Material.belongsTo(Project);
+Transaction.belongsTo(Project);
 Budget.belongsTo(Project);
 Photo.belongsTo(Project);
 
 // User.hasMany(Project);
 Project.hasMany(Task);
 Project.hasMany(Material);
+Project.hasMany(Transaction);
 Project.hasMany(Budget);
 Project.hasMany(Photo);
 
@@ -221,6 +241,34 @@ if(process.env.NODE_ENV !== 'production') {
       model: Material
     }
 
+    var transactions = {
+      data: [
+        {
+          store: 'Home Depot',
+          item: 'Valspar',
+          price: 45.09,
+          projectId: 1
+        }, {
+          store: 'Home Depot',
+          item: 'sandpaper',
+          price: 5.49,
+          projectId: 1
+        },
+        {
+          store: 'Menards',
+          item: 'roller',
+          price: 10.00,
+          projectId: 2
+        }, {
+          store: 'Lowes',
+          item: 'Valspar',
+          price: 45.09,
+          projectId: 2
+        },
+      ],
+      model: Transaction
+    }
+
     var budgets = {
       data: [
         {
@@ -261,6 +309,7 @@ if(process.env.NODE_ENV !== 'production') {
       projects,
       tasks,
       materials,
+      transactions,
       budgets,
       photos
     ]).then(() =>{
@@ -323,6 +372,97 @@ function startExpress() {
       res.send('deleted')
     }).catch(err => {})
   });
+  // --------------TRANSACTIONS-------------------------
+
+  // Get all transactions
+  app.get('/api/projects/:id/transactions', (req, res) => {
+    // Find all transactions
+    Transaction.findAll({
+      where: {
+        projectId: req.params.id,
+      }
+    }).then((transactions) => {
+      res.json(transactions);
+      });
+  });
+
+  // Get a single transaction
+  app.get('/api/projects/:projectId/transactions/:id', (req, res) => {
+    // Find all transactions
+    Transaction.findAll({
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      }
+    }).then((transactions) => {
+      res.json(transactions);
+      });
+  });
+
+  // Update a single transaction
+  app.patch('/api/projects/:projectId/transactions/:id', (req, res, transaction) => {
+    res.json(req.params.transaction)
+    Transaction.update({
+      price: !req.body.price
+    }, {
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      }
+    }).then((transactions) => {
+      Transaction.findAll().then((transactions) => {
+        res.json(transactions);
+        console.log('Updated price');
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {
+      console.log(err);
+    })
+  });
+
+  // Create a new transactions
+  app.post('/api/projects/:id/transactions', (req, res) => {
+    res.json('Got ourselves a POST request!')
+    Transaction.create({
+      where: {
+        projectId: req.params.id,
+      },
+      store: req.body.store,
+      item: req.body.item,
+      price: req.body.price,
+      projectId: req.params.id
+    }).then((transactions) => {
+      Transaction.findAll().then((transactions) => {
+        res.json(transactions);
+        console.log('Posted new transaction!');
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {
+      console.log(err);
+    })
+  });
+
+  // Delete a transaction
+  app.delete('/api/projects/:projectId/transactions/:id', function (req, res) {
+    res.json('Got a DELETE request at /transactions')
+    Transaction.destroy({
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      }
+    }).then((transactions)=>{
+      Transaction.findAll().then((transactions) => {
+        return (
+          res.json(transactions)
+        )
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {})
+  });
+
 
   // --------------BUDGET-------------------------
 

@@ -90,7 +90,7 @@ export default class Materials extends Component {
             size={25}
             onPress={()=> {Actions.newMaterialModal({id: this.props.id})}}/>
         </View>
-        <View style={styles.content}>
+        <View>
           <ListView
             style={styles.itemsList}
             enableEmptySections={true}
@@ -99,9 +99,9 @@ export default class Materials extends Component {
               (material) => {
                 console.log(material);
                 return (
-                  // <TouchableHighlight onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}>
-                    <View style={styles.checkboxContainer}                         onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}
-                      >
+                  // <TouchableHighlight onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}> style={styles.content} style={styles.itemsList}
+
+                    <View style={styles.checkboxContainer} onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}} >
                     {/* Actions.materialModal({id: this.props.id}) */}
                       <CheckBox
                         // containerStyle={styles.itemRow}
@@ -109,22 +109,14 @@ export default class Materials extends Component {
                         checked={material.checked}
                         checkedColor='#00CCFF'
                         onIconPress={()=> this.toggleChecked(material)}
-                        style={styles.checkbox}
-                      />
-                      {/* <View>
-                        <Text style={styles.itemRowText}>
-                          {material.name}
-                          {'\n'}
-                          {material.quantity}
-                        </Text>
-                      </View> */}
+                        onTextPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}
+                        style={styles.checkbox} />
                       <Icon
                         style={styles.itemDelete}
                         name='delete'
                         size={22}
                         color='#242424'
-                        onPress={()=> this.deleteMaterial(material)
-                      }/>
+                        onPress={()=> this.deleteMaterial(material)} />
                     </View>
                   // </TouchableHighlight>
 
