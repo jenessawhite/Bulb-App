@@ -95,12 +95,25 @@ export default StyleSheet.create({
   },
   photoContent:{
     width: width,
+    backgroundColor: '#B2DFDB',
+  },
+  budgetContainer: {
+    width: width,
+    height: height,
+    backgroundColor: '#555',
+    // justifyContent: 'space-between'
+  },
+  transactionContainer:{
+    width: width,
+    flex: 1,
+    backgroundColor: '#90FFFF',
   },
   budgetNumbers: {
     width: width,
+    backgroundColor: '#B2DFDB',
   },
   backContainer: {
-    position: 'absolute',
+    // position: 'absolute',
     bottom: 0,
     right: 0,
     width: width,
@@ -162,7 +175,6 @@ export default StyleSheet.create({
   cardContainer: {
     borderRadius: 5,
     backgroundColor: '#FFC107',
-    borderColor:'#FFC107',
     width:150,
     height:150,
     alignItems:'center',

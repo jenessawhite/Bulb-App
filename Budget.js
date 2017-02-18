@@ -51,7 +51,7 @@ export default class Budget extends Component {
 
   render() {
     return (
-      <View style={styles.contentContainer}>
+      <View style={styles.budgetContainer}>
         <View style={styles.topContainer}>
           <Text style={styles.pageTitle}>Budget</Text>
           <Text style={styles.pageDescription}>This is your current budget</Text>
@@ -59,18 +59,19 @@ export default class Budget extends Component {
 
         <Transactions id={this.props.id} />
 
-        <View style={styles.budgetNumbers}>
-          {this.state.budgetList.map((budget, index) => {
-            return (
-              <View key={budget.id}>
-                <Text>Estimated: ${budget.estimated}</Text>
-                <Text>Actual: ${budget.actual}</Text>
-              </View>
-            )
-          })}
-        </View>
 
         <View style={styles.backContainer}>
+          <View style={styles.budgetNumbers}>
+            {this.state.budgetList.map((budget, index) => {
+              return (
+                <View key={budget.id}>
+                  <Text>Estimated: ${budget.estimated}</Text>
+                  <Text>Actual: ${budget.actual}</Text>
+                </View>
+              )
+            })}
+          </View>
+
           <Button
             raised
             icon={{name: 'arrow-back'}}

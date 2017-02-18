@@ -264,6 +264,27 @@ if(process.env.NODE_ENV !== 'production') {
           item: 'Valspar',
           price: 45.09,
           projectId: 2
+        }, {
+          store: 'Home Depot',
+          item: 'coffee',
+          price: 45.09,
+          projectId: 1
+        }, {
+          store: 'Home Depot',
+          item: 'test',
+          price: 5.49,
+          projectId: 1
+        },
+        {
+          store: 'Menards',
+          item: 'test',
+          price: 10.00,
+          projectId: 2
+        }, {
+          store: 'Lowes',
+          item: 'test',
+          price: 45.09,
+          projectId: 2
         },
       ],
       model: Transaction
@@ -411,8 +432,9 @@ function startExpress() {
       }
     }).then((transactions) => {
       Transaction.findAll().then((transactions) => {
-        res.json(transactions);
-        console.log('Updated price');
+        return (
+          res.json(transactions)
+        )
       }).catch(err => {
         console.log(err);
       })
@@ -423,7 +445,6 @@ function startExpress() {
 
   // Create a new transactions
   app.post('/api/projects/:id/transactions', (req, res) => {
-    res.json('Got ourselves a POST request!')
     Transaction.create({
       where: {
         projectId: req.params.id,
@@ -434,8 +455,10 @@ function startExpress() {
       projectId: req.params.id
     }).then((transactions) => {
       Transaction.findAll().then((transactions) => {
-        res.json(transactions);
-        console.log('Posted new transaction!');
+        console.log('Posted new transaction!')
+        return (
+          res.json(transactions)
+        )
       }).catch(err => {
         console.log(err);
       })

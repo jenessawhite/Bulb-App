@@ -8,41 +8,39 @@ import api from './api';
 import styles from './styles';
 
 
-export default class NewMaterial extends Component {
+export default class NewTransaction extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      materialsList: [],
-      name: '',
-      description: '',
-      quantity: null,
-      checked: false,
+      transactionsList: [],
+      store: '',
+      item: '',
+      price: null,
     }
   }
 
   componentDidMount(props) {
     console.log('projectId: ' + this.props.id);
-    console.log('Scene name: ' + this.props.name);
-    this.getMaterials()
+    this.getTransactions()
   }
 
-  getMaterials() {
-    axios.get(api() + '/projects/' + this.props.id + '/materials')
+  getTransactions() {
+    axios.get(api() + '/projects/' + this.props.id + '/transactions')
       .then((response) => {
-        let materialsList = response.data;
-        console.log('Materials List: ' + materialsList);
-        this.setState ({materialsList})
+        let transactionsList = response.data;
+        console.log(transactionsList);
+        this.setState ({transactionsList})
       })
       .catch(function (error) {
-        console.log('Here is your error: ' + error);
+        console.log(error);
       });
   }
 
   handleFormChange() {
     this.setState({
-      name: this.state.name,
-      description: this.state.description,
-      quantity: this.state.quantity,
+      store: this.state.store,
+      item: this.state.item,
+      price: this.state.price,
     })
   }
 
@@ -50,20 +48,19 @@ export default class NewMaterial extends Component {
     console.log('focused');
   }
 
-  saveMaterial(props) {
-    let newMaterial = {
-      name: this.state.name,
-      description: this.state.description,
-      quantity: this.state.quantity,
-      checked: false,
+  saveTransaction(props) {
+    let newTransaction = {
+      store: this.state.store,
+      item: this.state.item,
+      price: this.state.price,
       projectId: this.props.id
     };
-    console.log('New material: ' + newMaterial);
+    console.log('New transaction: ' + newTransaction);
 
-    axios.post(api() + '/projects/' + this.props.id + '/materials', newMaterial).then((response) => {
-      console.log('Material (after post): ' + newMaterial);
+    axios.post(api() + '/projects/' + this.props.id + '/transactions', newTransaction).then((response) => {
+      console.log('Material (after post): ' + newTransaction);
       console.log(response.data);
-      Actions.materials({id: this.props.id, name: this.props.name})
+      Actions.budget({id: this.props.id})
     })
     .catch(function (error) {
       console.log('You have an ' + error);
@@ -82,27 +79,26 @@ export default class NewMaterial extends Component {
           <TextInput
             style={{borderBottomWidth:2, borderColor: 'black', paddingTop:10, height:40 }}
             keyboardType='default'
-            value={this.state.name}
-            placeholder="Material Name"
+            value={this.state.item}
+            placeholder="Item"
             returnKeyType="done"
-            onChangeText={(name) => this.setState({name})}
-          />
-          <TextInput
-            style={{borderBottomWidth:2, borderColor: 'black', paddingTop:10, height:40 }}
-            keyboardType='numeric'
-            value={this.state.quantity}
-            placeholder="quantity"
-            returnKeyType="done"
-            onChangeText={(quantity) => this.setState({quantity})}
+            onChangeText={(item) => this.setState({item})}
           />
           <TextInput
             style={{borderBottomWidth:2, borderColor: 'black', paddingTop:10, height:40}}
             keyboardType='default'
-            value={this.state.description}
-            placeholder="Material Description"
-            multiline={true}
+            value={this.state.store}
+            placeholder="Store"
             returnKeyType="done"
-            onChangeText={(description) => this.setState({description})}
+            onChangeText={(store) => this.setState({store})}
+          />
+          <TextInput
+            style={{borderBottomWidth:2, borderColor: 'black', paddingTop:10, height:40 }}
+            keyboardType='numeric'
+            value={this.state.price}
+            placeholder="Price"
+            returnKeyType="done"
+            onChangeText={(price) => this.setState({price})}
           />
         </ScrollView>
 
@@ -112,7 +108,7 @@ export default class NewMaterial extends Component {
           backgroundColor= '#FFC107'
           icon={{name: 'navigate-next'}}
           title='SAVE'
-          onPress={this.saveMaterial.bind(this)}/>
+          onPress={this.saveTransaction.bind(this)}/>
 
         <Button
           iconRight
