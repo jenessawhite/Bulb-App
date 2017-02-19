@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Alert, Image, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
-import {Actions} from 'react-native-router-flux';
+import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
 
 import api from './api';
@@ -35,20 +35,22 @@ export default class Photos extends Component {
   render() {
     return (
       <View style={styles.contentContainer}>
-        <View style={styles.topContainer}>
-          <Text style={styles.pageTitle}>Photos</Text>
-          <Text style={styles.pageDescription}>
-            These are your photos
-          </Text>
+        <View style={styles.topBanner}>
+          <Text style={styles.title}>BULB</Text>
         </View>
+
         <View style ={styles.newItemsHolder}>
-          <Text style ={styles.newItemsText}>UPLOAD PHOTOS</Text>
-          <Icon
-            name='add'
-            color='#212121'
-            size={25}
-            onPress={()=> {Actions.newPhotoModal({id: this.props.id})}}/>
+          <Text style ={styles.newItemsText}>Photos</Text>
+          <Button
+            raised
+            icon={{name: 'md-add', type: 'ionicon', buttonStyle: styles.newButton }}
+            title='New Photo'
+            color='#fcfcfc'
+            backgroundColor='#2ed2ff'
+            buttonStyle= {styles.newButton}
+            onPress={()=> {Actions.newPhotoModal()}} />
         </View>
+
         <ScrollView horizontal style={styles.photoContent}>
           {this.state.photosList.map((photo, index) => {
             return (
@@ -59,15 +61,24 @@ export default class Photos extends Component {
             )
           })}
         </ScrollView>
-        <View style={styles.backContainer}>
-          <Button
-            raised
-            icon={{name: 'arrow-back'}}
-            title='Back'
-            backgroundColor= '#FFC107'
-            style={styles.backButton}
-            onPress={()=> {Actions.pop()}}/>
+
+        <View style={styles.spTabs}>
+          <View style={styles.backTabButton}>
+            <Icon
+              name='md-arrow-back'
+              type='ionicon'
+              color='#242424'
+              onPress={()=> {Actions.popTo('singleProject')}} />
+          </View>
+          <View style={styles.homeTabButton}>
+            <Icon
+              name='home'
+              type='octicon'
+              color='#242424'
+              onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
+          </View>
         </View>
+
       </View>
     );
   }

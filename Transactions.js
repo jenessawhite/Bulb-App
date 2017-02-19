@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Icon, CheckBox } from 'react-native-elements';
-import {Actions} from 'react-native-router-flux';
+import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
 
 import api from './api';
@@ -77,42 +77,32 @@ export default class Transactions extends Component {
 
     return (
       <View style={styles.transactionContainer}>
-        <View style ={styles.newItemsHolder}>
-          <Text style ={styles.newItemsText}>NEW TRANSACTION</Text>
-          <Icon
-            name='add'
-            color='#212121'
-            size={25}
-            onPress={()=> {Actions.newTransactionModal({id: this.props.id})}}/>
-        </View>
-        <View>
-          <ListView
-            style={styles.itemsList}
-            enableEmptySections={true}
-            dataSource={this.state.transactionsList}
-            renderRow={
-              (transaction) => {
-                console.log(transaction);
-                return (
-                  // <TouchableHighlight onPress={()=> {Actions.transactionModal({projectId: this.props.id, id: transaction.id})}}> style={styles.content} style={styles.itemsList}
+        <ListView
+          style={styles.itemsList}
+          enableEmptySections={true}
+          dataSource={this.state.transactionsList}
+          renderRow={
+            (transaction) => {
+              console.log(transaction);
+              return (
+                // <TouchableHighlight onPress={()=> {Actions.transactionModal({projectId: this.props.id, id: transaction.id})}}> style={styles.content} style={styles.itemsList}
 
-                    <View style={styles.checkboxContainer} onPress={()=> {Actions.transactionModal({projectId: this.props.id, id: transaction.id})}} >
-                      <Text h3>{transaction.item}</Text>
-                      <Text>{transaction.store}</Text>
+                  <View style={styles.checkboxContainer} onPress={()=> {Actions.transactionModal({projectId: this.props.id, id: transaction.id})}} >
+                    <Text h3>{transaction.item}</Text>
+                    <Text>{transaction.store}</Text>
 
-                      <Icon
-                        style={styles.itemDelete}
-                        name='delete'
-                        size={22}
-                        color='#242424'
-                        onPress={()=> this.deleteTransaction(transaction)} />
-                    </View>
-                  // </TouchableHighlight>
+                    <Icon
+                      style={styles.itemDelete}
+                      name='delete'
+                      size={22}
+                      color='#242424'
+                      onPress={()=> this.deleteTransaction(transaction)} />
+                  </View>
+                // </TouchableHighlight>
 
-                )
-              }
-            } />
-        </View>
+              )
+            }
+          } />
       </View>
     );
   }

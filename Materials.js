@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
+import { Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Icon, CheckBox } from 'react-native-elements';
-import {Actions} from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import axios from 'axios';
 
 import api from './api';
@@ -40,7 +40,6 @@ export default class Materials extends Component {
   }
 
   deleteMaterial(material) {
-    console.log('working');
     console.log(material);
     axios.delete(api() + '/projects/' + material.projectId + '/materials/' + material.id)
     .then((response) => {
@@ -78,18 +77,22 @@ export default class Materials extends Component {
 
     return (
       <View style={styles.contentContainer}>
-        <View style={styles.topContainer}>
-          <Text style={styles.pageTitle}>Materials</Text>
-          <Text style={styles.pageDescription}>This is your current list of materials</Text>
+        <View style={styles.topBanner}>
+          <Text style={styles.title}>BULB</Text>
         </View>
+
         <View style ={styles.newItemsHolder}>
-          <Text style ={styles.newItemsText}>NEW MATERIAL</Text>
-          <Icon
-            name='add'
-            color='#212121'
-            size={25}
-            onPress={()=> {Actions.newMaterialModal({id: this.props.id})}}/>
+          <Text style ={styles.newItemsText}>Materials</Text>
+          <Button
+            raised
+            icon={{name: 'md-add', type: 'ionicon', buttonStyle: styles.newButton }}
+            title='New Material'
+            color='#fcfcfc'
+            backgroundColor='#2ed2ff'
+            buttonStyle= {styles.newButton}
+            onPress={()=> {Actions.newMaterialModal()}} />
         </View>
+
         <View>
           <ListView
             style={styles.itemsList}
@@ -99,41 +102,46 @@ export default class Materials extends Component {
               (material) => {
                 console.log(material);
                 return (
-                  // <TouchableHighlight onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}> style={styles.content} style={styles.itemsList}
-
                     <View style={styles.checkboxContainer} onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}} >
-                    {/* Actions.materialModal({id: this.props.id}) */}
                       <CheckBox
-                        // containerStyle={styles.itemRow}
                         title= {material.name + ' ' + material.quantity}
                         checked={material.checked}
                         checkedColor='#00CCFF'
                         onIconPress={()=> this.toggleChecked(material)}
-                        onTextPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}
+                        onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}
                         style={styles.checkbox} />
-                      <Icon
-                        style={styles.itemDelete}
-                        name='delete'
-                        size={22}
-                        color='#242424'
-                        onPress={()=> this.deleteMaterial(material)} />
+                      <View style={styles.itemDelete}>
+                        <Icon
+                          style={styles.itemDelete}
+                          name='delete'
+                          size={22}
+                          color='#242424'
+                          onPress={()=> this.deleteMaterial(material)} />
+                      </View>
                     </View>
-                  // </TouchableHighlight>
-
                 )
               }
             }
           />
         </View>
-        <View style={styles.backContainer}>
-          <Button
-            raised
-            icon={{name: 'arrow-back'}}
-            title='Back'
-            backgroundColor= '#FFC107'
-            style={styles.backButton}
-            onPress={()=> {Actions.popTo('singleProject')}}/>
+
+        <View style={styles.spTabs}>
+          <View style={styles.backTabButton}>
+            <Icon
+              name='md-arrow-back'
+              type='ionicon'
+              color='#242424'
+              onPress={()=> {Actions.popTo('singleProject')}} />
+          </View>
+          <View style={styles.homeTabButton}>
+            <Icon
+              name='home'
+              type='octicon'
+              color='#242424'
+              onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
+          </View>
         </View>
+
       </View>
     );
   }

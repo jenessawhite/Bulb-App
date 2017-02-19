@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, ScrollView, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { Alert, Modal, ScrollView, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { Button, FormLabel, FormInput, Icon } from 'react-native-elements';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import axios from 'axios';
@@ -12,13 +12,15 @@ export default class NewProject extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      name: ''
+      name: '',
+      description: '',
     }
   }
 
   handleFormChange() {
     this.setState({
-      name: this.state.name
+      name: this.state.name,
+      description: this.state.description
     })
   }
 
@@ -27,16 +29,24 @@ export default class NewProject extends Component {
   }
 
   saveProject() {
-    let newProject = {
-      name: this.state.name,
-    };
-    axios.post(api() + '/projects', newProject).then((response) => {
-      console.log(newProject);
-      Actions.popTo('singleProject');
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    if (this.state.name === '') {
+      Alert.alert(
+        'Woah there',
+        'Your project needs a name!',
+      )
+    } else {
+      let newProject = {
+        name: this.state.name,
+        description: this.state.description
+      };
+      axios.post(api() + '/projects', newProject).then((response) => {
+        console.log(newProject);
+        Actions.singleProjectHold({id: newProject.id, name: newProject.name, description: newProject.description});
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
   }
 
   render() {

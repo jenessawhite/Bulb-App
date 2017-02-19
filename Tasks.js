@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
-import { Button, Card, Icon } from 'react-native-elements';
-import {Actions} from 'react-native-router-flux';
+import { Button, Icon, CheckBox } from 'react-native-elements';
+import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
 
 import api from './api';
@@ -38,33 +38,52 @@ export default class Tasks extends Component {
       });
   }
 
-  deleteTask() {
-    axios.delete(api() + '/projects/' + this.props.id + '/tasks' + this.props.id )
-      .then((response) => {
-        let tasksList = this.state.ds.cloneWithRows(response.data);
-        console.log(tasksList);
-        this.setState ({tasksList})
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  deleteTask(task) {
+    console.log(task);
+    axios.delete(api() + '/projects/' + task.projectId + '/tasks/' + task.id)
+    .then((response) => {
+      console.log('deleted');
+      this.getTasks()
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+
+  toggleChecked(task) {
+    console.log(task.completed);
+    var taskChecked = task.completed
+    console.log(taskChecked);
+    axios.patch(api() + '/projects/' + task.projectId + '/tasks/' + task.id, task)
+    .then((response) => {
+      console.log(task);
+      this.getTasks()
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
     return (
       <View style={styles.contentContainer}>
-        <View style={styles.topContainer}>
-          <Text style={styles.pageTitle}>Tasks</Text>
-          <Text style={styles.pageDescription}>These are your tasks</Text>
+        <View style={styles.topBanner}>
+          <Text style={styles.title}>BULB</Text>
         </View>
+
         <View style ={styles.newItemsHolder}>
-          <Text style ={styles.newItemsText}>NEW TASK</Text>
-          <Icon
-            name='add'
-            color='#212121'
-            size={25}
-            onPress={()=> {Actions.newTaskModal({id: this.props.id})}} />
+          <Text style ={styles.newItemsText}>Tasks</Text>
+          <Button
+            raised
+            icon={{name: 'md-add', type: 'ionicon', buttonStyle: styles.newButton }}
+            title='New Task'
+            color='#fcfcfc'
+            backgroundColor='#2ed2ff'
+            buttonStyle= {styles.newButton}
+            onPress={()=> {Actions.newTaskModal()}} />
         </View>
+
         <View style={styles.content}>
           <ListView
             style={styles.itemsList}
@@ -74,30 +93,56 @@ export default class Tasks extends Component {
               (task) => {
                 console.log(task, task.id);
                 return (
-                  <View style={styles.itemRow}>
-                    <Text style={styles.itemRowText}>{task.title}</Text>
-                    <Icon
-                      style={styles.itemRowButton}
-                      name='delete'
-                      size={25}
-                      color='#212121'
-                      onPress={()=> { Alert.alert('Are you sure you want to delete this task?') }}/>
+                  <View style={styles.checkboxContainer} onPress={()=> {Actions.taskModal({projectId: this.props.id, id: task.id})}} >
+                    <CheckBox
+                      title= {task.title}
+                      checked={task.completed}
+                      checkedColor='#00CCFF'
+                      onIconPress={()=> this.toggleChecked(task)}
+                      onPress={()=> {Actions.taskModal({projectId: this.props.id, id: task.id})}}
+                      style={styles.checkbox} />
+                    <View style={styles.itemDelete}>
+                      <Icon
+                        style={styles.itemDelete}
+                        name='delete'
+                        size={22}
+                        color='#242424'
+                        onPress={()=> {
+                          Alert.alert(
+                            'Confirm Delete',
+                            'Are you sure you want to delete this task? (This can\'t be undone)',
+                            [
+                              {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
+                              {text: 'Yes', style: 'destructive', onPress: () => this.deleteTask(task)},
+                            ]
+                          )
+                        }} />
+                    </View>
                   </View>
+
                 )
               }
             }
           />
         </View>
 
-        <View style={styles.backContainer}>
-          <Button
-            raised
-            icon={{name: 'arrow-back'}}
-            title='Back'
-            backgroundColor= '#FFC107'
-            style={styles.backButton}
-            onPress={()=> {Actions.popTo('singleProject')}}/>
+        <View style={styles.spTabs}>
+          <View style={styles.backTabButton}>
+            <Icon
+              name='md-arrow-back'
+              type='ionicon'
+              color='#242424'
+              onPress={()=> {Actions.popTo('singleProject')}} />
+          </View>
+          <View style={styles.homeTabButton}>
+            <Icon
+              name='home'
+              type='octicon'
+              color='#242424'
+              onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
+          </View>
         </View>
+
       </View>
     );
   }

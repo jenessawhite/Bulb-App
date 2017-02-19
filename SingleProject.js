@@ -19,75 +19,82 @@ export default class SingleProject extends Component {
   render() {
     return (
       <View style={styles.contentContainer}>
-        <View style={styles.topContainer}>
-          <Text style={styles.pageTitle}>{this.props.name}</Text>
+        <View style={styles.topBanner}>
+          <Text style={styles.title}>BULB</Text>
         </View>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around'}}>
+
+        <Text style={styles.pageTitle}>{this.props.name}</Text>
+
+        <View style={styles.cards}>
+            <Card containerStyle={styles.cardContainer}>
+              <View style={styles.iconCircle}>
+                <Icon
+                  name='ios-hammer'
+                  type='ionicon'
+                  size={50}
+                  color='#ff2e69'
+                  onPress={()=> {Actions.tasks({id: this.props.id, name: this.props.name})}} />
+              </View>
+              <Button
+                backgroundColor='transparent'
+                buttonStyle={styles.cardButton}
+                color='#242424'
+                title='Tasks'
+                onPress={()=> {Actions.tasks({id: this.props.id, name: this.props.name})}} />
+            </Card>
+
+            <Card containerStyle={styles.cardContainer}>
+              <Icon
+                name='ios-list-box'
+                type='ionicon'
+                size={50}
+                color='#ff2e69'
+                onPress={()=> {Actions.materials({id: this.props.id})}} />
+              <Button
+                backgroundColor='transparent'
+                buttonStyle={styles.cardButton}
+                color='#242424'
+                title='Materials'
+                onPress={()=> {Actions.materials({id: this.props.id})}} />
+            </Card>
+
           <Card containerStyle={styles.cardContainer}>
             <Icon
-              name='checklist'
-              type='octicon'
+              name='ios-cash'
+              type='ionicon'
               size={50}
-              color='#212121'
-              underlayColor='#FFC107'
-              onPress={()=> {Actions.materials({id: this.props.id})}} />
-            <Button
-              backgroundColor='#00796B'
-              buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0}}
-              title='Materials'
-              onPress={()=> {Actions.materials({id: this.props.id})}} />
-          </Card>
-          <Card containerStyle={{borderRadius: 5, backgroundColor: '#FFC107', borderColor:'#FFC107', width:150, height:150, alignItems:'center', justifyContent: 'space-between'}}>
-            <Icon
-              name='tools'
-              type='octicon'
-              size={50}
-              color='#212121'
-              underlayColor='#FFC107'
-              onPress={()=> {Actions.tasks({id: this.props.id, name: this.props.name})}} />
-            <Button
-              backgroundColor='#00796B'
-              buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0}}
-              title='Tasks'
-              onPress={()=> {Actions.tasks({id: this.props.id, name: this.props.name})}} />
-          </Card>
-          <Card containerStyle={{borderRadius: 5, backgroundColor: '#FFC107', borderColor:'#FFC107', width:150, height:150, alignItems:'center', justifyContent: 'space-between'}}>
-            <Icon
-              name='credit-card'
-              type='octicon'
-              size={50}
-              color='#212121'
-              underlayColor='#FFC107'
+              color='#ff2e69'
               onPress={()=> {Actions.budget({id: this.props.id, estimated: this.props.estimated})}} />
             <Button
-              backgroundColor= 'transparent'
-              fontWeight= 'bold'
-              fontSize= {26}
-              color='#00796B'
-              buttonStyle={{borderRadius: 5}}
+              backgroundColor='transparent'
+              buttonStyle={styles.cardButton}
+              color='#242424'
               title='Budget'
-              onPress={()=> {Actions.budget({id: this.props.id, estimated: this.props.estimated})}} />
+              onPress={()=> {Actions.budget({id: this.props.id})}} />
           </Card>
-          <Card containerStyle={{borderRadius: 5, backgroundColor: '#FFC107', borderColor:'#FFC107', width:150, height:150, alignItems:'center', justifyContent: 'space-between'}}>
+
+          <Card containerStyle={styles.cardContainer} onPress={()=> {Actions.photos({id: this.props.id})}} >
             <Icon
               name='photo'
               type='font-awesome'
               size={45}
-              color='#212121'
-              underlayColor='#FFC107'
+              color='#ff2e69'
               onPress={()=> {Actions.photos({id: this.props.id})}} />
             <Button
-              backgroundColor='#00796B'
+              backgroundColor='transparent'
+              buttonStyle={styles.cardButton}
+              color='#242424'
               buttonStyle={{borderRadius: 0, marginTop: 10}}
               title='Photos'
               onPress={()=> {Actions.photos({id: this.props.id})}} />
           </Card>
         </View>
+
         <View style={styles.spTabs}>
-          <Button
-            backgroundColor='transparent'
-            buttonStyle={{borderRadius: 0}}
-            title='Home'
+          <Icon
+            name='home'
+            type='octicon'
+            color='#242424'
             onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
         </View>
       </View>

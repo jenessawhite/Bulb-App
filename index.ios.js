@@ -37,33 +37,33 @@ export default class diyApp extends Component {
     const HomeTabIcon = ({ selected, title }) => {
       return (
         <View>
-          <Icon
+          {/* <Icon
             name='home'
             size={25}
             iconStyle={{color: selected ? '#FFC107' :'#212121', fontWeight: selected ? 'bold' :'normal'}}/>
-          <Text style={{color: selected ? 'white' :'black', fontWeight: selected ? 'bold' :'normal'}}>{title}</Text>
+          <Text style={{color: selected ? 'white' :'black', fontWeight: selected ? 'bold' :'normal'}}>{title}</Text> */}
         </View>
       );
     }
     const NewProjectTabIcon = ({ selected, title }) => {
       return (
         <View>
-          <Icon
+          {/* <Icon
             name='add'
             size={25}
             iconStyle={{color: selected ? '#FFC107' :'#212121', fontWeight: selected ? 'bold' :'normal'}}/>
-          <Text style={{color: selected ? 'white' :'black', fontWeight: selected ? 'bold' :'normal'}}>{title}</Text>
+          <Text style={{color: selected ? 'white' :'black', fontWeight: selected ? 'bold' :'normal'}}>{title}</Text> */}
         </View>
       );
     }
     const ProfileTabIcon = ({ selected, title }) => {
       return (
         <View>
-          <Icon
+          {/* <Icon
             name='person'
             size={25}
             iconStyle={{color: selected ? '#FFC107' :'#212121', fontWeight: selected ? 'bold' :'normal'}}/>
-          <Text style={{color: selected ? 'white' :'black', fontWeight: selected ? 'bold' :'normal'}}>{title}</Text>
+          <Text style={{color: selected ? 'white' :'black', fontWeight: selected ? 'bold' :'normal'}}>{title}</Text> */}
         </View>
       );
     }
@@ -71,7 +71,7 @@ export default class diyApp extends Component {
       <Router>
         <Scene key="root">
           {/* Tab Container */}
-          <Scene key="tabbar" tabs={true} tabBarStyle={{height: 50,  backgroundColor: '#009688'}} type={ActionConst.REPLACE} >
+          <Scene key="tabbar" tabs={true} tabBarStyle={{height: 0,  backgroundColor: 'transparent'}} type={ActionConst.REPLACE} >
             {/* Tab and it's scenes */}
             <Scene key="homeTab" title="Home" icon={HomeTabIcon} hideNavBar>
               <Scene key="home" component={Home} title="Home"/>

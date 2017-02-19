@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Alert, ListView, Text, TextInput, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
-import {Actions} from 'react-native-router-flux';
+import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
 
 import Transactions from './Transactions';
@@ -52,15 +52,25 @@ export default class Budget extends Component {
   render() {
     return (
       <View style={styles.budgetContainer}>
-        <View style={styles.topContainer}>
-          <Text style={styles.pageTitle}>Budget</Text>
-          <Text style={styles.pageDescription}>This is your current budget</Text>
+        <View style={styles.topBanner}>
+          <Text style={styles.title}>BULB</Text>
+        </View>
+
+        <View style ={styles.newItemsHolder}>
+          <Text style ={styles.newItemsText}>Budget</Text>
+          <Button
+            raised
+            icon={{name: 'md-add', type: 'ionicon', buttonStyle: styles.newButton }}
+            title='New Transaction'
+            color='#fcfcfc'
+            backgroundColor='#2ed2ff'
+            buttonStyle= {styles.newButton}
+            onPress={()=> {Actions.newTransactionModal()}} />
         </View>
 
         <Transactions id={this.props.id} />
 
-
-        <View style={styles.backContainer}>
+        <View style={styles.bottomContainer}>
           <View style={styles.budgetNumbers}>
             {this.state.budgetList.map((budget, index) => {
               return (
@@ -72,13 +82,23 @@ export default class Budget extends Component {
             })}
           </View>
 
-          <Button
-            raised
-            icon={{name: 'arrow-back'}}
-            title='Back'
-            backgroundColor= '#FFC107'
-            style={styles.backButton}
-            onPress={()=> {Actions.popTo('singleProject')}}/>
+          <View style={styles.spTabs}>
+            <View style={styles.backTabButton}>
+              <Icon
+                name='md-arrow-back'
+                type='ionicon'
+                color='#242424'
+                onPress={()=> {Actions.popTo('singleProject')}} />
+            </View>
+            <View style={styles.homeTabButton}>
+              <Icon
+                name='home'
+                type='octicon'
+                color='#242424'
+                onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
+            </View>
+          </View>
+
         </View>
       </View>
         );

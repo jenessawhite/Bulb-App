@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
+import {Alert, Image, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import axios from 'axios';
-import {Actions} from 'react-native-router-flux';
+import {Actions, ActionConst} from 'react-native-router-flux';
 
 
 import api from './api';
@@ -19,9 +19,11 @@ export default class Home extends Component {
       projectsList: ds.cloneWithRows([])
     }
   }
+
   componentDidMount() {
     this.getProjects()
   }
+
   getProjects() {
     axios.get(api() + '/projects')
       .then((response) => {
@@ -32,44 +34,80 @@ export default class Home extends Component {
         console.log(error);
       });
   }
+
+  deleteProject(project) {
+    console.log('deleting');
+    axios.delete(api() + '/projects/' + project.id)
+    .then((response) => {
+      console.log('deleted');
+      this.getProjects()
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   render() {
     return (
-      <View style={styles.homeContainer}>
-        <Text style={styles.pageTitle}>Projects</Text>
-        <Text style={styles.pageDescription}>
-          This is your current list of projects
-        </Text>
+      <View style={styles.contentContainer}>
+        {/* Static banner */}
+        <View style={styles.topBanner}>
+          <Image
+            style={{width: 100, height: 50}}
+            source={{uri: 'https://s3.us-east-2.amazonaws.com/diy-app-tiy/bluebulblogo.png'}} />
+        </View>
+
         <View style ={styles.newItemsHolder}>
-          <Text style ={styles.newItemsText}>NEW PROJECT</Text>
-          <Icon
-            name='add'
-            color='#212121'
-            size={25}
+          <Text style ={styles.newItemsText}>Projects</Text>
+          <Button
+            raised
+            icon={{name: 'md-add', type: 'ionicon', buttonStyle: styles.newButton }}
+            title='New Project'
+            color='#fcfcfc'
+            backgroundColor='#2ed2ff'
+            buttonStyle= {styles.newButton}
             onPress={()=> {Actions.newProjectTab()}} />
         </View>
+
         <ScrollView style ={styles.itemsListHolder}>
           <ListView
-            style={styles.itemsList}
+            style={styles.projectsList}
             enableEmptySections={true}
             dataSource={this.state.projectsList}
             renderRow={
               (project) => {
                 console.log(project);
                 return (
-                  <View style={styles.itemRow}>
+                  <View style={styles.projectsRow}>
                     <Text style={styles.itemRowText} onPress={()=> { Actions.singleProjectHold({id: project.id, name: project.name}) }}>{project.name}</Text>
                     <Icon
                       style={styles.itemRowButton}
                       name='delete'
                       size={25}
                       color='#212121'
-                      onPress={()=> { Alert.alert('Are you sure you want to delete this project?') }}/>
+                      onPress={()=> {
+                        Alert.alert(
+                          'Confirm Delete',
+                          'Are you sure you want to delete this project? (This can\'t be undone)',
+                          [
+                            {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
+                            {text: 'Yes', onPress: () => this.deleteProject(project)},
+                          ]
+                        )
+                      }}/>
                   </View>
                 )
               }
             }
           />
         </ScrollView>
+        <View style={styles.spTabs}>
+          <Icon
+            name='home'
+            type='octicon'
+            color='#242424'
+            onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
+        </View>
       </View>
     );
   }

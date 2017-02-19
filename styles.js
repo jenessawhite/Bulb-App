@@ -11,10 +11,16 @@ export default StyleSheet.create({
     position: 'absolute',
     width: width,
     flexDirection: 'row',
-    backgroundColor: '#FFC107',
+    backgroundColor: '#FAFAFA',
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  backTabButton: {
+    flex: 1,
+  },
+  homeTabButton: {
+    flex: 1,
   },
   singleTab: {
     flex: 1,
@@ -59,9 +65,9 @@ export default StyleSheet.create({
     color: '#212121',
   },
   pageTitle: {
-    fontSize: 26,
+    fontSize: 24,
     textAlign: 'center',
-    marginTop: 15,
+    marginTop: 10,
   },
   pageDescription: {
     padding: 10,
@@ -85,7 +91,20 @@ export default StyleSheet.create({
   contentContainer: {
     height: height,
     flex: 1,
-    // backgroundColor: '#B2DFDB',
+    backgroundColor: '#b2dfdb',
+  },
+  topBanner: {
+    paddingTop: 10,
+    height: 60,
+    backgroundColor: '#FAFAFA',
+    justifyContent: 'center',
+    alignItems:'center',
+    width: width,
+  },
+  title: {
+    color: '#2ed2ff',
+    textAlign: 'center',
+    fontSize: 24,
   },
   topContainer: {
     marginTop: 20,
@@ -111,16 +130,7 @@ export default StyleSheet.create({
   budgetNumbers: {
     width: width,
     backgroundColor: '#B2DFDB',
-  },
-  backContainer: {
-    // position: 'absolute',
-    bottom: 0,
-    right: 0,
-    width: width,
-    paddingBottom: 10
-  },
-  backButton: {
-    backgroundColor: '#FFC107',
+    marginBottom: 50,
   },
   //Home
   homeContainer: {
@@ -133,6 +143,7 @@ export default StyleSheet.create({
   },
   newItemsHolder: {
     margin: 10,
+    width: width,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -141,6 +152,18 @@ export default StyleSheet.create({
   },
   itemsList: {
     margin: 10,
+  },
+  projectsList: {
+
+  },
+  projectsRow: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
+    borderBottomColor: '#FF2E69',
+    borderBottomWidth: 1,
+    padding: 10,
   },
   itemRowContainer: {
     flex: 1,
@@ -160,10 +183,15 @@ export default StyleSheet.create({
     opacity: 0.5
   },
   //NewProject
+  newButton: {
+    // width: 105,
+    height: 35,
+    borderRadius: 2,
+  },
   formContainer: {
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#FFC107',
+    borderColor: '#F6F7FB',
     backgroundColor: '#F6F7FB',
     marginBottom: 40,
     alignSelf: 'center',
@@ -171,14 +199,46 @@ export default StyleSheet.create({
   formField: {
     height: 40
   },
-  //Card containerStyle
-  cardContainer: {
+  //cards
+  cards: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    alignSelf: 'center',
+  },
+  indCards: {
+    padding: 0,
     borderRadius: 5,
-    backgroundColor: '#FFC107',
+    borderWidth:0,
+    backgroundColor: '#FFFFFF',
+    width:150,
+    height:150,
+  },
+  cardContainer: {
+    padding: 0,
+    borderRadius: 5,
+    borderWidth:0,
+    backgroundColor: '#FFFFFF',
     width:150,
     height:150,
     alignItems:'center',
-    justifyContent: 'space-between'
+    justifyContent: 'center',
+    shadowColor: '#A6BFC6',
+    shadowOffset: {
+      width: 1,
+      height: 2
+    },
+    shadowRadius: 2,
+  },
+  iconCircle: {
+    borderRadius:150,
+    borderColor: '#ff2e69',
+    borderWidth: 1,
+  },
+  cardButton : {
+    borderRadius: 0,
+    marginLeft: 0,
+    marginRight: 0
   },
   //Modals
   modalContainer: {
@@ -193,16 +253,16 @@ export default StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     backgroundColor: 'transparent',
-    borderBottomColor: '#ededed',
+    borderBottomColor: '#FF2E69',
     borderBottomWidth: 1,
     padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   checkbox: {
-    backgroundColor: 'blue',
-    flex: 2
+    // backgroundColor: 'blue',
+    // flex: 2
   },
   itemDelete: {
-    backgroundColor: 'red',
-    flex: 1
   }
 });

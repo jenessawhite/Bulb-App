@@ -120,6 +120,10 @@ var Project = sequelize.define('project', {
     type: Sequelize.STRING,
     field: 'name'
   },
+  description: {
+    type: Sequelize.STRING,
+    field: 'description'
+  },
 }, {
   freezeTableName: true
 });
@@ -175,8 +179,10 @@ if(process.env.NODE_ENV !== 'production') {
       data: [
         {
           name: 'Kitchen',
+          description: 'completely redo',
         }, {
           name: 'Bathroom',
+          description: 'retiling tub surround'
         },
       ],
       model: Project
@@ -375,10 +381,14 @@ function startExpress() {
   app.post('/api/projects', (req, res) => {
     Project.create({
       name: req.body.name,
-      description: req.body.description
+      description: req.body.description,
     }).then((projects) => {
       Project.findAll().then((projects) => {
-        res.json(projects);
+        return (
+          res.json(projects)
+        )
+      }).catch(err => {
+        console.log(err);
       })
     }).catch(err => {})
   });
@@ -390,7 +400,13 @@ function startExpress() {
         id: req.params.id,
       },
     }).then(()=>{
-      res.send('deleted')
+      Project.findAll().then((projects) => {
+        return (
+          res.json(projects)
+        )
+      }).catch(err => {
+        console.log(err);
+      })
     }).catch(err => {})
   });
   // --------------TRANSACTIONS-------------------------
@@ -687,8 +703,10 @@ function startExpress() {
       projectId: req.params.id
     }).then((tasks) => {
       Task.findAll().then((tasks) => {
-        res.json(tasks);
         console.log('Posted new task!');
+        return (
+          res.json(tasks)
+        );
       }).catch(err => {
         console.log(err);
       })
@@ -697,16 +715,50 @@ function startExpress() {
     })
   });
 
+  // Update a single task
+  app.patch('/api/projects/:projectId/tasks/:id', (req, res, task) => {
+    // res.json(req.params.task)
+    Task.update({
+      completed: !req.body.completed
+    }, {
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      }
+    }).then((tasks) => {
+      Task.findAll().then((tasks) => {
+        console.log('Checked off task!');
+        return (
+          res.json(tasks)
+        );
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {
+      console.log(err);
+    })
+  });
+
+
   // Delete a task
-  app.delete('/api/projects/:id/tasks/:id', function (req, res) {
-    res.json('Got a DELETE request at /tasks')
-    // Task.destroy({
-    //   where: {
-    //     id: req.params.id,
-    //   },
-    // }).then(()=>{
-    //   res.send('deleted')
-    // }).catch(err => {})
+  app.delete('/api/projects/:projectId/tasks/:id', function (req, res) {
+    Task.destroy({
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      },
+    }).then((tasks) => {
+      Task.findAll().then((tasks) => {
+        console.log('Checked off task!');
+        return (
+          res.json(tasks)
+        );
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {
+      console.log(err);
+    })
   });
 
   // Determine which port to listen on
