@@ -24,7 +24,7 @@ import TransactionModal from './TransactionModal';
 import Transactions from './Transactions';
 import NewTransaction from './NewTransaction';
 
-// import CameraApp from './CameraApp';
+import CameraApp from './CameraApp';
 
 
 var width = Dimensions.get('window').width; //full width
@@ -73,6 +73,7 @@ export default class diyApp extends Component {
           {/* Tab Container */}
           <Scene key="tabbar" tabs={true} tabBarStyle={{height: 0,  backgroundColor: 'transparent'}} type={ActionConst.REPLACE} >
             {/* Tab and it's scenes */}
+            {/* <Scene key="photos" component={CameraApp} /> */}
             <Scene key="homeTab" title="Home" icon={HomeTabIcon} hideNavBar>
               <Scene key="home" component={Home} title="Home"/>
             </Scene>

@@ -230,11 +230,11 @@ export default StyleSheet.create({
     },
     shadowRadius: 2,
   },
-  iconCircle: {
-    borderRadius:150,
-    borderColor: '#ff2e69',
-    borderWidth: 1,
-  },
+  // iconCircle: {
+  //   borderRadius:150,
+  //   borderColor: '#ff2e69',
+  //   borderWidth: 1,
+  // },
   cardButton : {
     borderRadius: 0,
     marginLeft: 0,

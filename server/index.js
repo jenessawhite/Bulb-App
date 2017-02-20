@@ -326,6 +326,16 @@ if(process.env.NODE_ENV !== 'production') {
         {
           title: '300x300',
           url: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=300%C3%97325&w=300&h=300',
+          projectId: 1
+        },
+        {
+          title: 'clamping',
+          url: 'http://maxpixel.freegreatpicture.com/static/photo/1x/Clamp-Diy-Woodworking-Hand-Tool-Carpenter-Work-1342569.jpg',
+          projectId: 1
+        },
+        {
+          title: 'toolset',
+          url: 'http://i.imgur.com/8plleN6.jpg',
           projectId: 2
         },
       ],
@@ -360,11 +370,6 @@ function startExpress() {
   // Teach express how to parse requests of type application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  // A basic GET route with no functionality and no security protection
-  app.get('/api', (req, res) => {
-    res.json('Hello World!')
-  });
-
   // OTHER ROUTES USING SEQUELIZE HERE
 
   // --------------PROJECTS-------------------------
@@ -374,6 +379,8 @@ function startExpress() {
     // Find all projects
     Project.findAll().then((projects) => {
       res.json(projects);
+    }).catch(err => {
+      console.log(err);
     })
   });
 
@@ -390,7 +397,9 @@ function startExpress() {
       }).catch(err => {
         console.log(err);
       })
-    }).catch(err => {})
+    }).catch(err => {
+      console.log(err);
+    })
   });
 
   // Delete a project
@@ -407,7 +416,9 @@ function startExpress() {
       }).catch(err => {
         console.log(err);
       })
-    }).catch(err => {})
+    }).catch(err => {
+      console.log(err);
+    })
   });
   // --------------TRANSACTIONS-------------------------
 
@@ -420,7 +431,9 @@ function startExpress() {
       }
     }).then((transactions) => {
       res.json(transactions);
-      });
+    }).catch(err => {
+      console.log(err);
+    })
   });
 
   // Get a single transaction
@@ -433,7 +446,9 @@ function startExpress() {
       }
     }).then((transactions) => {
       res.json(transactions);
-      });
+    }).catch(err => {
+      console.log(err);
+    })
   });
 
   // Update a single transaction
@@ -506,7 +521,7 @@ function startExpress() {
   // --------------BUDGET-------------------------
 
   // Get the budget
-  app.get('/api/projects/:id/budget', (req, res) => {
+  app.get('/api/projects/:projectId/budget', (req, res) => {
     // Find all tasks
     Budget.findAll({
       where: {
@@ -518,29 +533,37 @@ function startExpress() {
   });
 
   // Update the budget
-  app.put('/api/projects/:id/budget', (req, res) => {
-    res.json('Got ourselves a POST request!')
-  //   Budget.create({
-  //     estimated: 140.24
-  //   }).then((budgets) => {
-  //     Budget.findAll().then((budgets) => {
-  //       res.json(budgets);
-  //     }).catch(err => {
-//       console.log(err);
-  //     })
-  //   }).catch(err => {})
+  app.put('/api/projects/:projectId/budget/:id', (req, res) => {
+    Budget.create({
+      estimated: req.body.estimated
+    }).then((budget)=>{
+      Budget.findAll().then((budget) => {
+        return (
+          res.json(budget)
+        );
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {})
   });
 
   // Delete a budget
-  app.delete('/api/budget/:id', function (req, res) {
+  app.delete('/api/:projectId/budget/:id', function (req, res) {
     res.json('Got a DELETE request at /budget')
-    // Budget.destroy({
-    //   where: {
-    //     id: req.params.id,
-    //   },
-    // }).then(()=>{
-    //   res.send('deleted')
-    // }).catch(err => {})
+    Budget.destroy({
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      }
+    }).then((budget)=>{
+      Budget.findAll().then((budget) => {
+        return (
+          res.json(budget)
+        );
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {})
   });
 
   // --------------MATERIALS-------------------------
@@ -582,8 +605,10 @@ function startExpress() {
       }
     }).then((materials) => {
       Material.findAll().then((materials) => {
-        res.json(materials);
         console.log('Checked off material!');
+        return (
+          res.json(materials)
+        );
       }).catch(err => {
         console.log(err);
       })
@@ -606,8 +631,10 @@ function startExpress() {
       projectId: req.params.id
     }).then((materials) => {
       Material.findAll().then((materials) => {
-        res.json(materials);
         console.log('Posted new material!');
+        return (
+          res.json(materials)
+        );
       }).catch(err => {
         console.log(err);
       })
@@ -626,7 +653,10 @@ function startExpress() {
       }
     }).then((materials)=>{
       Material.findAll().then((materials) => {
-        res.json(materials);
+        console.log('deleted');
+        return (
+          res.json(materials)
+        );
       }).catch(err => {
         console.log(err);
       })

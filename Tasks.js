@@ -28,14 +28,14 @@ export default class Tasks extends Component {
 
   getTasks() {
     axios.get(api() + '/projects/' + this.props.id + '/tasks')
-      .then((response) => {
-        let tasksList = this.state.ds.cloneWithRows(response.data);
-        console.log(tasksList);
-        this.setState ({tasksList})
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    .then((response) => {
+      let tasksList = this.state.ds.cloneWithRows(response.data);
+      console.log(tasksList);
+      this.setState ({tasksList})
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   deleteTask(task) {
