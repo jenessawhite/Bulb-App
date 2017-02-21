@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text, ScrollView, TouchableHighlight, View } from 'react-native';
+import {Image, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import {Actions, ActionConst} from 'react-native-router-flux';
 
@@ -19,9 +19,13 @@ export default class SingleProject extends Component {
   render() {
     return (
       <View style={styles.contentContainer}>
+        {/* Static banner */}
         <View style={styles.topBanner}>
-          <Text style={styles.title}>BULB</Text>
+          <Image
+            style={{width: 100, height: 50}}
+            source={{uri: 'https://s3.us-east-2.amazonaws.com/diy-app-tiy/bluebulblogo.png'}} />
         </View>
+
 
         <Text style={styles.pageTitle}>{this.props.name}</Text>
 

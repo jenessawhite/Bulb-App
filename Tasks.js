@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
+import {Alert, Image, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Icon, CheckBox } from 'react-native-elements';
 import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
@@ -68,20 +68,24 @@ export default class Tasks extends Component {
   render() {
     return (
       <View style={styles.contentContainer}>
+        {/* Static banner */}
         <View style={styles.topBanner}>
-          <Text style={styles.title}>BULB</Text>
+          <Image
+            style={{width: 100, height: 50}}
+            source={{uri: 'https://s3.us-east-2.amazonaws.com/diy-app-tiy/bluebulblogo.png'}} />
         </View>
+
 
         <View style ={styles.newItemsHolder}>
           <Text style ={styles.newItemsText}>Tasks</Text>
           <Button
             raised
-            icon={{name: 'md-add', type: 'ionicon', buttonStyle: styles.newButton }}
+            icon={{name: 'md-add', type: 'ionicon'}}
             title='New Task'
             color='#fcfcfc'
             backgroundColor='#2ed2ff'
             buttonStyle= {styles.newButton}
-            onPress={()=> {Actions.newTaskModal()}} />
+            onPress={()=> {Actions.newTaskModal({projectId: this.props.id})}} />
         </View>
 
         <View style={styles.content}>
@@ -93,13 +97,13 @@ export default class Tasks extends Component {
               (task) => {
                 console.log(task, task.id);
                 return (
-                  <View style={styles.checkboxContainer} onPress={()=> {Actions.taskModal({projectId: this.props.id, id: task.id})}} >
+                  <View style={styles.checkboxContainer}>
                     <CheckBox
                       title= {task.title}
                       checked={task.completed}
                       checkedColor='#00CCFF'
                       onIconPress={()=> this.toggleChecked(task)}
-                      onPress={()=> {Actions.taskModal({projectId: this.props.id, id: task.id})}}
+                      onPress={()=> {Actions.taskModal({projectId: task.projectId, id: task.id, title: task.title})}}
                       style={styles.checkbox} />
                     <View style={styles.itemDelete}>
                       <Icon
@@ -119,7 +123,6 @@ export default class Tasks extends Component {
                         }} />
                     </View>
                   </View>
-
                 )
               }
             }

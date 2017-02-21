@@ -72,7 +72,7 @@ var Material = sequelize.define('material', {
     field: 'description',
   },
   quantity: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     field: 'quantity',
     validate: {
       isNumeric: true,
@@ -111,10 +111,13 @@ var Task = sequelize.define('task', {
     type: Sequelize.STRING,
     field: 'title'
   },
+  description: {
+    type: Sequelize.TEXT,
+    field: 'description',
+  },
   goalDate: {
-    type: Sequelize.DATEONLY,
+    type: Sequelize.STRING,
     field: 'goal_date',
-    defaultValue: Sequelize.NOW
   },
   completed: {
     type: Sequelize.BOOLEAN,
@@ -203,22 +206,26 @@ if(process.env.NODE_ENV !== 'production') {
       data: [
         {
           title: 'Stain floors',
-          goalDate: '2017-01-28',
+          description: 'use the ebony stain from Home Depot',
+          goalDate: 'May 1',
           completed: false,
           projectId: 1
         },{
           title: 'Install baseboards',
-          goalDate: '2017-01-30',
+          description: 'put in the wood painted baseboards from Menards',
+          goalDate: 'Feb 28',
           completed: false,
           projectId: 2
         },{
           title: 'Demo kitchen',
-          goalDate: '2017-02-10',
+          description: 'Rip out tile, countertops, flooring, cabinets',
+          goalDate: 'March 9',
           completed: false,
           projectId: 1
         },{
           title: 'Demo Bathroom',
-          goalDate: '2017-02-10',
+          description: 'Rip out tile, countertops, flooring, sink and remove showerhead',
+          goalDate: 'April 2',
           completed: false,
           projectId: 2
         },
@@ -325,28 +332,28 @@ if(process.env.NODE_ENV !== 'production') {
     var photos = {
         data: [
           {
-          title: '200x200',
-          url: 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200×200&w=200&h=200',
+          title: 'Kitchen before',
+          url: 'https://i.imgur.com/7W51SXO.jpg',
           projectId: 1
         },
         {
-          title: '350x325',
-          url: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97325&w=350&h=325',
+          title: 'Kitchen after',
+          url: 'https://i.imgur.com/XFGjUTX.jpg',
+          projectId: 1
+        },
+        {
+          title: 'Bathtub before',
+          url: 'https://i.imgur.com/hF3FRZp.jpg',
           projectId: 2
         },
         {
-          title: '300x300',
-          url: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=300%C3%97325&w=300&h=300',
-          projectId: 1
+          title: 'Bathtub demo',
+          url: 'https://i.imgur.com/IsRyhwc.jpg',
+          projectId: 2
         },
         {
-          title: 'clamping',
-          url: 'https://maxpixel.freegreatpicture.com/static/photo/1x/Clamp-Diy-Woodworking-Hand-Tool-Carpenter-Work-1342569.jpg',
-          projectId: 1
-        },
-        {
-          title: 'toolset',
-          url: 'https://i.imgur.com/8plleN6.jpg',
+          title: 'Bathroom after',
+          url: 'https://i.imgur.com/nKkoO7F.jpg',
           projectId: 2
         },
       ],
@@ -511,7 +518,6 @@ function startExpress() {
 
   // Delete a transaction
   app.delete('/api/projects/:projectId/transactions/:id', function (req, res) {
-    res.json('Got a DELETE request at /transactions')
     Transaction.destroy({
       where: {
         projectId: req.params.projectId,
@@ -521,7 +527,7 @@ function startExpress() {
       Transaction.findAll().then((transactions) => {
         return (
           res.json(transactions)
-        )
+        );
       }).catch(err => {
         console.log(err);
       })
@@ -532,35 +538,60 @@ function startExpress() {
   // --------------BUDGET-------------------------
 
   // Get the budget
-  app.get('/api/projects/:projectId/budget', (req, res) => {
-    // Find all tasks
+  app.get('/api/projects/:id/budget', (req, res) => {
+    // Find all transactions
     Budget.findAll({
       where: {
         projectId: req.params.id,
       }
     }).then((budgets) => {
       res.json(budgets);
-      });
+    }).catch(err => {
+      console.log(err);
+    })
+  });
+
+  // Get single budget
+  app.get('/api/projects/:projectId/budget/:id', (req, res) => {
+    // Find all transactions
+    Budget.findAll({
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id,
+      }
+    }).then((budgets) => {
+      res.json(budgets);
+    }).catch(err => {
+      console.log(err);
+    })
   });
 
   // Update the budget
-  app.put('/api/projects/:projectId/budget/:id', (req, res) => {
-    Budget.create({
-      estimated: req.body.estimated
-    }).then((budget)=>{
+  app.patch('/api/projects/:projectId/budget/:id', (req, res, budget) => {
+    res.json(req.params.budget)
+    Budget.update({
+      estimated: !req.body.estimated
+    }, {
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
+      }
+    }).then((budget) => {
       Budget.findAll().then((budget) => {
+        console.log('updated!');
         return (
           res.json(budget)
         );
       }).catch(err => {
         console.log(err);
       })
-    }).catch(err => {})
+    }).catch(err => {
+      console.log(err);
+    })
   });
 
   // Delete a budget
   app.delete('/api/:projectId/budget/:id', function (req, res) {
-    res.json('Got a DELETE request at /budget')
     Budget.destroy({
       where: {
         projectId: req.params.projectId,
@@ -606,7 +637,6 @@ function startExpress() {
 
   // Update a single material
   app.patch('/api/projects/:projectId/materials/:id', (req, res, material) => {
-    // res.json(req.params.material)
     Material.update({
       checked: !req.body.checked
     }, {
@@ -630,7 +660,6 @@ function startExpress() {
 
   // Create a new material
   app.post('/api/projects/:id/materials', (req, res) => {
-    res.json('Got ourselves a POST request!')
     Material.create({
       where: {
         projectId: req.params.id,
@@ -656,7 +685,6 @@ function startExpress() {
 
   // Delete a material
   app.delete('/api/projects/:projectId/materials/:id', function (req, res) {
-    // res.json('Got a DELETE request at /materials')
     Material.destroy({
       where: {
         projectId: req.params.projectId,
@@ -752,6 +780,7 @@ function startExpress() {
         projectId: req.params.id,
       },
       title: req.body.title,
+      description: req.body.description,
       goalDate: req.body.goalDate,
       completed: false,
       projectId: req.params.id
@@ -771,7 +800,6 @@ function startExpress() {
 
   // Update a single task
   app.patch('/api/projects/:projectId/tasks/:id', (req, res, task) => {
-    // res.json(req.params.task)
     Task.update({
       completed: !req.body.completed
     }, {
@@ -803,7 +831,7 @@ function startExpress() {
       },
     }).then((tasks) => {
       Task.findAll().then((tasks) => {
-        console.log('Checked off task!');
+        console.log('deleted task!');
         return (
           res.json(tasks)
         );

@@ -12,6 +12,7 @@ import NewProject from './NewProject';
 import Profile from './Profile';
 import SingleProject from './SingleProject';
 import Budget from './Budget';
+import ChangeBudgetModal from './ChangeBudgetModal';
 import Transactions from './Transactions';
 import NewTransaction from './NewTransaction';
 import Tasks from './Tasks';
@@ -23,7 +24,6 @@ import Materials from './Materials';
 import NewMaterial from './NewMaterial';
 import MaterialModal from './MaterialModal';
 
-import CameraApp from './CameraApp';
 
 
 var width = Dimensions.get('window').width; //full width
@@ -91,6 +91,7 @@ export default class diyApp extends Component {
             <Scene key="newMaterialModal" component={NewMaterial} />
             <Scene key="materialModal" component={MaterialModal} />
             <Scene key="budget" component={Budget} />
+            <Scene key="updateBudget" component={ChangeBudgetModal} />
             <Scene key="newTransactionModal" component={NewTransaction} />
             <Scene key="photos" component={Photos} />
             <Scene direction="vertical" key="newPhotoModal" component={NewPhoto} />

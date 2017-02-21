@@ -21,13 +21,13 @@ export default class NewMaterial extends Component {
   }
 
   componentDidMount(props) {
-    console.log('projectId: ' + this.props.id);
+    console.log('projectId: ' + this.props.projectId);
     console.log('Scene name: ' + this.props.name);
     this.getMaterials()
   }
 
   getMaterials() {
-    axios.get(api() + '/projects/' + this.props.id + '/materials')
+    axios.get(api() + '/projects/' + this.props.projectId + '/materials')
       .then((response) => {
         let materialsList = response.data;
         console.log('Materials List: ' + materialsList);
@@ -62,14 +62,14 @@ export default class NewMaterial extends Component {
         description: this.state.description,
         quantity: this.state.quantity,
         checked: false,
-        projectId: this.props.id
+        projectId: this.props.projectId
       };
       console.log('New material: ' + newMaterial);
 
-      axios.post(api() + '/projects/' + this.props.id + '/materials', newMaterial).then((response) => {
+      axios.post(api() + '/projects/' + this.props.projectId + '/materials', newMaterial).then((response) => {
         console.log('Material (after post): ' + newMaterial);
         console.log(response.data);
-        Actions.materials({id: this.props.id, name: this.props.name})
+        Actions.materials({id: this.props.projectId, name: this.props.name})
       })
       .catch(function (error) {
         console.log('You have an ' + error);
@@ -80,38 +80,35 @@ export default class NewMaterial extends Component {
   render() {
     return (
       <View style={styles.modalContainer}>
-        <Text style={styles.pageTitle}> New Material</Text>
-        <Text style={styles.pageDescription}>
-          Add a new material to your list
-        </Text>
+        <View style={styles.modalHeader}>
+          <Text style={styles.pageTitle}> New Material</Text>
+          <Text style={styles.pageDescription}>
+            What material do we need to add?
+          </Text>
+        </View>
         {/* FORM */}
-        <ScrollView style={{paddingLeft:10, paddingTop:10, height:400}}>
-          <View style={styles.formInput}>
-            <TextInput
-              keyboardType='default'
-              value={this.state.name}
-              placeholder="Material Name"
-              returnKeyType="done"
-              onChangeText={(name) => this.setState({name})} />
-          </View>
-          <View style={styles.formInput}>
-            <TextInput
-              keyboardType='numeric'
-              value={this.state.quantity}
-              placeholder="Quantity"
-              returnKeyType="done"
-              onChangeText={(quantity) => this.setState({quantity})} />
-          </View>
+        <View style={styles.modalForm}>
           <TextInput
-            style={styles.detailedInput}
+            style={styles.formInput}
             keyboardType='default'
-            value={this.state.description}
-            placeholder="Material Description"
+            value={this.state.name}
+            placeholder="Material Name"
             multiline={true}
-            returnKeyType="done"
-            onChangeText={(description) => this.setState({description})}
-          />
-        </ScrollView>
+            onChangeText={(name) => this.setState({name})} />
+          <TextInput
+            style={styles.formInput}
+            keyboardType='numeric'
+            value={this.state.quantity}
+            placeholder="Quantity"
+            multiline={true}
+            onChangeText={(quantity) => this.setState({quantity})} />
+          <TextInput
+            style={styles.formInput}
+            value={this.state.description}
+            placeholder="Material Details"
+            multiline={true}
+            onChangeText={(description) => this.setState({description})} />
+        </View>
 
         <View style={styles.modalControllers}>
           <Button
@@ -119,18 +116,20 @@ export default class NewMaterial extends Component {
             iconLeft
             backgroundColor= '#2ed2ff'
             icon={{name:'md-arrow-back', type:'ionicon'}}
+            buttonStyle= {styles.modalButtons}
             title='Back'
             onPress={()=> {Actions.pop()}}/>
 
-            <Button
-              raised
-              iconRight
-              backgroundColor= '#2ed2ff'
-              icon={{name:'md-arrow-forward', type:'ionicon', buttonStyle: styles.modalButtons }}
-              title='SAVE'
-              onPress={this.saveMaterial.bind(this)}/>
-
+          <Button
+            raised
+            iconRight
+            backgroundColor= '#2ed2ff'
+            icon={{name:'md-arrow-forward', type:'ionicon'}}
+            buttonStyle= {styles.modalButtons}
+            title='Save'
+            onPress={this.saveMaterial.bind(this)}/>
         </View>
+
       </View>
     );
   }

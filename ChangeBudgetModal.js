@@ -8,20 +8,34 @@ import api from './api';
 import styles from './styles';
 
 
-export default class NewTransaction extends Component {
+export default class ChangeBudgetModal extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      budgetList: [],
       transactionsList: [],
-      store: '',
-      item: '',
-      price: null,
+      estimate: null,
     }
   }
 
   componentDidMount(props) {
     console.log('projectId: ' + this.props.projectId);
+    console.log('id: ' + this.props.id);
+    console.log('current: ' + this.props.current);
     this.getTransactions()
+    this.getBudget()
+  }
+
+  getBudget() {
+    axios.get(api() + '/projects/' + this.props.projectId + '/budget/' + this.props.id)
+    .then((response) => {
+      console.log('budgetList' + response.data);
+      let budgetList = response.data;
+      this.setState ({budgetList})
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   getTransactions() {
@@ -38,9 +52,7 @@ export default class NewTransaction extends Component {
 
   handleFormChange() {
     this.setState({
-      store: this.state.store,
-      item: this.state.item,
-      price: this.state.price,
+      estimate: this.state.estimate,
     })
   }
 
@@ -48,22 +60,17 @@ export default class NewTransaction extends Component {
     console.log('focused');
   }
 
-  saveTransaction(props) {
-    let newTransaction = {
-      store: this.state.store,
-      item: this.state.item,
-      price: this.state.price,
-      projectId: this.props.id
-    };
-    console.log('New transaction: ' + newTransaction);
-
-    axios.post(api() + '/projects/' + this.props.projectId + '/transactions/', newTransaction).then((response) => {
-      console.log('Transaction (after post): ' + newTransaction);
-      console.log(response.data);
-      Actions.budget({id: this.props.projectId})
+  updateBudget(budget) {
+    console.log(budget);
+    var budgetEstimate = budget.estimated
+    console.log(budgetEstimate);
+    axios.patch(api() + '/projects/' + budget.projectId + '/budget/' + budget.id, budget)
+    .then((response) => {
+      console.log(budget);
+      this.getBudget()
     })
     .catch(function (error) {
-      console.log('You have an ' + error);
+      console.log(error);
     });
   }
 
@@ -71,33 +78,30 @@ export default class NewTransaction extends Component {
     return (
       <View style={styles.modalContainer}>
         <View style={styles.modalHeader}>
-          <Text style={styles.pageTitle}> New Transaction</Text>
+          <Text style={styles.pageTitle}> Update Estimated Budget</Text>
           <Text style={styles.pageDescription}>
-            What transaction do we need to add?
+            Enter your new budget estimate
           </Text>
         </View>
         {/* FORM */}
         <View style={styles.modalForm}>
+          {this.state.budgetList.map((budget, index) => {
+            return (
+              <View style={styles.budgetContainer} key={budget.id}>
+                <View style={styles.budgetRow}>
+                  <Text>Your Current Estimated Budget:</Text>
+                  <Text>${budget.estimated}</Text>
+                </View>
+              </View>
+            )
+          })}
+
           <TextInput
             style={styles.formInput}
             multiline={true}
-            value={this.state.item}
-            placeholder="Item"
-            onChangeText={(item) => this.setState({item})} />
-          <TextInput
-            style={styles.formInput}
-            multiline={true}
-            value={this.state.store}
-            placeholder="Store"
-            onChangeText={(store) => this.setState({store})}
-          />
-          <TextInput
-            style={styles.formInput}
-            multiline={true}
-            value={this.state.price}
-            placeholder="Price"
-            onChangeText={(price) => this.setState({price})}
-          />
+            value={this.state.estimate}
+            placeholder="Estimated Budget"
+            onChangeText={(estimate) => this.setState({estimate})} />
         </View>
 
         <View style={styles.modalControllers}>
@@ -117,7 +121,7 @@ export default class NewTransaction extends Component {
             icon={{name:'md-arrow-forward', type:'ionicon'}}
             buttonStyle= {styles.modalButtons}
             title='Save'
-            onPress={this.saveTransaction.bind(this)}/>
+            onPress={this.updateBudget.bind(this)}/>
         </View>
       </View>
     );

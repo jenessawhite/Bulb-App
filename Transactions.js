@@ -30,7 +30,6 @@ export default class Transactions extends Component {
     axios.get(api() + '/projects/' + this.props.id + '/transactions')
       .then((response) => {
         let transactionsList = this.state.ds.cloneWithRows(response.data);
-        console.log(transactionsList);
         this.setState ({transactionsList})
       })
       .catch(function (error) {
@@ -66,49 +65,41 @@ export default class Transactions extends Component {
   }
 
   render() {
-    var br = <Text>{"\n"}</Text>
-    const deleteIcon = <Icon
-      style={styles.itemRowButton}
-      name='delete'
-      size={25}
-      color='#242424'
-      onPress={()=> this.deleteTransaction(transaction)
-    }/>
-
     return (
-      <View style={styles.transactionContainer}>
+      <View>
         <ListView
           style={styles.itemsList}
           enableEmptySections={true}
           dataSource={this.state.transactionsList}
           renderRow={
             (transaction) => {
-              console.log(transaction);
               return (
-                // <TouchableHighlight onPress={()=> {Actions.transactionModal({projectId: this.props.id, id: transaction.id})}}> style={styles.content} style={styles.itemsList}
+                  <View style={styles.transactionList} onPress={()=> {Actions.transactionModal({projectId: this.props.id, id: transaction.id})}}>
+                    <View style={styles.transactionPrice}>
+                      <Text>{transaction.price}</Text>
+                    </View>
+                    <View style={styles.transactionInfo}>
+                      <Text style={styles.transactionItem}>{transaction.item}</Text>
+                      <Text style={styles.transactionStore}>{transaction.store}</Text>
+                    </View>
+                    <View style={styles.transactionDelete}>
+                      <Icon
+                        name='delete'
+                        size={22}
+                        color='#242424'
+                        onPress={()=> {
+                          Alert.alert(
+                            'Confirm Delete',
+                            'Are you sure you want to delete this task? (This can\'t be undone)',
+                            [
+                              {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
+                              {text: 'Yes', style: 'destructive', onPress: () => this.deleteTransaction(transaction)},
+                            ]
+                          )
+                        }}/>
+                    </View>
 
-                  <View style={styles.checkboxContainer} onPress={()=> {Actions.transactionModal({projectId: this.props.id, id: transaction.id})}} >
-                    <Text h3>{transaction.item}</Text>
-                    <Text>{transaction.store}</Text>
-
-                    <Icon
-                      style={styles.itemDelete}
-                      name='delete'
-                      size={22}
-                      color='#242424'
-                      onPress={()=> {
-                        Alert.alert(
-                          'Confirm Delete',
-                          'Are you sure you want to delete this task? (This can\'t be undone)',
-                          [
-                            {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
-                            {text: 'Yes', style: 'destructive', onPress: () => this.deleteTransaction(task)},
-                          ]
-                        )
-                      }} />
                   </View>
-                // </TouchableHighlight>
-
               )
             }
           } />

@@ -78,7 +78,7 @@ export default class Home extends Component {
               (project) => {
                 console.log(project);
                 return (
-                  <TouchableHighlight onPress={()=> { Actions.singleProjectHold({id: project.id, name: project.name})}}>
+                  <TouchableHighlight onPress={()=> { Actions.singleProjectHold({id: project.id, name: project.name})}} underlayColor='#FF2E69'>
                   <View style={styles.projectsRow}>
                     <Text style={styles.itemRowText}>{project.name}</Text>
                     <Icon
@@ -92,7 +92,7 @@ export default class Home extends Component {
                           'Are you sure you want to delete this project? (This can\'t be undone)',
                           [
                             {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
-                            {text: 'Yes', onPress: () => this.deleteProject(project)},
+                            {text: 'Yes', style: 'destructive', onPress: () => this.deleteProject(project)},
                           ]
                         )
                       }}/>

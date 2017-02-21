@@ -33,10 +33,8 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   container: {
-    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'grey',
   },
   header: {
     height: 70,
@@ -108,21 +106,67 @@ export default StyleSheet.create({
     width: width,
     backgroundColor: '#B2DFDB',
   },
+  bottomContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: width,
+    paddingBottom: 10,
+    marginBottom: 50,
+  },
   budgetContainer: {
     width: width,
-    height: height,
-    backgroundColor: '#555',
-    justifyContent: 'space-between'
-  },
-  transactionContainer:{
-    width: width,
-    flex: 1,
-    backgroundColor: '#90FFFF',
+    height: 60,
+    backgroundColor: '#B2DFDB',
+    justifyContent: 'space-around',
+    marginBottom: 40,
   },
   budgetNumbers: {
     width: width,
     backgroundColor: '#B2DFDB',
     marginBottom: 50,
+  },
+  budgetRow:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  transactionContainer:{
+    width: width,
+    flex: 0.5,
+    backgroundColor: '#90FFFF',
+  },
+  transactionList: {
+    margin: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    backgroundColor: 'transparent',
+    borderBottomColor: '#FF2E69',
+    borderBottomWidth: 1,
+    padding: 10,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  transactionPrice: {
+    flex: 0.15,
+  },
+  transactionInfo: {
+    flex: 0.85,
+  },
+  transactionItem: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  transactionStore: {
+    fontSize: 13,
+    textAlign: 'center',
+  },
+  transactionDelete: {
+    alignSelf: 'flex-end',
+    // flex: 0.22,
   },
   //Home
   homeContainer: {
@@ -144,9 +188,6 @@ export default StyleSheet.create({
   },
   itemsList: {
     margin: 10,
-  },
-  projectsList: {
-
   },
   projectsRow: {
     flex: 1,
@@ -249,32 +290,61 @@ export default StyleSheet.create({
     borderBottomWidth:1,
     borderBottomColor: '#FF2E69',
     paddingTop:10,
-    height:25,
+    height:40,
     margin:10,
+    fontSize: 16,
   },
   detailedInput: {
     borderBottomWidth:1,
-    borderColor: '#FF2E69',
     paddingTop:10,
     height:40,
     margin:10,
   },
   modalContainer: {
     width: width,
-    height: 550,
-    marginTop: 60,
     backgroundColor: '#FAFAFA',
-    // flexDirection: 'row',
-    // justifyContent: 'space-between'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalHeader: {
+    marginTop: 20,
+    width: width,
+    flex: .25,
+    justifyContent: 'flex-end',
+  },
+  modalForm: {
+    width: width,
+    flex: .5,
   },
   modalControllers: {
     width: width,
+    flex: .25,
+    padding: 20,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between'
   },
   modalButtons: {
-    width: 150,
-
+    width: 100,
+    borderRadius: 5,
+  },
+  singleModal: {
+    width: width,
+    flex: .25,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  modalContent: {
+    width: width,
+    flex: .5,
+  },
+  modalSingleButton: {
+    width: 200,
+    borderRadius: 5,
+  },
+  singleModalText: {
+    fontSize: 16,
   },
 });

@@ -1,77 +1,82 @@
 import React, { Component } from 'react';
-import {Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
-import { Button, Card, Icon } from 'react-native-elements';
-import {Actions} from 'react-native-router-flux';
+import {Alert, ListView, ScrollView, TouchableHighlight, View } from 'react-native';
+import { Button, Icon, CheckBox, Text } from 'react-native-elements';
+import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
 
 import api from './api';
 import styles from './styles';
 
-
 export default class TaskModal extends Component {
   constructor(props) {
     super(props);
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
     this.state = {
-      task: {}
+      ds,
+      tasksList: ds.cloneWithRows([])
     }
   }
 
   componentDidMount(props) {
     console.log('projectId: ' + this.props.projectId);
-    console.log('taskId: ' + this.props.id);
-    console.log('project name: ' + this.props.name);
+    console.log('task id: ' + this.props.id);
+    console.log('task title: ' + this.props.title);
     this.getTask()
   }
 
   getTask() {
     axios.get(api() + '/projects/' + this.props.projectId + '/tasks/' + this.props.id)
-      .then((response) => {
-        console.log(response.data[0]);
-        let task = response.data[0]
-        console.log(task);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    .then((response) => {
+      let tasksList = this.state.ds.cloneWithRows(response.data);
+      console.log(tasksList);
+      this.setState ({tasksList})
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
+
   render() {
     return (
-      <View style={styles.contentContainer}>
-        <View style={styles.topContainer}>
-          <Text style={styles.pageTitle}>Single Task</Text>
+      <View style={styles.modalContainer}>
+        <View style={styles.modalHeader}>
+          <Text style={styles.pageTitle}>{this.props.title}</Text>
+          <Text style={styles.pageDescription}>
+            Here are the details of this task
+          </Text>
         </View>
-        <View style={styles.content}>
-          {/* <ListView
+        <View style={styles.modalContent}>
+          <ListView
             style={styles.itemsList}
             enableEmptySections={true}
-            dataSource={this.state.materialsList}
+            dataSource={this.state.tasksList}
             renderRow={
-              (material) => {
-                console.log(material);
+              (task) => {
+                console.log(task, task.id);
                 return (
-                  <View style={styles.itemRow}>
-                    <Text style={styles.itemRowText}>{material.quantity}</Text>
-                    <Text style={styles.itemRowText}>{material.name}</Text>
-                    <Icon
-                      style={styles.itemRowButton}
-                      name='delete'
-                      size={25}
-                      color='#212121'
-                      onPress={()=> { Alert.alert('Are you sure you want to delete this material?') }}/>
+                  <View style={styles.singleModalInfo}>
+                    <Text style={styles.singleModalText}>Description: {task.description}</Text>
+                    <Text>{"\n"}</Text>
+                    <Text style={styles.singleModalText}>Goal finish date: {task.goalDate}</Text>
                   </View>
+
                 )
               }
             }
-          /> */}
+          />
         </View>
-        <View style={styles.backContainer}>
+
+        <View style={styles.singleModal}>
           <Button
             raised
-            icon={{name: 'arrow-back'}}
+            iconLeft
+            backgroundColor= '#2ed2ff'
+            icon={{name:'md-arrow-back', type:'ionicon'}}
+            buttonStyle= {styles.modalSingleButton}
             title='Back'
-            backgroundColor= '#FFC107'
-            style={styles.backButton}
-            onPress={()=> {Actions.popTo('singleProject')}}/>
+            onPress={()=> {Actions.pop()}}/>
         </View>
       </View>
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
+import { Alert, Image, ListView, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Icon, CheckBox } from 'react-native-elements';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import axios from 'axios';
@@ -77,8 +77,11 @@ export default class Materials extends Component {
 
     return (
       <View style={styles.contentContainer}>
+        {/* Static banner */}
         <View style={styles.topBanner}>
-          <Text style={styles.title}>BULB</Text>
+          <Image
+            style={{width: 100, height: 50}}
+            source={{uri: 'https://s3.us-east-2.amazonaws.com/diy-app-tiy/bluebulblogo.png'}} />
         </View>
 
         <View style ={styles.newItemsHolder}>
@@ -90,7 +93,7 @@ export default class Materials extends Component {
             color='#fcfcfc'
             backgroundColor='#2ed2ff'
             buttonStyle= {styles.newButton}
-            onPress={()=> {Actions.newMaterialModal()}} />
+            onPress={()=> {Actions.newMaterialModal({projectId: this.props.id})}} />
         </View>
 
         <View>
@@ -104,11 +107,11 @@ export default class Materials extends Component {
                 return (
                     <View style={styles.checkboxContainer} onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}} >
                       <CheckBox
-                        title= {material.name + ' ' + material.quantity}
+                        title= {material.name}
                         checked={material.checked}
                         checkedColor='#00CCFF'
                         onIconPress={()=> this.toggleChecked(material)}
-                        onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id})}}
+                        onPress={()=> {Actions.materialModal({projectId: this.props.id, id: material.id, name: material.name})}}
                         style={styles.checkbox} />
                       <View style={styles.itemDelete}>
                         <Icon
@@ -122,7 +125,7 @@ export default class Materials extends Component {
                               'Are you sure you want to delete this task? (This can\'t be undone)',
                               [
                                 {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
-                                {text: 'Yes', style: 'destructive', onPress: () => this.deleteMaterial(task)},
+                                {text: 'Yes', style: 'destructive', onPress: () => this.deleteMaterial(material)},
                               ]
                             )
                           }} />

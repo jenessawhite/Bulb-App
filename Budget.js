@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Alert, ListView, Text, TextInput, ScrollView, TouchableHighlight, View } from 'react-native';
+import {Alert, Image, ListView, Text, TextInput, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
@@ -13,32 +13,47 @@ export default class Budget extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      budgetList: []
+      budgetList: [],
+      actualList: []
     }
   }
 
   componentDidMount(props) {
     console.log(this.props.id);
     this.getBudget()
+    this.getTransactions()
   }
 
   getBudget() {
     axios.get(api() + '/projects/' + this.props.id + '/budget')
+    .then((response) => {
+      console.log('budgetList' + response.data);
+      let budgetList = response.data;
+      this.setState ({budgetList})
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  getTransactions() {
+    axios.get(api() + '/projects/' + this.props.id + '/transactions')
       .then((response) => {
-        console.log(response.data);
-        let budgetList = response.data;
-        this.setState ({budgetList})
+        console.log('actualList' + response.data);
+        let actualList = (response.data);
+        this.setState ({actualList})
       })
       .catch(function (error) {
         console.log(error);
       });
   }
+
 //map then reduce
   updateBudget(budget) {
     console.log(budget.checked);
     var budgetChecked = budget.checked
     console.log(budgetChecked);
-    axios.patch(api() + '/projects/' + budget.projectId + '/materials/' + budget.id, budget)
+    axios.patch(api() + '/projects/' + budget.projectId + '/budget/' + budget.id, budget)
     .then((response) => {
       console.log(budget);
       this.getBudget()
@@ -51,9 +66,12 @@ export default class Budget extends Component {
 
   render() {
     return (
-      <View style={styles.budgetContainer}>
+      <View style={styles.contentContainer}>
+        {/* Static banner */}
         <View style={styles.topBanner}>
-          <Text style={styles.title}>BULB</Text>
+          <Image
+            style={{width: 100, height: 50}}
+            source={{uri: 'https://s3.us-east-2.amazonaws.com/diy-app-tiy/bluebulblogo.png'}} />
         </View>
 
         <View style ={styles.newItemsHolder}>
@@ -65,28 +83,42 @@ export default class Budget extends Component {
             color='#fcfcfc'
             backgroundColor='#2ed2ff'
             buttonStyle= {styles.newButton}
-            onPress={()=> {Actions.newTransactionModal()}} />
+            onPress={()=> {Actions.newTransactionModal({projectId: this.props.id})}} />
         </View>
 
-        <Transactions id={this.props.id} />
+        <Transactions id={this.props.id}  style={styles.transactionContainer}/>
 
         <View style={styles.bottomContainer}>
-          <View style={styles.budgetNumbers}>
-            {this.state.budgetList.map((budget, index) => {
-              return (
-                <View key={budget.id}>
-                  <View>
-                    <Text>Estimated:</Text>
-                    <Text>${budget.estimated}</Text>
-                  </View>
-                  <View>
-                    <Text>Actual:</Text>
-                    <Text>${budget.actual}</Text>
-                  </View>
+          {/* Actual Transaction Info */}
+          {/* {this.state.actualList.reduce((previous, current) => {
+            previous + current
+            return (
+              <View style={styles.budgetContainer} key={budget.id}>
+                <View style={styles.budgetRow}>
+                  <Text>Actual:</Text>
+                  <Text>${budget.actual}</Text>
                 </View>
-              )
-            })}
-          </View>
+              </View>
+            )
+          })} */}
+
+          {/* Est. Budget Info */}
+          {this.state.budgetList.map((budget, index) => {
+            return (
+              <View style={styles.budgetContainer} key={budget.id}>
+                <View style={styles.budgetRow}>
+                  <Text>Estimated:</Text>
+                  <Text>${budget.estimated}</Text>
+                  <Icon
+                    name='pencil'
+                    type='octicon'
+                    size={14}
+                    color='#242424'
+                    onPress={()=> {Actions.updateBudget({projectId: budget.projectId, id: budget.id, current: budget.estimated})}} />
+                </View>
+              </View>
+            )
+          })}
 
           <View style={styles.spTabs}>
             <View style={styles.backTabButton}>

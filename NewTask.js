@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, ScrollView, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { Alert, ScrollView, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { Button, FormLabel, FormInput, Icon } from 'react-native-elements';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import axios from 'axios';
 import api from './api';
 import styles from './styles';
 
+var rightNow = new Date();
 
 export default class NewTask extends Component {
   constructor (props) {
@@ -14,19 +15,20 @@ export default class NewTask extends Component {
     this.state = {
       tasksList: [],
       title: '',
+      description: '',
       goalDate: '',
       completed: false
     }
   }
 
   componentDidMount(props) {
-    console.log('projectId: ' + this.props.id);
+    console.log('projectId: ' + this.props.projectId);
     console.log('Scene name: ' + this.props.name);
     this.getTasks()
   }
 
   getTasks() {
-    axios.get(api() + '/projects/' + this.props.id + '/tasks')
+    axios.get(api() + '/projects/' + this.props.projectId + '/tasks')
       .then((response) => {
         let tasksList = response.data;
         console.log('Tasks List: ' + tasksList);
@@ -39,7 +41,9 @@ export default class NewTask extends Component {
 
   handleFormChange() {
     this.setState({
-      title: this.state.title
+      title: this.state.title,
+      description: this.state.description,
+      goalDate: this.state.goalDate
     })
   }
 
@@ -48,57 +52,82 @@ export default class NewTask extends Component {
   }
 
   saveTask(props) {
-    let newTask = {
-      title: this.state.title,
-      goalDate: '2017-02-10',
-      completed: false,
-      projectId: this.props.id
-    };
-    console.log('New task: ' + newTask);
+    if (this.state.title === '') {
+      Alert.alert(
+        'Woah there',
+        'Your task needs a title!',
+      )
+    } else {
+      let newTask = {
+        title: this.state.title,
+        description: this.state.description,
+        goalDate: this.state.goalDate,
+        completed: false,
+        projectId: this.props.projectId
+      };
+      console.log('New task: ' + newTask);
 
-    axios.post(api() + '/projects/' + this.props.id + '/tasks', newTask).then((response) => {
-      console.log('Task (after post): ' + newTask);
-      console.log(response.data);
-      Actions.tasks({id: this.props.id, name: this.props.name})
-    })
-    .catch(function (error) {
-      console.log('You have an ' + error);
-    });
+      axios.post(api() + '/projects/' + this.props.projectId + '/tasks', newTask).then((response) => {
+        console.log('Task (after post): ' + newTask);
+        console.log(response.data);
+        Actions.tasks({id: this.props.projectId, name: this.props.name})
+      })
+      .catch(function (error) {
+        console.log('You have an ' + error);
+      });
+    }
   }
 
   render() {
     return (
-      <View style={styles.homeContainer}>
-        <Text style={styles.pageTitle}> New Task</Text>
-        <Text style={styles.pageDescription}>
-          Add a new task
-        </Text>
-
-        <ScrollView style={{paddingLeft:10,paddingTop:10, height:200}}>
+      <View style={styles.modalContainer}>
+        <View style={styles.modalHeader}>
+          <Text style={styles.pageTitle}> New Task</Text>
+          <Text style={styles.pageDescription}>
+            What task do we need to add?
+          </Text>
+        </View>
+        {/* FORM */}
+        <View style={styles.modalForm}>
           <TextInput
-            style={{borderBottomWidth:200, borderColor: 'black' }}
-            keyboardType='default'
+            style={styles.formInput}
             value={this.state.title}
+            multiline={true}
             placeholder="Task Title"
-            returnKeyType="done"
-            onChangeText={(title) => this.setState({title})}
-          />
-        </ScrollView>
+            onChangeText={(title) => this.setState({title})} />
+          <TextInput
+            style={styles.formInput}
+            value={this.state.description}
+            placeholder="Task Description"
+            multiline={true}
+            onChangeText={(description) => this.setState({description})} />
+          <TextInput
+            style={styles.formInput}
+            value={this.state.goalDate}
+            placeholder="When do you want to be finished? (Month Day)"
+            multiline={true}
+            onChangeText={(goalDate) => this.setState({goalDate})} />
+        </View>
 
-        <Button
-          reverse
-          iconRight
-          backgroundColor= '#FFC107'
-          icon={{name: 'navigate-next'}}
-          title='SAVE'
-          onPress={this.saveTask.bind(this)}/>
+        <View style={styles.modalControllers}>
+          <Button
+            raised
+            iconLeft
+            backgroundColor= '#2ed2ff'
+            icon={{name:'md-arrow-back', type:'ionicon'}}
+            buttonStyle= {styles.modalButtons}
+            title='Back'
+            onPress={()=> {Actions.pop()}}/>
 
-        <Button
-          iconRight
-          backgroundColor= '#FFC107'
-          icon={{name: 'navigate-next'}}
-          title='Back'
-          onPress={()=> {Actions.pop()}}/>
+          <Button
+            raised
+            iconRight
+            backgroundColor= '#2ed2ff'
+            icon={{name:'md-arrow-forward', type:'ionicon'}}
+            buttonStyle= {styles.modalButtons}
+            title='Save'
+            onPress={this.saveTask.bind(this)}/>
+        </View>
 
       </View>
     );

@@ -51,39 +51,51 @@ export default class NewProject extends Component {
 
   render() {
     return (
-      <View style={styles.contentContainer}>
-        <View style={styles.topContainer}>
-          <Text style={styles.pageTitle}>New Project</Text>
-          <Text style={styles.pageDescription}>This is a new project</Text>
+      <View style={styles.modalContainer}>
+        <View style={styles.modalHeader}>
+          <Text style={styles.pageTitle}> New Project</Text>
+          <Text style={styles.pageDescription}>
+            Let's start a new project
+          </Text>
         </View>
-        <View>
-          <ScrollView style={{paddingLeft:10,paddingTop:10, height:200}}>
-            <TextInput
-              style={{borderBottomWidth:200, borderColor: 'black' }}
-              keyboardType='default'
-              value={this.state.name}
-              placeholder="Name"
-              returnKeyType="done"
-              onChangeText={(name) => this.setState({name})}
-            />
-          </ScrollView>
+        {/* FORM */}
+        <View style={styles.modalForm}>
+          <TextInput
+            style={styles.formInput}
+            value={this.state.name}
+            multiline={true}
+            placeholder="Project Name"
+            placeholderTextColor="#242424"
+            onChangeText={(name) => this.setState({name})} />
+          <TextInput
+            style={styles.formInput}
+            value={this.state.description}
+            placeholder="Project Description"
+            placeholderTextColor="#242424"
+            multiline={true}
+            onChangeText={(description) => this.setState({description})} />
+        </View>
 
+        <View style={styles.modalControllers}>
           <Button
-            reverse
-            iconRight
-            backgroundColor= '#FFC107'
-            icon={{name: 'navigate-next'}}
-            title='SAVE'
-            onPress={this.saveProject.bind(this)}/>
-
-          <Button
-            iconRight
-            backgroundColor= '#FFC107'
-            icon={{name: 'navigate-next'}}
+            raised
+            iconLeft
+            backgroundColor= '#2ed2ff'
+            icon={{name:'md-arrow-back', type:'ionicon'}}
+            buttonStyle= {styles.modalButtons}
             title='Back'
             onPress={()=> {Actions.homeTab({type: ActionConst.RESET})}}/>
+
+          <Button
+            raised
+            iconRight
+            backgroundColor= '#2ed2ff'
+            icon={{name:'md-arrow-forward', type:'ionicon'}}
+            buttonStyle= {styles.modalButtons}
+            title='Save'
+            onPress={this.saveProject.bind(this)}/>
         </View>
-    </View>
+      </View>
     );
   }
 }
