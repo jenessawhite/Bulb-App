@@ -63,14 +63,12 @@ export default class Budget extends Component {
     });
   }
 
-  let actual = this.state.actualList.reduce(function(a, b) {
-    return (
-      a + b
-    );
-  }, 0);
-
-
   render() {
+    let actual = this.state.actualList.reduce((a, b) => {
+      return (
+        a + b
+      );
+    }, 0);
     return (
       <View style={styles.contentContainer}>
         {/* Static banner */}
