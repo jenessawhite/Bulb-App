@@ -75,8 +75,14 @@ export default class Budget extends Component {
             {this.state.budgetList.map((budget, index) => {
               return (
                 <View key={budget.id}>
-                  <Text>Estimated: ${budget.estimated}</Text>
-                  <Text>Actual: ${budget.actual}</Text>
+                  <View>
+                    <Text>Estimated:</Text>
+                    <Text>${budget.estimated}</Text>
+                  </View>
+                  <View>
+                    <Text>Actual:</Text>
+                    <Text>${budget.actual}</Text>
+                  </View>
                 </View>
               )
             })}

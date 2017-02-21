@@ -341,12 +341,12 @@ if(process.env.NODE_ENV !== 'production') {
         },
         {
           title: 'clamping',
-          url: 'http://maxpixel.freegreatpicture.com/static/photo/1x/Clamp-Diy-Woodworking-Hand-Tool-Carpenter-Work-1342569.jpg',
+          url: 'https://maxpixel.freegreatpicture.com/static/photo/1x/Clamp-Diy-Woodworking-Hand-Tool-Carpenter-Work-1342569.jpg',
           projectId: 1
         },
         {
           title: 'toolset',
-          url: 'http://i.imgur.com/8plleN6.jpg',
+          url: 'https://i.imgur.com/8plleN6.jpg',
           projectId: 2
         },
       ],
@@ -726,6 +726,19 @@ function startExpress() {
     Task.findAll({
       where: {
         projectId: req.params.id,
+      }
+    }).then((tasks) => {
+      res.json(tasks);
+      });
+  });
+
+  // Get a single task
+  app.get('/api/projects/:projectId/tasks/:id', (req, res) => {
+    // Find all tasks
+    Task.findAll({
+      where: {
+        projectId: req.params.projectId,
+        id: req.params.id
       }
     }).then((tasks) => {
       res.json(tasks);

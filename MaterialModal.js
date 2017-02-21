@@ -24,7 +24,7 @@ export default class MaterialModal extends Component {
   }
 
   getMaterial() {
-    axios.get(api() + '/projects/' + this.props.projectId + '/materials' + this.props.id)
+    axios.get(api() + '/projects/' + this.props.projectId + '/materials/' + this.props.id)
       .then((response) => {
         console.log(response);
       })
@@ -38,42 +38,14 @@ export default class MaterialModal extends Component {
         <View style={styles.topContainer}>
           <Text style={styles.pageTitle}>Single Material</Text>
         </View>
-        <View style ={styles.newItemsHolder}>
-          <Icon
-            name='add'
-            color='#212121'
-            size={25}/>
-        </View>
         <View style={styles.content}>
-          {/* <ListView
-            style={styles.itemsList}
-            enableEmptySections={true}
-            dataSource={this.state.materialsList}
-            renderRow={
-              (material) => {
-                console.log(material);
-                return (
-                  <View style={styles.itemRow}>
-                    <Text style={styles.itemRowText}>{material.quantity}</Text>
-                    <Text style={styles.itemRowText}>{material.name}</Text>
-                    <Icon
-                      style={styles.itemRowButton}
-                      name='delete'
-                      size={25}
-                      color='#212121'
-                      onPress={()=> { Alert.alert('Are you sure you want to delete this material?') }}/>
-                  </View>
-                )
-              }
-            }
-          /> */}
         </View>
         <View style={styles.backContainer}>
           <Button
             raised
             icon={{name: 'arrow-back'}}
             title='Back'
-            backgroundColor= '#FFC107'
+            backgroundColor= '#2ed2ff'
             style={styles.backButton}
             onPress={()=> {Actions.popTo('singleProject')}}/>
         </View>

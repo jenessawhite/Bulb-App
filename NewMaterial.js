@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, ScrollView, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { Alert, ScrollView, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { Button, FormLabel, FormInput, Icon } from 'react-native-elements';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import axios from 'axios';
@@ -51,52 +51,59 @@ export default class NewMaterial extends Component {
   }
 
   saveMaterial(props) {
-    let newMaterial = {
-      name: this.state.name,
-      description: this.state.description,
-      quantity: this.state.quantity,
-      checked: false,
-      projectId: this.props.id
-    };
-    console.log('New material: ' + newMaterial);
+    if (this.state.name === '') {
+      Alert.alert(
+        'Woah there',
+        'Your material needs a name!',
+      )
+    } else {
+      let newMaterial = {
+        name: this.state.name,
+        description: this.state.description,
+        quantity: this.state.quantity,
+        checked: false,
+        projectId: this.props.id
+      };
+      console.log('New material: ' + newMaterial);
 
-    axios.post(api() + '/projects/' + this.props.id + '/materials', newMaterial).then((response) => {
-      console.log('Material (after post): ' + newMaterial);
-      console.log(response.data);
-      Actions.materials({id: this.props.id, name: this.props.name})
-    })
-    .catch(function (error) {
-      console.log('You have an ' + error);
-    });
+      axios.post(api() + '/projects/' + this.props.id + '/materials', newMaterial).then((response) => {
+        console.log('Material (after post): ' + newMaterial);
+        console.log(response.data);
+        Actions.materials({id: this.props.id, name: this.props.name})
+      })
+      .catch(function (error) {
+        console.log('You have an ' + error);
+      });
+    }
   }
 
   render() {
     return (
-      <View style={styles.homeContainer}>
+      <View style={styles.modalContainer}>
         <Text style={styles.pageTitle}> New Material</Text>
         <Text style={styles.pageDescription}>
           Add a new material to your list
         </Text>
         {/* FORM */}
         <ScrollView style={{paddingLeft:10, paddingTop:10, height:400}}>
+          <View style={styles.formInput}>
+            <TextInput
+              keyboardType='default'
+              value={this.state.name}
+              placeholder="Material Name"
+              returnKeyType="done"
+              onChangeText={(name) => this.setState({name})} />
+          </View>
+          <View style={styles.formInput}>
+            <TextInput
+              keyboardType='numeric'
+              value={this.state.quantity}
+              placeholder="Quantity"
+              returnKeyType="done"
+              onChangeText={(quantity) => this.setState({quantity})} />
+          </View>
           <TextInput
-            style={{borderBottomWidth:2, borderColor: 'black', paddingTop:10, height:40 }}
-            keyboardType='default'
-            value={this.state.name}
-            placeholder="Material Name"
-            returnKeyType="done"
-            onChangeText={(name) => this.setState({name})}
-          />
-          <TextInput
-            style={{borderBottomWidth:2, borderColor: 'black', paddingTop:10, height:40 }}
-            keyboardType='numeric'
-            value={this.state.quantity}
-            placeholder="quantity"
-            returnKeyType="done"
-            onChangeText={(quantity) => this.setState({quantity})}
-          />
-          <TextInput
-            style={{borderBottomWidth:2, borderColor: 'black', paddingTop:10, height:40}}
+            style={styles.detailedInput}
             keyboardType='default'
             value={this.state.description}
             placeholder="Material Description"
@@ -106,20 +113,24 @@ export default class NewMaterial extends Component {
           />
         </ScrollView>
 
-        <Button
-          reverse
-          iconRight
-          backgroundColor= '#FFC107'
-          icon={{name: 'navigate-next'}}
-          title='SAVE'
-          onPress={this.saveMaterial.bind(this)}/>
+        <View style={styles.modalControllers}>
+          <Button
+            raised
+            iconLeft
+            backgroundColor= '#2ed2ff'
+            icon={{name:'md-arrow-back', type:'ionicon'}}
+            title='Back'
+            onPress={()=> {Actions.pop()}}/>
 
-        <Button
-          iconRight
-          backgroundColor= '#FFC107'
-          icon={{name: 'navigate-next'}}
-          title='Back'
-          onPress={()=> {Actions.pop()}}/>
+            <Button
+              raised
+              iconRight
+              backgroundColor= '#2ed2ff'
+              icon={{name:'md-arrow-forward', type:'ionicon', buttonStyle: styles.modalButtons }}
+              title='SAVE'
+              onPress={this.saveMaterial.bind(this)}/>
+
+        </View>
       </View>
     );
   }

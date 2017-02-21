@@ -39,7 +39,6 @@ export default StyleSheet.create({
     // backgroundColor: 'grey',
   },
   header: {
-    backgroundColor: '#B2DFDB',
     height: 70,
     width: width,
     flexDirection: 'row',
@@ -79,19 +78,12 @@ export default StyleSheet.create({
   footer: {
     bottom: 0,
     width: width,
-    backgroundColor: '#B2DFDB',
     height: 70,
-  },
-  //Tabs
-  tabsBar: {
-    height: 50,
-    backgroundColor: '#B2DFDB',
   },
   //assets
   contentContainer: {
     height: height,
     flex: 1,
-    backgroundColor: '#b2dfdb',
   },
   topBanner: {
     paddingTop: 10,
@@ -120,7 +112,7 @@ export default StyleSheet.create({
     width: width,
     height: height,
     backgroundColor: '#555',
-    // justifyContent: 'space-between'
+    justifyContent: 'space-between'
   },
   transactionContainer:{
     width: width,
@@ -253,6 +245,36 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  itemDelete: {
-  }
+  formInput: {
+    borderBottomWidth:1,
+    borderBottomColor: '#FF2E69',
+    paddingTop:10,
+    height:25,
+    margin:10,
+  },
+  detailedInput: {
+    borderBottomWidth:1,
+    borderColor: '#FF2E69',
+    paddingTop:10,
+    height:40,
+    margin:10,
+  },
+  modalContainer: {
+    width: width,
+    height: 550,
+    marginTop: 60,
+    backgroundColor: '#FAFAFA',
+    // flexDirection: 'row',
+    // justifyContent: 'space-between'
+  },
+  modalControllers: {
+    width: width,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  modalButtons: {
+    width: 150,
+
+  },
 });

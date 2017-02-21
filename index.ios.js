@@ -7,22 +7,21 @@ import { ActionConst, Scene, Router} from 'react-native-router-flux';
 import colors from './colors';
 import styles from './styles';
 
-// import Navigation from './navigation';
 import Home from './Home';
 import NewProject from './NewProject';
 import Profile from './Profile';
 import SingleProject from './SingleProject';
 import Budget from './Budget';
+import Transactions from './Transactions';
+import NewTransaction from './NewTransaction';
 import Tasks from './Tasks';
 import NewTask from './NewTask';
+import TaskModal from './TaskModal';
 import Photos from './Photos';
 import NewPhoto from './NewPhoto';
 import Materials from './Materials';
 import NewMaterial from './NewMaterial';
 import MaterialModal from './MaterialModal';
-import TransactionModal from './TransactionModal';
-import Transactions from './Transactions';
-import NewTransaction from './NewTransaction';
 
 import CameraApp from './CameraApp';
 
@@ -92,12 +91,12 @@ export default class diyApp extends Component {
             <Scene key="newMaterialModal" component={NewMaterial} />
             <Scene key="materialModal" component={MaterialModal} />
             <Scene key="budget" component={Budget} />
-            <Scene key="transactionModal" component={TransactionModal} />
             <Scene key="newTransactionModal" component={NewTransaction} />
             <Scene key="photos" component={Photos} />
             <Scene direction="vertical" key="newPhotoModal" component={NewPhoto} />
             <Scene key="tasks" component={Tasks} />
             <Scene direction="vertical" key="newTaskModal" component={NewTask}/>
+            <Scene key="taskModal" component={TaskModal} />
           </Scene>
         </Scene>
       </Router>

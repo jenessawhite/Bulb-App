@@ -8,25 +8,27 @@ import api from './api';
 import styles from './styles';
 
 
-export default class TransactionModal extends Component {
+export default class TaskModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      materialsList: {}
+      task: {}
     }
   }
 
   componentDidMount(props) {
     console.log('projectId: ' + this.props.projectId);
-    console.log('materialId: ' + this.props.id);
+    console.log('taskId: ' + this.props.id);
     console.log('project name: ' + this.props.name);
-    this.getTransaction()
+    this.getTask()
   }
 
-  getTransaction() {
-    axios.get(api() + '/projects/' + this.props.projectId + '/materials' + this.props.id)
+  getTask() {
+    axios.get(api() + '/projects/' + this.props.projectId + '/tasks/' + this.props.id)
       .then((response) => {
-        console.log(response);
+        console.log(response.data[0]);
+        let task = response.data[0]
+        console.log(task);
       })
       .catch(function (error) {
         console.log(error);
@@ -36,13 +38,7 @@ export default class TransactionModal extends Component {
     return (
       <View style={styles.contentContainer}>
         <View style={styles.topContainer}>
-          <Text style={styles.pageTitle}>Single Transaction</Text>
-        </View>
-        <View style ={styles.newItemsHolder}>
-          <Icon
-            name='add'
-            color='#212121'
-            size={25}/>
+          <Text style={styles.pageTitle}>Single Task</Text>
         </View>
         <View style={styles.content}>
           {/* <ListView

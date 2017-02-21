@@ -78,8 +78,9 @@ export default class Home extends Component {
               (project) => {
                 console.log(project);
                 return (
+                  <TouchableHighlight onPress={()=> { Actions.singleProjectHold({id: project.id, name: project.name})}}>
                   <View style={styles.projectsRow}>
-                    <Text style={styles.itemRowText} onPress={()=> { Actions.singleProjectHold({id: project.id, name: project.name}) }}>{project.name}</Text>
+                    <Text style={styles.itemRowText}>{project.name}</Text>
                     <Icon
                       style={styles.itemRowButton}
                       name='delete'
@@ -96,6 +97,7 @@ export default class Home extends Component {
                         )
                       }}/>
                   </View>
+                </TouchableHighlight>
                 )
               }
             }

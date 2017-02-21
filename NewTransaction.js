@@ -57,8 +57,8 @@ export default class NewTransaction extends Component {
     };
     console.log('New transaction: ' + newTransaction);
 
-    axios.post(api() + '/projects/' + this.props.id + '/transactions', newTransaction).then((response) => {
-      console.log('Material (after post): ' + newTransaction);
+    axios.post(api() + '/projects/' + this.props.id + '/transactions/', newTransaction).then((response) => {
+      console.log('Transaction (after post): ' + newTransaction);
       console.log(response.data);
       Actions.budget({id: this.props.id})
     })
@@ -70,9 +70,9 @@ export default class NewTransaction extends Component {
   render() {
     return (
       <View style={styles.homeContainer}>
-        <Text style={styles.pageTitle}> New Material</Text>
+        <Text style={styles.pageTitle}> New Transaction</Text>
         <Text style={styles.pageDescription}>
-          Add a new material to your list
+          Add a new transaction to your budget
         </Text>
         {/* FORM */}
         <ScrollView style={{paddingLeft:10, paddingTop:10, height:400}}>
@@ -102,20 +102,22 @@ export default class NewTransaction extends Component {
           />
         </ScrollView>
 
-        <Button
-          reverse
-          iconRight
-          backgroundColor= '#FFC107'
-          icon={{name: 'navigate-next'}}
-          title='SAVE'
-          onPress={this.saveTransaction.bind(this)}/>
+        <View>
+          <Button
+            reverse
+            iconRight
+            backgroundColor= '#FFC107'
+            icon={{name: 'navigate-next'}}
+            title='SAVE'
+            onPress={this.saveTransaction.bind(this)}/>
 
-        <Button
-          iconRight
-          backgroundColor= '#FFC107'
-          icon={{name: 'navigate-next'}}
-          title='Back'
-          onPress={()=> {Actions.pop()}}/>
+          <Button
+            iconRight
+            backgroundColor= '#FFC107'
+            icon={{name: 'navigate-next'}}
+            title='Back'
+            onPress={()=> {Actions.pop()}}/>
+        </View>
       </View>
     );
   }
