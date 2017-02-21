@@ -41,7 +41,7 @@ export default class NewProject extends Component {
       };
       axios.post(api() + '/projects', newProject).then((response) => {
         console.log(newProject);
-        Actions.singleProjectHold({id: newProject.id, name: newProject.name, description: newProject.description});
+        Actions.homeTab({type: ActionConst.RESET});
       })
       .catch(function (error) {
         console.log(error);
@@ -67,9 +67,21 @@ export default class NewProject extends Component {
               onChangeText={(name) => this.setState({name})}
             />
           </ScrollView>
-          <Button reverse iconRight backgroundColor= '#FFC107' icon={{name: 'navigate-next'}} title='SAVE'
+
+          <Button
+            reverse
+            iconRight
+            backgroundColor= '#FFC107'
+            icon={{name: 'navigate-next'}}
+            title='SAVE'
             onPress={this.saveProject.bind(this)}/>
-          <Text>{JSON.stringify(this.state.name)}</Text>
+
+          <Button
+            iconRight
+            backgroundColor= '#FFC107'
+            icon={{name: 'navigate-next'}}
+            title='Back'
+            onPress={()=> {Actions.homeTab({type: ActionConst.RESET})}}/>
         </View>
     </View>
     );

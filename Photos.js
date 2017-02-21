@@ -16,7 +16,6 @@ export default class Photos extends Component {
     }
   }
   componentDidMount(props) {
-    console.log(this.props);
     console.log(this.props.id);
     this.getPhotos()
   }

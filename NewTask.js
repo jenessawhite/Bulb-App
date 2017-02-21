@@ -93,8 +93,12 @@ export default class NewTask extends Component {
           title='SAVE'
           onPress={this.saveTask.bind(this)}/>
 
-        <Button reverse iconRight backgroundColor= '#FFC107' icon={{name: 'navigate-next'}} title='Back'
-            onPress={()=> {Actions.pop()}}/>
+        <Button
+          iconRight
+          backgroundColor= '#FFC107'
+          icon={{name: 'navigate-next'}}
+          title='Back'
+          onPress={()=> {Actions.pop()}}/>
 
       </View>
     );

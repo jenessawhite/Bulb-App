@@ -184,7 +184,6 @@ export default StyleSheet.create({
   },
   //NewProject
   newButton: {
-    // width: 105,
     height: 35,
     borderRadius: 2,
   },
@@ -230,11 +229,6 @@ export default StyleSheet.create({
     },
     shadowRadius: 2,
   },
-  // iconCircle: {
-  //   borderRadius:150,
-  //   borderColor: '#ff2e69',
-  //   borderWidth: 1,
-  // },
   cardButton : {
     borderRadius: 0,
     marginLeft: 0,
@@ -258,10 +252,6 @@ export default StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  checkbox: {
-    // backgroundColor: 'blue',
-    // flex: 2
   },
   itemDelete: {
   }

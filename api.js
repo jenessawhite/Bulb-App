@@ -1,6 +1,6 @@
 export default function api() {
   if (process.env.NODE_ENV === "production") {
-    return '';
+    return 'http://localhost:3001/api';
   } else {
    return 'http://localhost:3001/api';
   }

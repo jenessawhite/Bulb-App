@@ -116,7 +116,16 @@ export default class Materials extends Component {
                           name='delete'
                           size={22}
                           color='#242424'
-                          onPress={()=> this.deleteMaterial(material)} />
+                          onPress={()=> {
+                            Alert.alert(
+                              'Confirm Delete',
+                              'Are you sure you want to delete this task? (This can\'t be undone)',
+                              [
+                                {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
+                                {text: 'Yes', style: 'destructive', onPress: () => this.deleteMaterial(task)},
+                              ]
+                            )
+                          }} />
                       </View>
                     </View>
                 )

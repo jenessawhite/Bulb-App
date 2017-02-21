@@ -9,7 +9,18 @@ var bodyParser = require('body-parser');
 var Sequelize = require('sequelize');
 
 // Connect to a sql database
-var sequelize = new Sequelize(process.env.DATABASE_URL);
+if(process.env.NODE_ENV == 'production') {
+  var sequelize = new Sequelize(process.env.DATABASE_URL, {
+      dialect: 'postgres',
+      protocol: 'postgres',
+      dialectOptions: {
+          ssl: true
+      }
+  });
+} else {
+  var sequelize = new Sequelize(process.env.DATABASE_URL_DEV);
+}
+
 
 // We need to define models. A model describes the structure of
 // something that we want to store in the database. On each model

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Alert, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
-import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
 
 import styles from './styles';
 
@@ -24,6 +23,13 @@ export default class NewPhoto extends Component {
           backgroundColor= '#FFC107'
           icon={{name: 'navigate-next'}}
           title='SAVE'
+          onPress={this.savePhoto.bind(this)}/>
+
+        <Button
+          iconRight
+          backgroundColor= '#FFC107'
+          icon={{name: 'navigate-next'}}
+          title='Back'
           onPress={()=> {Actions.pop()}}/>
       </View>
     );

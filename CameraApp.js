@@ -6,8 +6,8 @@ import { RNS3 } from 'react-native-aws3';
 
 
 export default class CameraApp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.takePicture = this.takePicture.bind(this);
   }
 
@@ -22,8 +22,8 @@ export default class CameraApp extends Component {
 
         const options = {
           keyPrefix: 'photos/',
-          bucket: 'diy-tiy-app',
-          region: 'eu-west-1',
+          bucket: 'diy-app-tiy',
+          region: 'us-west-2',
           accessKey: 'AKIAI5TYP4V32ACVX37Q',
           secretKey: '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',
           successActionStatus: 201
