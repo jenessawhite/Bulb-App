@@ -20,10 +20,13 @@ export default class Transactions extends Component {
       transactionsList: ds.cloneWithRows([])
     }
   }
-
+  componentWillReceiveProps(newprops, props) {
+    let transactionsList = this.state.ds.cloneWithRows(newprops.transactions);
+    this.setState ({transactionsList})
+  }
   componentDidMount(props) {
     console.log('projectId: ' + this.props.id);
-    this.getTransactions()
+    this.props.getTransactions()
   }
 
   getTransactions() {

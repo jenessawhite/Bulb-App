@@ -18,7 +18,10 @@ if(process.env.NODE_ENV == 'production') {
       }
   });
 } else {
-  var sequelize = new Sequelize(process.env.DATABASE_URL_DEV);
+  var sequelize = new Sequelize(process.env.DATABASE_URL_DEV, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+  });
 }
 
 

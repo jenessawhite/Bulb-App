@@ -23,7 +23,6 @@ export default class Budget extends Component {
     this.getBudget()
     this.getTransactions()
   }
-
   getBudget() {
     axios.get(api() + '/projects/' + this.props.id + '/budget')
     .then((response) => {
@@ -64,6 +63,11 @@ export default class Budget extends Component {
   }
 
   render() {
+    let actual = this.state.actualList.map((item) => item.price).reduce((a, b) => {
+      return (
+        a + b
+      );
+    }, 0).toFixed(2);
     return (
       <View style={styles.contentContainer}>
         {/* Static banner */}
@@ -85,16 +89,16 @@ export default class Budget extends Component {
             onPress={()=> {Actions.newTransactionModal({projectId: this.props.id})}} />
         </View>
 
-        <Transactions id={this.props.id}  style={styles.transactionContainer}/>
+        <Transactions id={this.props.id} getTransactions={this.getTransactions.bind(this)} transactions={this.state.actualList} style={styles.transactionContainer}/>
 
         <View style={styles.bottomContainer}>
           {/* Actual Transaction Info */}
-            {/* <View style={styles.budgetContainer} key={budget.id}>
-              <View style={styles.budgetRow}>
-                <Text>Actual:</Text>
-                <Text>${budget.actual}</Text>
-              </View>
-            </View> */}
+          <View style={styles.budgetContainer}>
+            <View style={styles.budgetRow}>
+              <Text>Actual:</Text>
+              <Text>${actual}</Text>
+            </View>
+          </View>
 
           {/* Est. Budget Info */}
           {this.state.budgetList.map((budget, index) => {
