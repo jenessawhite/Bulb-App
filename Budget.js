@@ -63,13 +63,6 @@ export default class Budget extends Component {
     });
   }
 
-  let actual = this.state.actualList.reduce(function(a, b) {
-    return (
-      a + b
-    );
-  }, 0);
-
-
   render() {
     return (
       <View style={styles.contentContainer}>
@@ -96,12 +89,12 @@ export default class Budget extends Component {
 
         <View style={styles.bottomContainer}>
           {/* Actual Transaction Info */}
-            <View style={styles.budgetContainer} key={budget.id}>
+            {/* <View style={styles.budgetContainer} key={budget.id}>
               <View style={styles.budgetRow}>
                 <Text>Actual:</Text>
                 <Text>${budget.actual}</Text>
               </View>
-            </View>
+            </View> */}
 
           {/* Est. Budget Info */}
           {this.state.budgetList.map((budget, index) => {
