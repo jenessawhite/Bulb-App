@@ -4,7 +4,7 @@ import { Button, Icon } from 'react-native-elements';
 import axios from 'axios';
 import {Actions, ActionConst} from 'react-native-router-flux';
 
-
+import HomeNavigation from './navigation';
 import api from './api';
 import styles from './styles';
 
@@ -69,16 +69,16 @@ export default class Home extends Component {
             onPress={()=> {Actions.newProjectTab()}} />
         </View>
 
-        <ScrollView style ={styles.itemsListHolder}>
+        <ScrollView style={styles.itemsListHolder}>
           <ListView
-            style={styles.projectsList}
+            // style={styles.projectsList}
             enableEmptySections={true}
             dataSource={this.state.projectsList}
             renderRow={
               (project) => {
                 console.log(project);
                 return (
-                  <TouchableHighlight onPress={()=> { Actions.singleProjectHold({id: project.id, name: project.name})}} underlayColor='#FF2E69'>
+                  <TouchableHighlight onPress={()=> { Actions.singleProjectHold({id: project.id, name: project.name})}} underlayColor='#FF2E69' style={styles.projectsList}>
                     <View style={styles.projectsRow}>
                       <Text style={styles.itemRowText}>{project.name}</Text>
                       <Icon
@@ -103,13 +103,8 @@ export default class Home extends Component {
             }
           />
         </ScrollView>
-        <View style={styles.spTabs}>
-          <Icon
-            name='home'
-            type='octicon'
-            color='#242424'
-            onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
-        </View>
+
+        <HomeNavigation />
       </View>
     );
   }

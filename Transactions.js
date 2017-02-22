@@ -40,19 +40,6 @@ export default class Transactions extends Component {
       });
   }
 
-  deleteTransaction(transaction) {
-    console.log('working');
-    console.log(transaction);
-    axios.delete(api() + '/projects/' + transaction.projectId + '/transactions/' + transaction.id)
-    .then((response) => {
-      console.log('deleted');
-      this.getTransactions()
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-
   updatePrice(transaction) {
     console.log(transaction.price);
     var transactionChecked = transaction.checked
@@ -96,7 +83,7 @@ export default class Transactions extends Component {
                             'Are you sure you want to delete this task? (This can\'t be undone)',
                             [
                               {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
-                              {text: 'Yes', style: 'destructive', onPress: () => this.deleteTransaction(transaction)},
+                              {text: 'Yes', style: 'destructive', onPress: () => this.props.deleteTransaction(transaction)},
                             ]
                           )
                         }}/>

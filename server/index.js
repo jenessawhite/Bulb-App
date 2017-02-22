@@ -195,10 +195,10 @@ if(process.env.NODE_ENV !== 'production') {
       data: [
         {
           name: 'Kitchen',
-          description: 'completely redo',
+          description: 'Gut job, new floors, cabinets, countertops',
         }, {
           name: 'Bathroom',
-          description: 'retiling tub surround'
+          description: 'Retile tub surround'
         },
       ],
       model: Project
@@ -208,13 +208,13 @@ if(process.env.NODE_ENV !== 'production') {
       data: [
         {
           title: 'Stain floors',
-          description: 'use the ebony stain from Home Depot',
+          description: 'Use the ebony stain from Home Depot',
           goalDate: 'May 1',
           completed: false,
           projectId: 1
         },{
           title: 'Install baseboards',
-          description: 'put in the wood painted baseboards from Menards',
+          description: 'Put in the wood painted baseboards from Menards',
           goalDate: 'Feb 28',
           completed: false,
           projectId: 2
@@ -225,7 +225,7 @@ if(process.env.NODE_ENV !== 'production') {
           completed: false,
           projectId: 1
         },{
-          title: 'Demo Bathroom',
+          title: 'Demo bathroom',
           description: 'Rip out tile, countertops, flooring, sink and remove showerhead',
           goalDate: 'April 2',
           completed: false,

@@ -3,6 +3,7 @@ import {Image, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import {Actions, ActionConst} from 'react-native-router-flux';
 
+import HomeNavigation from './navigation';
 import styles from './styles';
 
 
@@ -94,13 +95,7 @@ export default class SingleProject extends Component {
           </Card>
         </View>
 
-        <View style={styles.spTabs}>
-          <Icon
-            name='home'
-            type='octicon'
-            color='#242424'
-            onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
-        </View>
+        <HomeNavigation />
       </View>
     );
   }

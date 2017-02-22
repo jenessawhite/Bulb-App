@@ -61,22 +61,7 @@ export default class Photos extends Component {
           })}
         </ScrollView>
 
-        <View style={styles.spTabs}>
-          <View style={styles.backTabButton}>
-            <Icon
-              name='md-arrow-back'
-              type='ionicon'
-              color='#242424'
-              onPress={()=> {Actions.popTo('singleProject')}} />
-          </View>
-          <View style={styles.homeTabButton}>
-            <Icon
-              name='home'
-              type='octicon'
-              color='#242424'
-              onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
-          </View>
-        </View>
+        <PageNavigation />
 
       </View>
     );

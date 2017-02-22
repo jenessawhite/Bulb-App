@@ -194,9 +194,13 @@ export default StyleSheet.create({
   itemsList: {
     margin: 10,
   },
+  projectsList: {
+    height: 50,
+  },
   projectsRow: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: 'transparent',
     borderBottomColor: '#FF2E69',

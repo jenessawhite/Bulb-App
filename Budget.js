@@ -5,6 +5,7 @@ import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
 
 import Transactions from './Transactions';
+import PageNavigation from './pageNavigation';
 import api from './api';
 import styles from './styles';
 
@@ -48,7 +49,20 @@ export default class Budget extends Component {
     });
   }
 
-//map then reduce
+  deleteTransaction(transaction) {
+    console.log('working');
+    console.log(transaction);
+    axios.delete(api() + '/projects/' + transaction.projectId + '/transactions/' + transaction.id)
+    .then((response) => {
+      console.log('deleted');
+      this.getTransactions()
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  //map then reduce
   updateBudget(budget) {
     console.log(budget.checked);
     var budgetChecked = budget.checked
@@ -90,7 +104,7 @@ export default class Budget extends Component {
             onPress={()=> {Actions.newTransactionModal({projectId: this.props.id})}} />
         </View>
 
-        <Transactions id={this.props.id} getTransactions={this.getTransactions.bind(this)} transactions={this.state.actualList} style={styles.transactionContainer}/>
+        <Transactions id={this.props.id} getTransactions={this.getTransactions.bind(this)} deleteTransaction={this.deleteTransaction.bind(this)} transactions={this.state.actualList} style={styles.transactionContainer}/>
 
         <View style={styles.bottomContainer}>
           {/* Actual Transaction Info */}
@@ -110,23 +124,7 @@ export default class Budget extends Component {
             </View>
           </View>
 
-          <View style={styles.spTabs}>
-            <View style={styles.backTabButton}>
-              <Icon
-                name='md-arrow-back'
-                type='ionicon'
-                color='#242424'
-                onPress={()=> {Actions.popTo('singleProject')}} />
-            </View>
-            <View style={styles.homeTabButton}>
-              <Icon
-                name='home'
-                type='octicon'
-                color='#242424'
-                onPress={()=> {Actions.tabbar({type: ActionConst.RESET})}} />
-            </View>
-          </View>
-
+          <PageNavigation />
         </View>
       </View>
         );
