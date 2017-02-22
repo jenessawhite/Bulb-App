@@ -55,7 +55,7 @@ export default class Photos extends Component {
             return (
               <View key={photo.id} style={{margin: 25}}>
                 <Image source={{uri: photo.url}} style={{width: 300, height: 300}} />
-                <Text>{photo.title}</Text>
+                <Text style={styles.photoText}>{"\n"}{photo.title}</Text>
               </View>
             )
           })}

@@ -24,7 +24,6 @@ if(process.env.NODE_ENV == 'production') {
   });
 }
 
-
 // We need to define models. A model describes the structure of
 // something that we want to store in the database. On each model
 // we define each of the fields on that model. We can also decide

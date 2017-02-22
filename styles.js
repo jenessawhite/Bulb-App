@@ -104,7 +104,11 @@ export default StyleSheet.create({
   },
   photoContent:{
     width: width,
-    backgroundColor: '#B2DFDB',
+    backgroundColor: '#212121'
+  },
+  photoText: {
+    color: '#fafafa',
+    fontSize: 16,
   },
   bottomContainer: {
     position: 'absolute',
@@ -117,19 +121,20 @@ export default StyleSheet.create({
   budgetContainer: {
     width: width,
     height: 60,
-    backgroundColor: '#B2DFDB',
     justifyContent: 'space-around',
     marginBottom: 40,
   },
   budgetNumbers: {
     width: width,
-    backgroundColor: '#B2DFDB',
     marginBottom: 50,
   },
   budgetRow:{
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+  },
+  budgetText:{
+    fontSize: 16,
   },
   transactionContainer:{
     width: width,
@@ -302,14 +307,15 @@ export default StyleSheet.create({
   },
   modalContainer: {
     width: width,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#fff',
     flex: 1,
     alignItems: 'center',
+    // margin: 20,
     justifyContent: 'center',
   },
   modalHeader: {
     marginTop: 20,
-    width: width,
+    // width: width,
     flex: .25,
     justifyContent: 'flex-end',
   },
@@ -318,15 +324,15 @@ export default StyleSheet.create({
     flex: .5,
   },
   modalControllers: {
-    width: width,
+    // width: width,
     flex: .25,
-    padding: 20,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between'
   },
   modalButtons: {
-    width: 100,
+    width: 150,
+    height: 40,
     borderRadius: 5,
   },
   singleModal: {
@@ -342,6 +348,7 @@ export default StyleSheet.create({
   },
   modalSingleButton: {
     width: 200,
+    height: 40,
     borderRadius: 5,
   },
   singleModalText: {

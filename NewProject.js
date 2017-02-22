@@ -39,7 +39,8 @@ export default class NewProject extends Component {
         name: this.state.name,
         description: this.state.description
       };
-      axios.post(api() + '/projects', newProject).then((response) => {
+      axios.post(api() + '/projects', newProject)
+      .then((response) => {
         console.log(newProject);
         Actions.homeTab({type: ActionConst.RESET});
       })

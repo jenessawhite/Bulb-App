@@ -79,25 +79,25 @@ export default class Home extends Component {
                 console.log(project);
                 return (
                   <TouchableHighlight onPress={()=> { Actions.singleProjectHold({id: project.id, name: project.name})}} underlayColor='#FF2E69'>
-                  <View style={styles.projectsRow}>
-                    <Text style={styles.itemRowText}>{project.name}</Text>
-                    <Icon
-                      style={styles.itemRowButton}
-                      name='delete'
-                      size={25}
-                      color='#212121'
-                      onPress={()=> {
-                        Alert.alert(
-                          'Confirm Delete',
-                          'Are you sure you want to delete this project? (This can\'t be undone)',
-                          [
-                            {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
-                            {text: 'Yes', style: 'destructive', onPress: () => this.deleteProject(project)},
-                          ]
-                        )
-                      }}/>
-                  </View>
-                </TouchableHighlight>
+                    <View style={styles.projectsRow}>
+                      <Text style={styles.itemRowText}>{project.name}</Text>
+                      <Icon
+                        style={styles.itemRowButton}
+                        name='delete'
+                        size={25}
+                        color='#212121'
+                        onPress={()=> {
+                          Alert.alert(
+                            'Confirm Delete',
+                            'Are you sure you want to delete this project? (This can\'t be undone)',
+                            [
+                              {text: 'Nope', onPress: () => console.log('canceled'), style: 'cancel'},
+                              {text: 'Yes', style: 'destructive', onPress: () => this.deleteProject(project)},
+                            ]
+                          )
+                        }}/>
+                    </View>
+                  </TouchableHighlight>
                 )
               }
             }
