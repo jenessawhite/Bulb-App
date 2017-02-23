@@ -238,27 +238,27 @@ if(process.env.NODE_ENV !== 'production') {
     var materials = {
       data: [
         {
-          name: 'stain',
-          description: 'get the minwax ebony stain in a gallon',
+          name: 'Stain',
+          description: 'get the Minwax Ebony stain in a gallon',
           quantity: 4,
           checked: false,
           projectId: 1
         }, {
-          name: 'sandpaper',
-          description: 'all 3 grits for staining',
+          name: 'Sandpaper',
+          description: 'We need 120 and 80 grit (2 each)',
           quantity: 2,
           checked: false,
           projectId: 1
         },
         {
-          name: 'grout',
-          description: 'description',
+          name: 'Grout',
+          description: 'Need enough to do 100 sq ft of small tiles. Gray colored.',
           quantity: 1,
           checked: false,
           projectId: 2
         }, {
-          name: 'tile',
-          description: '12x12s',
+          name: 'Small stone tiles',
+          description: '12x12s look at quartz and a limestone type',
           quantity: 12,
           checked: false,
           projectId: 2
@@ -271,45 +271,45 @@ if(process.env.NODE_ENV !== 'production') {
       data: [
         {
           store: 'Home Depot',
-          item: 'Valspar',
+          item: 'Behr Paint (Lilac)',
           price: 45.09,
           projectId: 1
         }, {
           store: 'Home Depot',
-          item: 'sandpaper',
-          price: 5.49,
+          item: 'Sandpaper',
+          price: 10.49,
           projectId: 1
         },
         {
           store: 'Menards',
-          item: 'roller',
-          price: 10.00,
+          item: 'Semi-Smooth Roller',
+          price: 8.61,
           projectId: 2
         }, {
           store: 'Lowes',
-          item: 'Valspar',
+          item: 'Valspar Paint Diamond White quart',
           price: 45.09,
           projectId: 2
         }, {
           store: 'Home Depot',
-          item: 'coffee',
-          price: 45.09,
+          item: 'Fridgidaire M245 Micriowave',
+          price: 175.09,
           projectId: 1
         }, {
           store: 'Home Depot',
-          item: 'test',
-          price: 5.49,
+          item: 'Copper drop pendant light',
+          price: 345.11,
           projectId: 1
         },
         {
           store: 'Menards',
-          item: 'test',
-          price: 10.00,
+          item: 'Dropcloth',
+          price: 3.20,
           projectId: 2
         }, {
           store: 'Lowes',
-          item: 'test',
-          price: 45.09,
+          item: 'Trowel',
+          price: 6.43,
           projectId: 2
         },
       ],
@@ -319,12 +319,12 @@ if(process.env.NODE_ENV !== 'production') {
     var budgets = {
       data: [
         {
-          estimated: 1500,
-          actual: 1503.98,
+          actual: 0,
+          estimated: 16000,
           projectId: 1
         }, {
-          estimated: 2000,
-          actual: 2403.98,
+          actual: 0,
+          estimated: 1100,
           projectId: 2
         },
       ],
@@ -339,11 +339,6 @@ if(process.env.NODE_ENV !== 'production') {
           projectId: 1
         },
         {
-          title: 'Kitchen after',
-          url: 'https://i.imgur.com/XFGjUTX.jpg',
-          projectId: 1
-        },
-        {
           title: 'Bathtub before',
           url: 'https://i.imgur.com/hF3FRZp.jpg',
           projectId: 2
@@ -351,11 +346,6 @@ if(process.env.NODE_ENV !== 'production') {
         {
           title: 'Bathtub demo',
           url: 'https://i.imgur.com/IsRyhwc.jpg',
-          projectId: 2
-        },
-        {
-          title: 'Bathroom after',
-          url: 'https://i.imgur.com/nKkoO7F.jpg',
           projectId: 2
         },
       ],

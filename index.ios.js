@@ -24,6 +24,7 @@ import Materials from './Materials';
 import NewMaterial from './NewMaterial';
 import MaterialModal from './MaterialModal';
 
+import Example from './Example';
 
 
 var width = Dimensions.get('window').width; //full width
@@ -69,6 +70,8 @@ export default class diyApp extends Component {
     return (
       <Router>
         <Scene key="root">
+          {/* <Scene key="example" component={Example} hideNavBar/> */}
+
           {/* Tab Container */}
           <Scene key="tabbar" tabs={true} tabBarStyle={{height: 0,  backgroundColor: 'transparent'}} type={ActionConst.REPLACE} >
             {/* Tab and it's scenes */}

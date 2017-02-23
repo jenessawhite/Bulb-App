@@ -5,6 +5,10 @@ const height = Dimensions.get('window').height; //full height
 
 
 export default StyleSheet.create({
+  photoContainer: {
+    flex: 1,
+    marginBottom:50,
+  },
   spTabs: {
     bottom: 0,
     right: 0,
