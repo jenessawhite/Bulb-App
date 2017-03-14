@@ -47,4 +47,4 @@ Please feel free to provide feedback (praise or otherwise). If you want feel fre
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
