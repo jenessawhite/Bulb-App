@@ -45,6 +45,3 @@ Please feel free to provide feedback (praise or otherwise). If you want feel fre
 
 * **Jenessa White** - [JenessaWhite](https://github.com/jenessawhite)
 
-## License
-
-
