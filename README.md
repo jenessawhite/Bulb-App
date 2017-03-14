@@ -17,7 +17,7 @@ You'll need to have React-Natve installed on your system. To get started with th
 You can clone the repo
 
 ```
-git clone https://github.com/jenessawhite/diyApp.git
+git clone https://github.com/jenessawhite/Bulb-App.git
 ```
 
 Install all dependencies
@@ -44,8 +44,6 @@ Please feel free to provide feedback (praise or otherwise). If you want feel fre
 ## Authors
 
 * **Jenessa White** - [JenessaWhite](https://github.com/jenessawhite)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
