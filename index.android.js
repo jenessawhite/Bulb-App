@@ -33,58 +33,25 @@ var height = Dimensions.get('window').height; //full height
 export default class diyApp extends Component {
 
   render() {
-    // Simple component to render something in place of icon
-    const HomeTabIcon = ({ selected, title }) => {
-      return (
-        <View>
-          {/* <Icon
-            name='home'
-            size={25}
-            iconStyle={{color: selected ? '#FFC107' :'#212121', fontWeight: selected ? 'bold' :'normal'}}/>
-          <Text style={{color: selected ? 'white' :'black', fontWeight: selected ? 'bold' :'normal'}}>{title}</Text> */}
-        </View>
-      );
-    }
-    const NewProjectTabIcon = ({ selected, title }) => {
-      return (
-        <View>
-          {/* <Icon
-            name='add'
-            size={25}
-            iconStyle={{color: selected ? '#FFC107' :'#212121', fontWeight: selected ? 'bold' :'normal'}}/>
-          <Text style={{color: selected ? 'white' :'black', fontWeight: selected ? 'bold' :'normal'}}>{title}</Text> */}
-        </View>
-      );
-    }
-    const ProfileTabIcon = ({ selected, title }) => {
-      return (
-        <View>
-          {/* <Icon
-            name='person'
-            size={25}
-            iconStyle={{color: selected ? '#FFC107' :'#212121', fontWeight: selected ? 'bold' :'normal'}}/>
-          <Text style={{color: selected ? 'white' :'black', fontWeight: selected ? 'bold' :'normal'}}>{title}</Text> */}
-        </View>
-      );
-    }
     return (
       <Router>
         <Scene key="root">
           {/* <Scene key="example" component={Example} hideNavBar/> */}
 
           {/* Tab Container */}
-          <Scene key="tabbar" tabs={true} tabBarStyle={{height: 0,  backgroundColor: 'transparent'}} type={ActionConst.REPLACE} >
+          {/* <Scene key="tabbar" tabs={true} tabBarStyle={{height: 0,  backgroundColor: 'transparent'}} type={ActionConst.REPLACE} > */}
+          <Scene key="tabbar" type={ActionConst.REPLACE} >
             {/* Tab and it's scenes */}
             {/* <Scene key="camera" component={CameraApp} /> */}
-            <Scene key="homeTab" title="Home" icon={HomeTabIcon} hideNavBar>
+            <Scene key="homeTab" title="Home" hideNavBar>
               <Scene key="home" component={Home} title="Home"/>
             </Scene>
             {/* Tab and it's scenes */}
-            <Scene key="newProjectTab" title="New Project" icon={NewProjectTabIcon} hideNavBar>
+            <Scene key="newProjectTab" title="New Project" hideNavBar>
               <Scene key="newProject" component={NewProject} title="New Project"/>
             </Scene>
             {/* Tab and it's scenes */}
-            <Scene key="profileTab" hideNavBar title="Profile" icon={ProfileTabIcon}>
+            <Scene key="profileTab" hideNavBar title="Profile">
               <Scene key="profile" component={Profile} title="Profile" />
             </Scene>
           </Scene>
