@@ -39,7 +39,7 @@ export default class Photos extends Component {
   }
 
   getPhotos() {
-    axios.get(api() + '/projects/' + this.props.id + '/photos')
+    axios.get(api() + '/api/projects/' + this.props.id + '/photos')
     .then((response) => {
       let photosList = response.data;
       console.log(response.data);

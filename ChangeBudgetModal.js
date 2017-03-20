@@ -27,7 +27,7 @@ export default class ChangeBudgetModal extends Component {
   }
 
   getBudget() {
-    axios.get(api() + '/projects/' + this.props.projectId + '/budget/' + this.props.id)
+    axios.get(api() + '/api/projects/' + this.props.projectId + '/budget/' + this.props.id)
     .then((response) => {
       console.log('budgetList' + response.data);
       let budgetList = response.data;
@@ -64,7 +64,7 @@ export default class ChangeBudgetModal extends Component {
     console.log(budget);
     var budgetEstimate = budget.estimated
     console.log(budgetEstimate);
-    axios.patch(api() + '/projects/' + budget.projectId + '/budget/' + budget.id, budget)
+    axios.patch(api() + '/api/projects/' + budget.projectId + '/budget/' + budget.id, budget)
     .then((response) => {
       console.log(budget);
       this.getBudget()

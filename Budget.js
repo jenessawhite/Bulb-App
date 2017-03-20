@@ -25,7 +25,7 @@ export default class Budget extends Component {
     this.getTransactions()
   }
   getBudget() {
-    axios.get(api() + '/projects/' + this.props.id + '/budget')
+    axios.get(api() + '/api/projects/' + this.props.id + '/budget')
     .then((response) => {
       console.log('budgetList' + response.data);
       let budgetList = response.data[0];
@@ -38,7 +38,7 @@ export default class Budget extends Component {
   }
 
   getTransactions() {
-    axios.get(api() + '/projects/' + this.props.id + '/transactions')
+    axios.get(api() + '/api/projects/' + this.props.id + '/transactions')
     .then((response) => {
       console.log('actualList' + response.data);
       let actualList = (response.data);
@@ -52,7 +52,7 @@ export default class Budget extends Component {
   deleteTransaction(transaction) {
     console.log('working');
     console.log(transaction);
-    axios.delete(api() + '/projects/' + transaction.projectId + '/transactions/' + transaction.id)
+    axios.delete(api() + '/api/projects/' + transaction.projectId + '/transactions/' + transaction.id)
     .then((response) => {
       console.log('deleted');
       this.getTransactions()
@@ -67,7 +67,7 @@ export default class Budget extends Component {
     console.log(budget.checked);
     var budgetChecked = budget.checked
     console.log(budgetChecked);
-    axios.patch(api() + '/projects/' + budget.projectId + '/budget/' + budget.id, budget)
+    axios.patch(api() + '/api/projects/' + budget.projectId + '/budget/' + budget.id, budget)
     .then((response) => {
       console.log(budget);
       this.getBudget()

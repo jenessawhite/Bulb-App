@@ -28,7 +28,7 @@ export default class Materials extends Component {
   }
 
   getMaterials() {
-    axios.get(api() + '/projects/' + this.props.id + '/materials')
+    axios.get(api() + '/api/projects/' + this.props.id + '/materials')
       .then((response) => {
         let materialsList = this.state.ds.cloneWithRows(response.data);
         console.log(materialsList);
@@ -41,7 +41,7 @@ export default class Materials extends Component {
 
   deleteMaterial(material) {
     console.log(material);
-    axios.delete(api() + '/projects/' + material.projectId + '/materials/' + material.id)
+    axios.delete(api() + '/api/projects/' + material.projectId + '/materials/' + material.id)
     .then((response) => {
       console.log('deleted');
       this.getMaterials()
@@ -55,7 +55,7 @@ export default class Materials extends Component {
     console.log(material.checked);
     var materialChecked = material.checked
     console.log(materialChecked);
-    axios.patch(api() + '/projects/' + material.projectId + '/materials/' + material.id, material)
+    axios.patch(api() + '/api/projects/' + material.projectId + '/materials/' + material.id, material)
     .then((response) => {
       console.log(material);
       this.getMaterials()

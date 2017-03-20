@@ -27,7 +27,7 @@ export default class Tasks extends Component {
   }
 
   getTasks() {
-    axios.get(api() + '/projects/' + this.props.id + '/tasks')
+    axios.get(api() + '/api/projects/' + this.props.id + '/tasks')
     .then((response) => {
       let tasksList = this.state.ds.cloneWithRows(response.data);
       console.log(tasksList);
@@ -40,7 +40,7 @@ export default class Tasks extends Component {
 
   deleteTask(task) {
     console.log(task);
-    axios.delete(api() + '/projects/' + task.projectId + '/tasks/' + task.id)
+    axios.delete(api() + '/api/projects/' + task.projectId + '/tasks/' + task.id)
     .then((response) => {
       console.log('deleted');
       this.getTasks()
@@ -55,7 +55,7 @@ export default class Tasks extends Component {
     console.log(task.completed);
     var taskChecked = task.completed
     console.log(taskChecked);
-    axios.patch(api() + '/projects/' + task.projectId + '/tasks/' + task.id, task)
+    axios.patch(api() + '/api/projects/' + task.projectId + '/tasks/' + task.id, task)
     .then((response) => {
       console.log(task);
       this.getTasks()

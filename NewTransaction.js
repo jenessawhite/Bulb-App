@@ -25,7 +25,7 @@ export default class NewTransaction extends Component {
   }
 
   getTransactions() {
-    axios.get(api() + '/projects/' + this.props.projectId + '/transactions')
+    axios.get(api() + '/api/projects/' + this.props.projectId + '/transactions')
       .then((response) => {
         let transactionsList = response.data;
         console.log(transactionsList);
@@ -57,7 +57,7 @@ export default class NewTransaction extends Component {
     };
     console.log('New transaction: ' + newTransaction);
 
-    axios.post(api() + '/projects/' + this.props.projectId + '/transactions/', newTransaction).then((response) => {
+    axios.post(api() + '/api/projects/' + this.props.projectId + '/transactions/', newTransaction).then((response) => {
       console.log('Transaction (after post): ' + newTransaction);
       console.log(response.data);
       Actions.budget({id: this.props.projectId})

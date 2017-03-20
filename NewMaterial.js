@@ -27,7 +27,7 @@ export default class NewMaterial extends Component {
   }
 
   getMaterials() {
-    axios.get(api() + '/projects/' + this.props.projectId + '/materials')
+    axios.get(api() + '/api/projects/' + this.props.projectId + '/materials')
       .then((response) => {
         let materialsList = response.data;
         console.log('Materials List: ' + materialsList);
@@ -66,7 +66,7 @@ export default class NewMaterial extends Component {
       };
       console.log('New material: ' + newMaterial);
 
-      axios.post(api() + '/projects/' + this.props.projectId + '/materials', newMaterial).then((response) => {
+      axios.post(api() + '/api/projects/' + this.props.projectId + '/materials', newMaterial).then((response) => {
         console.log('Material (after post): ' + newMaterial);
         console.log(response.data);
         Actions.materials({id: this.props.projectId, name: this.props.name})

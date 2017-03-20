@@ -30,7 +30,7 @@ export default class Transactions extends Component {
   }
 
   getTransactions() {
-    axios.get(api() + '/projects/' + this.props.id + '/transactions')
+    axios.get(api() + '/api/projects/' + this.props.id + '/transactions')
       .then((response) => {
         let transactionsList = this.state.ds.cloneWithRows(response.data);
         this.setState ({transactionsList})
@@ -44,7 +44,7 @@ export default class Transactions extends Component {
     console.log(transaction.price);
     var transactionChecked = transaction.checked
     console.log(transactionChecked);
-    axios.patch(api() + '/projects/' + transaction.projectId + '/transactions/' + transaction.id, transaction)
+    axios.patch(api() + '/api/projects/' + transaction.projectId + '/transactions/' + transaction.id, transaction)
     .then((response) => {
       console.log(transaction);
       this.getTransactions()

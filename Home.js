@@ -25,7 +25,7 @@ export default class Home extends Component {
   }
 
   getProjects() {
-    axios.get(api() + '/projects')
+    axios.get(api() + '/api/projects')
       .then((response) => {
         let projectsList = this.state.ds.cloneWithRows(response.data);
         console.log(projectsList);
@@ -37,7 +37,7 @@ export default class Home extends Component {
 
   deleteProject(project) {
     console.log('deleting');
-    axios.delete(api() + '/projects/' + project.id)
+    axios.delete(api() + '/api/projects/' + project.id)
     .then((response) => {
       console.log('deleted');
       this.getProjects()

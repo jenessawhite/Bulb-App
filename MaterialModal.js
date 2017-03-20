@@ -27,7 +27,7 @@ export default class MaterialModal extends Component {
   }
 
   getMaterial() {
-    axios.get(api() + '/projects/' + this.props.projectId + '/materials/' + this.props.id)
+    axios.get(api() + '/api/projects/' + this.props.projectId + '/materials/' + this.props.id)
     .then((response) => {
       let materialsList = this.state.ds.cloneWithRows(response.data);
       console.log(materialsList);

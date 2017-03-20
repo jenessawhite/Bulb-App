@@ -27,7 +27,7 @@ export default class TaskModal extends Component {
   }
 
   getTask() {
-    axios.get(api() + '/projects/' + this.props.projectId + '/tasks/' + this.props.id)
+    axios.get(api() + '/api/projects/' + this.props.projectId + '/tasks/' + this.props.id)
     .then((response) => {
       let tasksList = this.state.ds.cloneWithRows(response.data);
       console.log(tasksList);

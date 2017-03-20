@@ -28,7 +28,7 @@ export default class NewTask extends Component {
   }
 
   getTasks() {
-    axios.get(api() + '/projects/' + this.props.projectId + '/tasks')
+    axios.get(api() + '/api/projects/' + this.props.projectId + '/tasks')
       .then((response) => {
         let tasksList = response.data;
         console.log('Tasks List: ' + tasksList);
@@ -67,7 +67,7 @@ export default class NewTask extends Component {
       };
       console.log('New task: ' + newTask);
 
-      axios.post(api() + '/projects/' + this.props.projectId + '/tasks', newTask).then((response) => {
+      axios.post(api() + '/api/projects/' + this.props.projectId + '/tasks', newTask).then((response) => {
         console.log('Task (after post): ' + newTask);
         console.log(response.data);
         Actions.tasks({id: this.props.projectId, name: this.props.name})
