@@ -5,13 +5,13 @@ export default function api() {
     if (process.env.NODE_ENV !== "production") {
       return 'http://10.0.2.2:3001'
   } else {
-    return 'http://localhost:3001'
+    return 'https://server-bgpgdhhnkb.now.sh'
     }
   }
   else {
     if (process.env.NODE_ENV !== "production") {
       return 'http://localhost:3001';
     }
-    return 'http://localhost:3001';
+    return 'https://server-bgpgdhhnkb.now.sh';
   }
 }

@@ -25,6 +25,7 @@ import NewMaterial from './NewMaterial';
 import MaterialModal from './MaterialModal';
 
 import Example from './Example';
+import CameraView from './Camera';
 
 
 var width = Dimensions.get('window').width; //full width
@@ -36,7 +37,6 @@ export default class diyApp extends Component {
     return (
       <Router>
         <Scene key="root">
-          {/* <Scene key="example" component={Example} hideNavBar/> */}
 
           {/* Tab Container */}
           {/* <Scene key="tabbar" tabs={true} tabBarStyle={{height: 0,  backgroundColor: 'transparent'}} type={ActionConst.REPLACE} > */}
@@ -48,7 +48,8 @@ export default class diyApp extends Component {
             </Scene>
             {/* Tab and it's scenes */}
             <Scene key="newProjectTab" title="New Project" hideNavBar>
-              <Scene key="newProject" component={NewProject} title="New Project"/>
+              {/* <Scene key="newProject" component={NewProject} title="New Project"/> */}
+              <Scene key="camera" component={CameraView} hideNavBar/>
             </Scene>
             {/* Tab and it's scenes */}
             <Scene key="profileTab" hideNavBar title="Profile">
