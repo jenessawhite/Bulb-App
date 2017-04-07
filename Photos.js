@@ -61,7 +61,7 @@ export default class Photos extends Component {
         </View>
 
 
-        {/* <View style ={styles.newItemsHolder}>
+        <View style ={styles.newItemsHolder}>
           <Text style ={styles.newItemsText}>Photos</Text>
           <Button
             raised
@@ -70,8 +70,8 @@ export default class Photos extends Component {
             color='#fcfcfc'
             backgroundColor='#2ed2ff'
             buttonStyle= {styles.newButton}
-            onPress={()=> {Actions.newPhotoModal()}} />
-        </View> */}
+            onPress={()=> {Actions.takePhoto()}} />
+        </View>
         <View style={styles.photoContainer}>
           <ImageCarousell
             dataSource={this.props.id == 1 ? this.state.kitchenSource : this.state.bathroomSource}

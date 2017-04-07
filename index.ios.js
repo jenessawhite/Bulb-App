@@ -48,8 +48,7 @@ export default class diyApp extends Component {
             </Scene>
             {/* Tab and it's scenes */}
             <Scene key="newProjectTab" title="New Project" hideNavBar>
-              {/* <Scene key="newProject" component={NewProject} title="New Project"/> */}
-              <Scene key="camera" component={CameraView} hideNavBar/>
+              <Scene key="newProject" component={NewProject} title="New Project"/>
             </Scene>
             {/* Tab and it's scenes */}
             <Scene key="profileTab" hideNavBar title="Profile">
@@ -66,6 +65,7 @@ export default class diyApp extends Component {
             <Scene key="newTransactionModal" component={NewTransaction} />
             <Scene key="photos" component={Photos} />
             <Scene direction="vertical" key="newPhotoModal" component={NewPhoto} />
+            <Scene direction="vertical" key="takePhoto" component={CameraView} hideNavBar/>
             <Scene key="tasks" component={Tasks} />
             <Scene direction="vertical" key="newTaskModal" component={NewTask}/>
             <Scene key="taskModal" component={TaskModal} />

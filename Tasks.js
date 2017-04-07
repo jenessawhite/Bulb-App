@@ -75,7 +75,6 @@ export default class Tasks extends Component {
             source={{uri: 'https://s3.us-east-2.amazonaws.com/diy-app-tiy/bluebulblogo.png'}} />
         </View>
 
-
         <View style ={styles.newItemsHolder}>
           <Text style ={styles.newItemsText}>Tasks</Text>
           <Button
