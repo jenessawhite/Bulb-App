@@ -36,7 +36,7 @@ export default class CameraView extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.contentContainer}>
         {/* Static banner */}
         <View style={styles.topBanner}>
           <Image
