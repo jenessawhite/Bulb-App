@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
-import styles from './styles';
+import styles from './styles/styles';
 
 
 export default class Profile extends Component {

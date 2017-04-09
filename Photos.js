@@ -8,7 +8,7 @@ import axios from 'axios';
 import Example from './Example.js';
 import PageNavigation from './pageNavigation';
 import api from './api';
-import styles from './styles';
+import styles from './styles/styles';
 
 
 export default class Photos extends Component {
@@ -34,7 +34,7 @@ export default class Photos extends Component {
   }
 
   componentDidMount(props) {
-    console.log(this.props.id);
+    console.log('projectId: ' + this.props.id);
     this.getPhotos()
   }
 
@@ -42,7 +42,6 @@ export default class Photos extends Component {
     axios.get(api() + '/api/projects/' + this.props.id + '/photos')
     .then((response) => {
       let photosList = response.data;
-      console.log(response.data);
       console.log(photosList);
       this.setState ({photosList})
     })
@@ -70,7 +69,7 @@ export default class Photos extends Component {
             color='#fcfcfc'
             backgroundColor='#2ed2ff'
             buttonStyle= {styles.newButton}
-            onPress={()=> {Actions.takePhoto()}} />
+            onPress={()=> {Actions.takePhoto({projectId: this.props.id})}} />
         </View>
         <View style={styles.photoContainer}>
           <ImageCarousell

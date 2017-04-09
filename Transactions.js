@@ -5,7 +5,7 @@ import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
 
 import api from './api';
-import styles from './styles';
+import styles from './styles/styles';
 
 var alertMessage = 'Are you sure that you want to delete this transaction? ';
 

@@ -4,7 +4,7 @@ import { Button, Card, Icon } from 'react-native-elements';
 import {Actions, ActionConst} from 'react-native-router-flux';
 
 import HomeNavigation from './navigation';
-import styles from './styles';
+import styles from './styles/styles';
 
 
 export default class SingleProject extends Component {

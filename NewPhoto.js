@@ -3,7 +3,7 @@ import {Alert, Text, ScrollView, TouchableHighlight, View } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 
-import styles from './styles';
+import styles from './styles/styles';
 
 
 export default class NewPhoto extends Component {

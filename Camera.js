@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Camera from 'react-native-camera';
 
-import styles from './styles';
+import styles from './styles/styles';
 
 
 export default class CameraView extends Component {
@@ -23,7 +23,6 @@ export default class CameraView extends Component {
 
   componentDidMount(props) {
     console.log('projectId: ' + this.props.id);
-    console.log('scene name: ' + this.props.name);
   }
 
   takePicture() {
@@ -43,7 +42,7 @@ export default class CameraView extends Component {
             style={{width: 100, height: 50}}
             source={{uri: 'https://s3.us-east-2.amazonaws.com/diy-app-tiy/bluebulblogo.png'}} />
         </View>
-        <Text> Just testing it out</Text>
+        <Text onPress={()=> {Actions.popTo('singleProject')}}> Just testing it out</Text>
         <Camera
           ref={(cam) => {
             this.camera = cam;

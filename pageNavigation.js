@@ -6,7 +6,7 @@ import {Actions, ActionConst} from 'react-native-router-flux';
 
 
 import api from './api';
-import styles from './styles';
+import styles from './styles/styles';
 
 export default class PageNavigation extends Component {
   constructor(props) {

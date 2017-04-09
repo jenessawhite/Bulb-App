@@ -4,9 +4,6 @@ import { Icon } from 'react-native-elements';
 import Tabs from 'react-native-tabs';
 import { ActionConst, Scene, Router} from 'react-native-router-flux';
 
-import colors from './colors';
-import styles from './styles';
-
 import Home from './Home';
 import NewProject from './NewProject';
 import Profile from './Profile';
@@ -64,7 +61,6 @@ export default class diyApp extends Component {
             <Scene key="updateBudget" component={ChangeBudgetModal} />
             <Scene key="newTransactionModal" component={NewTransaction} />
             <Scene key="photos" component={Photos} />
-            <Scene direction="vertical" key="newPhotoModal" component={NewPhoto} />
             <Scene direction="vertical" key="takePhoto" component={CameraView} hideNavBar/>
             <Scene key="tasks" component={Tasks} />
             <Scene direction="vertical" key="newTaskModal" component={NewTask}/>

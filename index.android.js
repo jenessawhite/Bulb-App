@@ -4,8 +4,8 @@ import { Icon } from 'react-native-elements';
 import Tabs from 'react-native-tabs';
 import { ActionConst, Scene, Router} from 'react-native-router-flux';
 
-import colors from './colors';
-import styles from './styles';
+import colors from './styles/colors';
+import styles from './styles/styles';
 
 import Home from './Home';
 import NewProject from './NewProject';

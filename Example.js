@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import ImageCarousell from 'react-native-image-carousell';
 
-import styles from './styles';
+import styles from './styles/styles';
 
 
 export default class Example extends Component {

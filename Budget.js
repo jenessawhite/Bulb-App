@@ -7,7 +7,7 @@ import axios from 'axios';
 import Transactions from './Transactions';
 import PageNavigation from './pageNavigation';
 import api from './api';
-import styles from './styles';
+import styles from './styles/styles';
 
 
 export default class Budget extends Component {
