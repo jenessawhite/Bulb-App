@@ -18,10 +18,10 @@ export default class Example extends Component {
     });
     this.state = {
       dataSource: dataSource.cloneWithRows([
-        require('./images/bathroom1.jpg'),
-        require('./images/bathroom2.jpg'),
-        require('./images/bathroom4.jpg'),
-        require('./images/bathroom3.jpg'),
+        require('./app/images/bathroom1.jpg'),
+        require('./app/images/bathroom2.jpg'),
+        require('./app/images/bathroom4.jpg'),
+        require('./app/images/bathroom3.jpg'),
       ]),
     };
   }
