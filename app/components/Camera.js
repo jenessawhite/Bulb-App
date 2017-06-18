@@ -10,6 +10,8 @@ import {
   View
 } from 'react-native';
 import Camera from 'react-native-camera';
+import { Actions } from 'react-native-router-flux';
+
 
 import styles from '../styles/styles';
 
@@ -35,14 +37,8 @@ export default class CameraView extends Component {
 
   render() {
     return (
-      <View style={styles.contentContainer}>
-        {/* Static banner */}
-        <View style={styles.topBanner}>
-          <Image
-            style={{width: 100, height: 50}}
-            source={{uri: 'https://s3.us-east-2.amazonaws.com/diy-app-tiy/bluebulblogo.png'}} />
-        </View>
-        <Text onPress={()=> {Actions.popTo('singleProject')}}> Just testing it out</Text>
+      <View style={styles.cameraContainer}>
+        <Text onPress={()=> {Actions.popTo('singleProject')}}> Back</Text>
         <Camera
           ref={(cam) => {
             this.camera = cam;

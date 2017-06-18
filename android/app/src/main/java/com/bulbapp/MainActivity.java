@@ -1,4 +1,4 @@
-package com.bulbApp;
+package com.bulbapp;
 
 import com.facebook.react.ReactActivity;
 

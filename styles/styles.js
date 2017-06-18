@@ -120,6 +120,11 @@ export default StyleSheet.create({
   topContainer: {
     marginTop: 20,
   },
+  cameraContainer: {
+    marginTop:25,
+    height: height,
+    flex: 1,
+  },
   content: {
     flex: 1,
   },
